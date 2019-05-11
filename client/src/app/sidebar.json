@@ -1,0 +1,36 @@
+﻿ { 
+  "data":[ 
+	{ 
+	"text": "Home", 
+	"icon" : "fa fa-home fa-fw fa-lg", 
+	"mdbIcon" : "home", 
+	"routerLink" : "/home", 
+	"selected":true 
+	} 
+	,{ 
+	  "text": "Инструктор", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XInstructor" 
+	} 
+	,{ 
+	  "text": "Курс", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XCourse" 
+	} 
+	,{ 
+	  "text": "Пользователь", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XUser" 
+	} 
+	,{ 
+	  "text": "Расписание курсов", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XSchedule" 
+	} 
+	,{ 
+	  "text": "Справочник", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XDict" 
+	} 
+	] 
+} 

@@ -1,0 +1,17 @@
+﻿<amexio-card [header] ="true" [footer] ="false">
+  <amexio-header>
+ <i class="fa " aria-hidden="True"></i> Инструктор 
+  </amexio-header>
+  <amexio-body>
+	<amexio-tab-view  [closable]="false">
+		<amexio-tab  title="Описание"  [active]="true" >
+			<app-XInstructorInfo></app-XInstructorInfo>
+		</amexio-tab>
+		
+		<amexio-tab  title="Статусы"  >
+			<app-XInstructorStatus></app-XInstructorStatus>
+		</amexio-tab>
+		
+	</amexio-tab-view>
+  </amexio-body>
+</amexio-card>
