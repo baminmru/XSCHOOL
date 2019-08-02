@@ -19,7 +19,9 @@ export class XUserInfo_Service {
 	EMail:string = '';
 	Phone:string = '';
 	Name:string = '';
+	Birthday:string = '';
 	Password:string = '';
+	City:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
@@ -52,9 +54,17 @@ export class XUserInfo_Service {
 			if(qry !='') qry=qry +'&';
 			qry='Name='+encodeURIComponent(this.Name)
 		}
+		if(this.Birthday!=''){
+			if(qry !='') qry=qry +'&';
+			qry='Birthday='+encodeURIComponent(this.Birthday)
+		}
 		if(this.Password!=''){
 			if(qry !='') qry=qry +'&';
 			qry='Password='+encodeURIComponent(this.Password)
+		}
+		if(this.City!=''){
+			if(qry !='') qry=qry +'&';
+			qry='City='+encodeURIComponent(this.City)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -81,7 +91,9 @@ export class XUserInfo_Service {
 	this.EMail = '';
 	this.Phone = '';
 	this.Name = '';
+	this.Birthday = '';
 	this.Password = '';
+	this.City = '';
 		
 	}
  

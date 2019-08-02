@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 import { XInstructor } from "app/XInstructor";
 import { XCourse } from "app/XCourse";
 import { XUser } from "app/XUser";
+import { XEDUPROG } from "app/XEDUPROG";
 import { XSchedule } from "app/XSchedule";
 import { XDict } from "app/XDict";
 import { UserProfile } from "app/UserProfile";
@@ -279,17 +280,17 @@ public SelectedRole = new BehaviorSubject<string>("");
 	} 
 	public currentXChepter = this.SelectedXChepter.asObservable(); 
 
+	// support for Selected XCourse.XCoursePrice; 
+	public LastXCoursePrice:XCourse.XCoursePrice = {} as XCourse.XCoursePrice; 
+	public SelectedXCoursePrice = new BehaviorSubject<XCourse.XCoursePrice>({} as XCourse.XCoursePrice); 
+	public pushSelectedXCoursePrice(item:XCourse.XCoursePrice){ 
+		console.log("change Selected XCoursePrice"); 
+		this.LastXCoursePrice=item; 
+		this.SelectedXCoursePrice.next(item); 
 
-	// support for Selected XUser.XSubscription; 
-	public LastXSubscription:XUser.XSubscription = {} as XUser.XSubscription; 
-	public SelectedXSubscription = new BehaviorSubject<XUser.XSubscription>({} as XUser.XSubscription); 
-	public pushSelectedXSubscription(item:XUser.XSubscription){ 
-		console.log("change Selected XSubscription"); 
-		this.LastXSubscription=item; 
-		this.SelectedXSubscription.next(item); 
-		 
 	} 
-	public currentXSubscription = this.SelectedXSubscription.asObservable(); 
+	public currentXCoursePrice = this.SelectedXCoursePrice.asObservable(); 
+		 
 
 	// support for Selected XUser.XUserInfo; 
 	public LastXUserInfo:XUser.XUserInfo = {} as XUser.XUserInfo; 
@@ -301,6 +302,17 @@ public SelectedRole = new BehaviorSubject<string>("");
 		 
 	} 
 	public currentXUserInfo = this.SelectedXUserInfo.asObservable(); 
+
+	// support for Selected XUser.XSubscription; 
+	public LastXSubscription:XUser.XSubscription = {} as XUser.XSubscription; 
+	public SelectedXSubscription = new BehaviorSubject<XUser.XSubscription>({} as XUser.XSubscription); 
+	public pushSelectedXSubscription(item:XUser.XSubscription){ 
+		console.log("change Selected XSubscription"); 
+		this.LastXSubscription=item; 
+		this.SelectedXSubscription.next(item); 
+		 
+	} 
+	public currentXSubscription = this.SelectedXSubscription.asObservable(); 
 
 	// support for Selected XUser.XUserPurchase; 
 	public LastXUserPurchase:XUser.XUserPurchase = {} as XUser.XUserPurchase; 
@@ -324,6 +336,17 @@ public SelectedRole = new BehaviorSubject<string>("");
 	} 
 	public currentXUserProfile = this.SelectedXUserProfile.asObservable(); 
 
+	// support for Selected XUser.XUserRegistartion; 
+	public LastXUserRegistartion:XUser.XUserRegistartion = {} as XUser.XUserRegistartion; 
+	public SelectedXUserRegistartion = new BehaviorSubject<XUser.XUserRegistartion>({} as XUser.XUserRegistartion); 
+	public pushSelectedXUserRegistartion(item:XUser.XUserRegistartion){ 
+		console.log("change Selected XUserRegistartion"); 
+		this.LastXUserRegistartion=item; 
+		this.SelectedXUserRegistartion.next(item); 
+		 
+	} 
+	public currentXUserRegistartion = this.SelectedXUserRegistartion.asObservable(); 
+
 	// support for Selected XUser.XUserCart; 
 	public LastXUserCart:XUser.XUserCart = {} as XUser.XUserCart; 
 	public SelectedXUserCart = new BehaviorSubject<XUser.XUserCart>({} as XUser.XUserCart); 
@@ -335,16 +358,28 @@ public SelectedRole = new BehaviorSubject<string>("");
 	} 
 	public currentXUserCart = this.SelectedXUserCart.asObservable(); 
 
-	// support for Selected XUser.XUserRegistartion; 
-	public LastXUserRegistartion:XUser.XUserRegistartion = {} as XUser.XUserRegistartion; 
-	public SelectedXUserRegistartion = new BehaviorSubject<XUser.XUserRegistartion>({} as XUser.XUserRegistartion); 
-	public pushSelectedXUserRegistartion(item:XUser.XUserRegistartion){ 
-		console.log("change Selected XUserRegistartion"); 
-		this.LastXUserRegistartion=item; 
-		this.SelectedXUserRegistartion.next(item); 
+
+	// support for Selected XEDUPROG.xeduprog_info; 
+	public Lastxeduprog_info:XEDUPROG.xeduprog_info = {} as XEDUPROG.xeduprog_info; 
+	public Selectedxeduprog_info = new BehaviorSubject<XEDUPROG.xeduprog_info>({} as XEDUPROG.xeduprog_info); 
+	public pushSelectedxeduprog_info(item:XEDUPROG.xeduprog_info){ 
+		console.log("change Selected xeduprog_info"); 
+		this.Lastxeduprog_info=item; 
+		this.Selectedxeduprog_info.next(item); 
 		 
 	} 
-	public currentXUserRegistartion = this.SelectedXUserRegistartion.asObservable(); 
+	public currentxeduprog_info = this.Selectedxeduprog_info.asObservable(); 
+
+	// support for Selected XEDUPROG.eduprog_course; 
+	public Lasteduprog_course:XEDUPROG.eduprog_course = {} as XEDUPROG.eduprog_course; 
+	public Selectededuprog_course = new BehaviorSubject<XEDUPROG.eduprog_course>({} as XEDUPROG.eduprog_course); 
+	public pushSelectededuprog_course(item:XEDUPROG.eduprog_course){ 
+		console.log("change Selected eduprog_course"); 
+		this.Lasteduprog_course=item; 
+		this.Selectededuprog_course.next(item); 
+		 
+	} 
+	public currenteduprog_course = this.Selectededuprog_course.asObservable(); 
 
 
 	// support for Selected XSchedule.XScheduleItem; 
@@ -357,6 +392,17 @@ public SelectedRole = new BehaviorSubject<string>("");
 		 
 	} 
 	public currentXScheduleItem = this.SelectedXScheduleItem.asObservable(); 
+
+	// support for Selected XSchedule.XScheduleSubst; 
+	public LastXScheduleSubst:XSchedule.XScheduleSubst = {} as XSchedule.XScheduleSubst; 
+	public SelectedXScheduleSubst = new BehaviorSubject<XSchedule.XScheduleSubst>({} as XSchedule.XScheduleSubst); 
+	public pushSelectedXScheduleSubst(item:XSchedule.XScheduleSubst){ 
+		console.log("change Selected XScheduleSubst"); 
+		this.LastXScheduleSubst=item; 
+		this.SelectedXScheduleSubst.next(item); 
+		 
+	} 
+	public currentXScheduleSubst = this.SelectedXScheduleSubst.asObservable(); 
 
 
 	// support for Selected XDict.XLevel; 
@@ -414,6 +460,17 @@ public SelectedRole = new BehaviorSubject<string>("");
 	} 
 	public currentXSubscriptionType = this.SelectedXSubscriptionType.asObservable(); 
 
+	// support for Selected XDict.XCert; 
+	public LastXCert:XDict.XCert = {} as XDict.XCert; 
+	public SelectedXCert = new BehaviorSubject<XDict.XCert>({} as XDict.XCert); 
+	public pushSelectedXCert(item:XDict.XCert){ 
+		console.log("change Selected XCert"); 
+		this.LastXCert=item; 
+		this.SelectedXCert.next(item); 
+		 
+	} 
+	public currentXCert = this.SelectedXCert.asObservable(); 
+
  
 	public ComboXInstructorInfo:Array<ComboInfo> = []; 
 	public getXInstructorInfo(): Observable<ComboInfo[]> { 
@@ -456,15 +513,15 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXChepter() { 
 	this.getXChepter().subscribe(Data => {this.ComboXChepter=Data;});
  }
-
-	public ComboXSubscription:Array<ComboInfo> = []; 
-	public getXSubscription(): Observable<ComboInfo[]> { 
+	public ComboXCoursePrice:Array<ComboInfo> = []; 
+	public getXCoursePrice(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		return this.http.get<ComboInfo[]>(this.serviceURL + '/XSubscription/Combo', { headers: cpHeaders }); 
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XCoursePrice/Combo', { headers: cpHeaders }); 
  }
-	public refreshComboXSubscription() { 
-	this.getXSubscription().subscribe(Data => {this.ComboXSubscription=Data;});
+	public refreshComboXCoursePrice() { 
+	this.getXCoursePrice().subscribe(Data => {this.ComboXCoursePrice=Data;});
  }
+
 	public ComboXUserInfo:Array<ComboInfo> = []; 
 	public getXUserInfo(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
@@ -472,6 +529,14 @@ public SelectedRole = new BehaviorSubject<string>("");
  }
 	public refreshComboXUserInfo() { 
 	this.getXUserInfo().subscribe(Data => {this.ComboXUserInfo=Data;});
+ }
+	public ComboXSubscription:Array<ComboInfo> = []; 
+	public getXSubscription(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XSubscription/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboXSubscription() { 
+	this.getXSubscription().subscribe(Data => {this.ComboXSubscription=Data;});
  }
 	public ComboXUserPurchase:Array<ComboInfo> = []; 
 	public getXUserPurchase(): Observable<ComboInfo[]> { 
@@ -489,6 +554,14 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXUserProfile() { 
 	this.getXUserProfile().subscribe(Data => {this.ComboXUserProfile=Data;});
  }
+	public ComboXUserRegistartion:Array<ComboInfo> = []; 
+	public getXUserRegistartion(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XUserRegistartion/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboXUserRegistartion() { 
+	this.getXUserRegistartion().subscribe(Data => {this.ComboXUserRegistartion=Data;});
+ }
 	public ComboXUserCart:Array<ComboInfo> = []; 
 	public getXUserCart(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
@@ -497,13 +570,22 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXUserCart() { 
 	this.getXUserCart().subscribe(Data => {this.ComboXUserCart=Data;});
  }
-	public ComboXUserRegistartion:Array<ComboInfo> = []; 
-	public getXUserRegistartion(): Observable<ComboInfo[]> { 
+
+	public Comboxeduprog_info:Array<ComboInfo> = []; 
+	public getxeduprog_info(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		return this.http.get<ComboInfo[]>(this.serviceURL + '/XUserRegistartion/Combo', { headers: cpHeaders }); 
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/xeduprog_info/Combo', { headers: cpHeaders }); 
  }
-	public refreshComboXUserRegistartion() { 
-	this.getXUserRegistartion().subscribe(Data => {this.ComboXUserRegistartion=Data;});
+	public refreshComboxeduprog_info() { 
+	this.getxeduprog_info().subscribe(Data => {this.Comboxeduprog_info=Data;});
+ }
+	public Comboeduprog_course:Array<ComboInfo> = []; 
+	public geteduprog_course(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/eduprog_course/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboeduprog_course() { 
+	this.geteduprog_course().subscribe(Data => {this.Comboeduprog_course=Data;});
  }
 
 	public ComboXScheduleItem:Array<ComboInfo> = []; 
@@ -513,6 +595,14 @@ public SelectedRole = new BehaviorSubject<string>("");
  }
 	public refreshComboXScheduleItem() { 
 	this.getXScheduleItem().subscribe(Data => {this.ComboXScheduleItem=Data;});
+ }
+	public ComboXScheduleSubst:Array<ComboInfo> = []; 
+	public getXScheduleSubst(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XScheduleSubst/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboXScheduleSubst() { 
+	this.getXScheduleSubst().subscribe(Data => {this.ComboXScheduleSubst=Data;});
  }
 
 	public ComboXLevel:Array<ComboInfo> = []; 
@@ -555,6 +645,14 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXSubscriptionType() { 
 	this.getXSubscriptionType().subscribe(Data => {this.ComboXSubscriptionType=Data;});
  }
+	public ComboXCert:Array<ComboInfo> = []; 
+	public getXCert(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XCert/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboXCert() { 
+	this.getXCert().subscribe(Data => {this.ComboXCert=Data;});
+ }
 
  
 public RefreshCombo(){
@@ -564,24 +662,29 @@ public RefreshCombo(){
 	this.getXCourseDesc().subscribe(data => {this.ComboXCourseDesc=data;}); 
 	this.getXCourseModule().subscribe(data => {this.ComboXCourseModule=data;}); 
 	this.getXChepter().subscribe(data => {this.ComboXChepter=data;}); 
+	this.getXCoursePrice().subscribe(data => {this.ComboXCoursePrice=data;}); 
 
-	this.getXSubscription().subscribe(data => {this.ComboXSubscription=data;}); 
 	this.getXUserInfo().subscribe(data => {this.ComboXUserInfo=data;}); 
+	this.getXSubscription().subscribe(data => {this.ComboXSubscription=data;}); 
 	this.getXUserPurchase().subscribe(data => {this.ComboXUserPurchase=data;}); 
 	this.getXUserProfile().subscribe(data => {this.ComboXUserProfile=data;}); 
-	this.getXUserCart().subscribe(data => {this.ComboXUserCart=data;}); 
 	this.getXUserRegistartion().subscribe(data => {this.ComboXUserRegistartion=data;}); 
+	this.getXUserCart().subscribe(data => {this.ComboXUserCart=data;}); 
+
+	this.getxeduprog_info().subscribe(data => {this.Comboxeduprog_info=data;}); 
+	this.geteduprog_course().subscribe(data => {this.Comboeduprog_course=data;}); 
 
 	this.getXScheduleItem().subscribe(data => {this.ComboXScheduleItem=data;}); 
+	this.getXScheduleSubst().subscribe(data => {this.ComboXScheduleSubst=data;}); 
 
 	this.getXLevel().subscribe(data => {this.ComboXLevel=data;}); 
 	this.getXSubject().subscribe(data => {this.ComboXSubject=data;}); 
 	this.getXVendor().subscribe(data => {this.ComboXVendor=data;}); 
 	this.getXStatus().subscribe(data => {this.ComboXStatus=data;}); 
 	this.getXSubscriptionType().subscribe(data => {this.ComboXSubscriptionType=data;}); 
+	this.getXCert().subscribe(data => {this.ComboXCert=data;}); 
 
 }
- 
  
  // enum support
 
@@ -1042,8 +1145,8 @@ public RefreshCombo(){
 	enumSex:Array<ComboInfo> =[
 
 	 {id:'0',name:'Не существенно'}
-	, {id:'1',name:'Мужской'}
-	, {id:'-1',name:'Женский'}	];
+	, {id:'2',name:'Мужской'}
+	, {id:'1',name:'Женский'}	];
 
 	/* YesNo - Да / Нет (0 или 1) */ 
 	public enumYesNoCombo(){

@@ -8,6 +8,11 @@ namespace x_srv.models {
 
  public class  XUserInfo { // Описание
 	 public System.Guid  XUserInfoId{ get; set; } // Primary key field
+	 public List<XSubscription>  xsubscription { get; set; } // Подписки
+	 public List<XUserPurchase>  xuserpurchase { get; set; } // Покупки пользователя
+	 public List<XUserProfile>  xuserprofile { get; set; } // Результаты обучения
+	 public List<XUserRegistartion>  xuserregistartion { get; set; } // Запись на  курс
+	 public List<XUserCart>  xusercart { get; set; } // Корзина
 	[Required]
 	public string  Family{ get; set; } // Фамилия
 	[Required]
@@ -18,7 +23,11 @@ namespace x_srv.models {
 	public string  Phone{ get; set; } // Телефон
 	[Required]
 	public string  Name{ get; set; } // Имя
+	public DateTime?  Birthday{ get; set; } // Дата рождения
 	public string  Password{ get; set; } // Пароль
+	public string  City{ get; set; } // Город
+	public enum_YesNo  PIaccept{ get; set; } // Принята политика ПД
+	public enum_YesNo  HRaccept{ get; set; } // Принята политика HR
  }
 
  public class  XSubscription { // Подписки
@@ -44,6 +53,7 @@ namespace x_srv.models {
 	[Required]
 	 public System.Guid  XUserInfoId { get; set; } // Id for Описание
 	public System.Guid  theCourse { get; set; } //Курс
+	public System.Guid  ComplModule { get; set; } //Завершенный модуль
  }
 
  public class  XUserRegistartion { // Запись на  курс
@@ -60,8 +70,8 @@ namespace x_srv.models {
 	public System.Guid  theCourse { get; set; } //Курс
 	public System.Guid  SubscriptionType { get; set; } //Тип подписки
 	[Required]
-	public DateTime  FromDate{ get; set; } // С
-	[Required]
-	public DateTime  ToDate{ get; set; } // По
+	public double  Price{ get; set; } // Цена
+	public DateTime?  FromDate{ get; set; } // С
+	public DateTime?  ToDate{ get; set; } // По
  }
 }

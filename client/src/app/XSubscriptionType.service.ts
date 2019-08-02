@@ -14,6 +14,7 @@ export class XSubscriptionType_Service {
 	
 	
 	name:string = '';
+	timerange:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
@@ -25,6 +26,10 @@ export class XSubscriptionType_Service {
 		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
 			qry='name='+encodeURIComponent(this.name)
+		}
+		if(this.timerange!=''){
+			if(qry !='') qry=qry +'&';
+			qry='timerange='+encodeURIComponent(this.timerange)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -46,6 +51,7 @@ export class XSubscriptionType_Service {
 	
 	clearSearch():void{
 	this.name = '';
+	this.timerange = '';
 		
 	}
  

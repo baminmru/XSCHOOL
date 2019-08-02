@@ -8,6 +8,7 @@ namespace x_srv.models {
 
  public class  XInstructorInfo { // Описание
 	 public System.Guid  XInstructorInfoId{ get; set; } // Primary key field
+	 public List<XInstructorStatus>  xinstructorstatus { get; set; } // Статусы
 	[Required]
 	public string  Family{ get; set; } // Фамилия
 	[Required]

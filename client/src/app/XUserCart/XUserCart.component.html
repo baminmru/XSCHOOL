@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Пользователь::Корзина 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -60,6 +60,14 @@
 	 [(ngModel)]="currentXUserCart.SubscriptionType"
 	 >
   </amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Цена'" name ="Price" 
+                    [place-holder]="'Цена'" 
+            [allow-blank]="false" [error-msg] ="'Не задано: Цена'" 
+	 [(ngModel)]="currentXUserCart.Price"
+                    > 
+ </amexio-number-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
   <amexio-date-time-picker   [field-label]="'С'" 
@@ -109,6 +117,7 @@
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'theCourse_name'" [data-type]="'string'" [hidden]="false" [text]="'Курс'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'SubscriptionType_name'" [data-type]="'string'" [hidden]="false" [text]="'Тип подписки'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'Price'" [data-type]="'number'" [hidden]="false" [text]="'Цена'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'FromDate'" [data-type]="'string'" [hidden]="false" [text]="'С'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'ToDate'" [data-type]="'string'" [hidden]="false" [text]="'По'"></amexio-data-table-column> 
 		</amexio-datagrid> 

@@ -114,6 +114,8 @@ export class XUserCartComponent implements OnInit {
         this.valid=true; 
      if(this.currentXUserCart.theCourse == undefined ) this.valid=false;
      if(this.currentXUserCart.SubscriptionType == undefined ) this.valid=false;
+     if(this.currentXUserCart.FromDate == undefined ) this.valid=false;
+     if(this.currentXUserCart.ToDate == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {

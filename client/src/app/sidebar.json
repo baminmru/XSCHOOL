@@ -23,6 +23,11 @@
 	  "routerLink" : "/XUser" 
 	} 
 	,{ 
+	  "text": "Программы обучения", 
+	  "icon" : "fa  fa-fw", 
+	  "routerLink" : "/XEDUPROG" 
+	} 
+	,{ 
 	  "text": "Расписание курсов", 
 	  "icon" : "fa  fa-fw", 
 	  "routerLink" : "/XSchedule" 

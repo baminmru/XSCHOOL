@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Курс::Описание курса 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -32,10 +32,31 @@
       </amexio-header> 
      <amexio-body> 
      <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Код курса'" name ="CourseCode"  
+                    [place-holder] = "'Код курса'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentXCourseDesc.CourseCode" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Название'" name ="name"  
                     [place-holder] = "'Название'" 
                     [icon-feedback] = "true" [(ngModel)]="currentXCourseDesc.name" >
                     </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+	 <amexio-dropdown 
+	 [place-holder] = "'Предмет'"
+	 name ="Subject"
+	 [field-label]= "'Предмет'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Предмет'" 
+	 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.ComboXSubject"
+	 
+	 [(ngModel)]="currentXCourseDesc.Subject"
+	 >
+  </amexio-dropdown>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
 	 <amexio-dropdown 
@@ -54,16 +75,31 @@
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
 	 <amexio-dropdown 
-	 [place-holder] = "'Владелец'"
-	 name ="theVendor"
-	 [field-label]= "'Владелец'"
-            [allow-blank]="false" [error-msg] ="'Не задано: Владелец'" 
+	 [place-holder] = "'Сертификация'"
+	 name ="Certification"
+	 [field-label]= "'Сертификация'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Сертификация'" 
 	 
 	 [display-field]="'name'"
 	 [value-field]="'id'"
-	 [data]="AppService.ComboXVendor"
+	 [data]="AppService.ComboXCert"
 	 
-	 [(ngModel)]="currentXCourseDesc.theVendor"
+	 [(ngModel)]="currentXCourseDesc.Certification"
+	 >
+  </amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+	 <amexio-dropdown 
+	 [place-holder] = "'Инструктор'"
+	 name ="theInstructor"
+	 [field-label]= "'Инструктор'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Инструктор'" 
+	 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.ComboXInstructorInfo"
+	 
+	 [(ngModel)]="currentXCourseDesc.theInstructor"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -77,13 +113,29 @@
 </amexio-textarea-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
- <amexio-textarea-input [enable-popover]="false"  [field-label]="'Регламент'" name ="StudentGuide" 
-             [place-holder]="'Регламент'" 
+ <amexio-textarea-input [enable-popover]="false"  [field-label]="'Методические указания'" name ="StudentGuide" 
+             [place-holder]="'Методические указания'" 
             [allow-blank]="true" 
 	            [(ngModel)]="currentXCourseDesc.StudentGuide"
              [icon-feedback]="true" [rows]="'5'" [columns]="'12'" 
               > 
 </amexio-textarea-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+<amexio-label>Лабораторные работы</amexio-label>
+<ngx-wig  
+ [(ngModel)]="currentXCourseDesc.LabGuide"
+ [placeholder]="'Лабораторные работы'" 
+ [buttons]="'bold,italic,link,list1,list2'">
+</ngx-wig>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Цена'" name ="Price" 
+                    [place-holder]="'Цена'" 
+            [allow-blank]="false" [error-msg] ="'Не задано: Цена'" 
+	 [(ngModel)]="currentXCourseDesc.Price"
+                    > 
+ </amexio-number-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
 <amexio-dropdown 
@@ -96,6 +148,21 @@
 	 [data]="AppService.enumYesNoCombo()"
 	 >
 </amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+	 <amexio-dropdown 
+	 [place-holder] = "'Владелец'"
+	 name ="theVendor"
+	 [field-label]= "'Владелец'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Владелец'" 
+	 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.ComboXVendor"
+	 
+	 [(ngModel)]="currentXCourseDesc.theVendor"
+	 >
+  </amexio-dropdown>
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
@@ -129,24 +196,38 @@
 		  [data]="XCourseDescArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
+		  <amexio-data-table-column [data-index]="'CourseCode'" [data-type]="'string'" [hidden]="false" [text]="'Код курса'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.CourseCode) ? ((row.CourseCode.length>100) ? row.CourseCode.substr(0,100)+'...' : row.CourseCode ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Название'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
              {{  ((row.name) ? ((row.name.length>100) ? row.name.substr(0,100)+'...' : row.name ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'Subject_name'" [data-type]="'string'" [hidden]="false" [text]="'Предмет'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'theLevel_name'" [data-type]="'string'" [hidden]="false" [text]="'Уровень сложности'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'theVendor_name'" [data-type]="'string'" [hidden]="false" [text]="'Владелец'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'Certification_name'" [data-type]="'string'" [hidden]="false" [text]="'Сертификация'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'theInstructor_name'" [data-type]="'string'" [hidden]="false" [text]="'Инструктор'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'CourseDescription'" [data-type]="'string'" [hidden]="false" [text]="'Описание'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
              {{  ((row.CourseDescription) ? ((row.CourseDescription.length>100) ? row.CourseDescription.substr(0,100)+'...' : row.CourseDescription ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'StudentGuide'" [data-type]="'string'" [hidden]="false" [text]="'Регламент'"> 
+		  <amexio-data-table-column [data-index]="'StudentGuide'" [data-type]="'string'" [hidden]="false" [text]="'Методические указания'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
              {{  ((row.StudentGuide) ? ((row.StudentGuide.length>100) ? row.StudentGuide.substr(0,100)+'...' : row.StudentGuide ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'LabGuide'" [data-type]="'string'" [hidden]="false" [text]="'Лабораторные работы'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.LabGuide) ? ((row.LabGuide.length>100) ? row.LabGuide.substr(0,100)+'...' : row.LabGuide ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'Price'" [data-type]="'number'" [hidden]="false" [text]="'Цена'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'IsActive_name'" [data-type]="'string'" [hidden]="false" [text]="'Активный курс'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'theVendor_name'" [data-type]="'string'" [hidden]="false" [text]="'Владелец'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -158,7 +239,7 @@
 Удалить строку:  Курс::Описание курса ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXCourseDesc.name +'; '+  currentXCourseDesc.CourseDescription||'').length >100 ? (currentXCourseDesc.name +'; '+  currentXCourseDesc.CourseDescription||'').substr(0,100)+'...' : (currentXCourseDesc.name +'; '+  currentXCourseDesc.CourseDescription||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentXCourseDesc.CourseCode +'; '+  currentXCourseDesc.name +'; '+  currentXCourseDesc.theInstructor_name +'; '+  currentXCourseDesc.CourseDescription||'').length >100 ? (currentXCourseDesc.CourseCode +'; '+  currentXCourseDesc.name +'; '+  currentXCourseDesc.theInstructor_name +'; '+  currentXCourseDesc.CourseDescription||'').substr(0,100)+'...' : (currentXCourseDesc.CourseCode +'; '+  currentXCourseDesc.name +'; '+  currentXCourseDesc.theInstructor_name +'; '+  currentXCourseDesc.CourseDescription||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

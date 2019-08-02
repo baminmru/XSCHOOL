@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Пользователь::Описание 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -68,10 +68,47 @@
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
+  <amexio-date-time-picker   [field-label]="'Дата рождения'" 
+        [time-picker]="false"  
+        [date-picker]="true"  
+        [(ngModel)]="currentXUserInfo.Birthday"> 
+ </amexio-date-time-picker> 
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Пароль'" name ="Password"  
                     [place-holder] = "'Пароль'" 
                     [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Password" >
                     </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Город'" name ="City"  
+                    [place-holder] = "'Город'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.City" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+<amexio-dropdown 
+	 [field-label]="'Принята политика ПД'" name ="PIaccept" 
+                    [place-holder]="'Принята политика ПД'" 
+	 [(ngModel)]="currentXUserInfo.PIaccept"
+            [allow-blank]="false" [error-msg] ="'Не задано: Принята политика ПД'" 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.enumYesNoCombo()"
+	 >
+</amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+<amexio-dropdown 
+	 [field-label]="'Принята политика HR'" name ="HRaccept" 
+                    [place-holder]="'Принята политика HR'" 
+	 [(ngModel)]="currentXUserInfo.HRaccept"
+            [allow-blank]="false" [error-msg] ="'Не задано: Принята политика HR'" 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.enumYesNoCombo()"
+	 >
+</amexio-dropdown>
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
@@ -131,7 +168,15 @@
              {{  ((row.Name) ? ((row.Name.length>100) ? row.Name.substr(0,100)+'...' : row.Name ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'Birthday'" [data-type]="'string'" [hidden]="false" [text]="'Дата рождения'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'Password'" [data-type]="'string'" [hidden]="false" [text]="'Пароль'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'City'" [data-type]="'string'" [hidden]="false" [text]="'Город'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.City) ? ((row.City.length>100) ? row.City.substr(0,100)+'...' : row.City ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'PIaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика ПД'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'HRaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика HR'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 

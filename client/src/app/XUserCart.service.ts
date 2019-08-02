@@ -13,6 +13,7 @@ export class XUserCart_Service {
 	}
 	
 	
+	Price:string = '';
 	FromDate:string = '';
 	ToDate:string = '';
 	PageSize:number=10;
@@ -23,6 +24,10 @@ export class XUserCart_Service {
 		var qry:string;
 		qry='';
 		
+		if(this.Price!=''){
+			if(qry !='') qry=qry +'&';
+			qry='Price='+encodeURIComponent(this.Price)
+		}
 		if(this.FromDate!=''){
 			if(qry !='') qry=qry +'&';
 			qry='FromDate='+encodeURIComponent(this.FromDate)
@@ -50,6 +55,7 @@ export class XUserCart_Service {
     }
 	
 	clearSearch():void{
+	this.Price = '';
 	this.FromDate = '';
 	this.ToDate = '';
 		

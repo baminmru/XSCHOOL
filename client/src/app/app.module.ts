@@ -33,24 +33,34 @@ import { XCourseModuleComponent } from './XCourseModule/XCourseModule.component'
 import { XCourseModule_Service } from 'app/XCourseModule.service'; 
 import { XChepterComponent } from './XChepter/XChepter.component'; // Глава
 import { XChepter_Service } from 'app/XChepter.service'; 
+import { XCoursePriceComponent } from './XCoursePrice/XCoursePrice.component'; // Цены
+import { XCoursePrice_Service } from 'app/XCoursePrice.service'; 
  
 import { XUserComponent } from './XUser/XUser.component'; // Пользователь
+import { XUserInfoComponent } from './XUserInfo/XUserInfo.component'; // Описание
+import { XUserInfo_Service } from 'app/XUserInfo.service'; 
 import { XSubscriptionComponent } from './XSubscription/XSubscription.component'; // Подписки
 import { XSubscription_Service } from 'app/XSubscription.service'; 
-import { XUserInfoComponent } from './XUserInfo/XUserInfo.component'; // Пользователи
-import { XUserInfo_Service } from 'app/XUserInfo.service'; 
 import { XUserPurchaseComponent } from './XUserPurchase/XUserPurchase.component'; // Покупки пользователя
 import { XUserPurchase_Service } from 'app/XUserPurchase.service'; 
 import { XUserProfileComponent } from './XUserProfile/XUserProfile.component'; // Результаты обучения
 import { XUserProfile_Service } from 'app/XUserProfile.service'; 
-import { XUserCartComponent } from './XUserCart/XUserCart.component'; // Корзина
-import { XUserCart_Service } from 'app/XUserCart.service'; 
 import { XUserRegistartionComponent } from './XUserRegistartion/XUserRegistartion.component'; // Запись на  курс
 import { XUserRegistartion_Service } from 'app/XUserRegistartion.service'; 
+import { XUserCartComponent } from './XUserCart/XUserCart.component'; // Корзина
+import { XUserCart_Service } from 'app/XUserCart.service'; 
+ 
+import { XEDUPROGComponent } from './XEDUPROG/XEDUPROG.component'; // Программы обучения
+import { xeduprog_infoComponent } from './xeduprog_info/xeduprog_info.component'; // Описание программы
+import { xeduprog_info_Service } from 'app/xeduprog_info.service'; 
+import { eduprog_courseComponent } from './eduprog_course/eduprog_course.component'; // Курсы в программе
+import { eduprog_course_Service } from 'app/eduprog_course.service'; 
  
 import { XScheduleComponent } from './XSchedule/XSchedule.component'; // Расписание курсов
 import { XScheduleItemComponent } from './XScheduleItem/XScheduleItem.component'; // Расписание
 import { XScheduleItem_Service } from 'app/XScheduleItem.service'; 
+import { XScheduleSubstComponent } from './XScheduleSubst/XScheduleSubst.component'; // Замещения
+import { XScheduleSubst_Service } from 'app/XScheduleSubst.service'; 
  
 import { XDictComponent } from './XDict/XDict.component'; // Справочник
 import { XLevelComponent } from './XLevel/XLevel.component'; // Уровень сложности
@@ -63,6 +73,8 @@ import { XStatusComponent } from './XStatus/XStatus.component'; // Статус 
 import { XStatus_Service } from 'app/XStatus.service'; 
 import { XSubscriptionTypeComponent } from './XSubscriptionType/XSubscriptionType.component'; // Тип подписки
 import { XSubscriptionType_Service } from 'app/XSubscriptionType.service'; 
+import { XCertComponent } from './XCert/XCert.component'; // Сертификаты
+import { XCert_Service } from 'app/XCert.service'; 
  import { jwtLoginComponent } from './jwtlogin/jwtlogin.component';
 
 @NgModule({ 
@@ -81,24 +93,31 @@ jwtLoginComponent,
   XCourseDescComponent, // Описание курса
   XCourseModuleComponent, // Модули курса
   XChepterComponent, // Глава
+  XCoursePriceComponent, // Цены
  
  XUserComponent ,  // Пользователь
+  XUserInfoComponent, // Описание
   XSubscriptionComponent, // Подписки
-  XUserInfoComponent, // Пользователи
   XUserPurchaseComponent, // Покупки пользователя
   XUserProfileComponent, // Результаты обучения
-  XUserCartComponent, // Корзина
   XUserRegistartionComponent, // Запись на  курс
+  XUserCartComponent, // Корзина
+ 
+ XEDUPROGComponent ,  // Программы обучения
+  xeduprog_infoComponent, // Описание программы
+  eduprog_courseComponent, // Курсы в программе
  
  XScheduleComponent ,  // Расписание курсов
   XScheduleItemComponent, // Расписание
+  XScheduleSubstComponent, // Замещения
  
  XDictComponent ,  // Справочник
   XLevelComponent, // Уровень сложности
-  XSubjectComponent, // Предмет
-  XVendorComponent, // Владелец
+  XSubjectComponent, // Тематика
+  XVendorComponent, // Компания-производитель
   XStatusComponent, // Статус инструктора
   XSubscriptionTypeComponent, // Тип подписки
+  XCertComponent, // Сертификаты
 		 
         AboutComponent, 
         TopnavComponent 
@@ -126,18 +145,23 @@ jwtLoginComponent,
   ,XCourseDesc_Service
   ,XCourseModule_Service
   ,XChepter_Service
-  ,XSubscription_Service
+  ,XCoursePrice_Service
   ,XUserInfo_Service
+  ,XSubscription_Service
   ,XUserPurchase_Service
   ,XUserProfile_Service
-  ,XUserCart_Service
   ,XUserRegistartion_Service
+  ,XUserCart_Service
+  ,xeduprog_info_Service
+  ,eduprog_course_Service
   ,XScheduleItem_Service
+  ,XScheduleSubst_Service
   ,XLevel_Service
   ,XSubject_Service
   ,XVendor_Service
   ,XStatus_Service
   ,XSubscriptionType_Service
+  ,XCert_Service
 	,AppService 
 	  ,AppGuard
 	,CookieService 

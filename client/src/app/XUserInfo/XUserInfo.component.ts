@@ -93,7 +93,11 @@ export class XUserInfoComponent implements OnInit {
         this.valid=true; 
      if(this.currentXUserInfo.EMail == undefined || this.currentXUserInfo.EMail=='') this.valid=false;
      if(this.currentXUserInfo.Phone == undefined || this.currentXUserInfo.Phone=='') this.valid=false;
+     if(this.currentXUserInfo.Birthday == undefined ) this.valid=false;
      if(this.currentXUserInfo.Password == undefined || this.currentXUserInfo.Password=='') this.valid=false;
+     if(this.currentXUserInfo.City == undefined || this.currentXUserInfo.City=='') this.valid=false;
+     if(this.currentXUserInfo.PIaccept == undefined ) this.valid=false;
+     if(this.currentXUserInfo.HRaccept == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {

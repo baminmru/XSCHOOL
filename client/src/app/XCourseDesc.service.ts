@@ -13,9 +13,12 @@ export class XCourseDesc_Service {
 	}
 	
 	
+	CourseCode:string = '';
 	name:string = '';
 	CourseDescription:string = '';
 	StudentGuide:string = '';
+	LabGuide:string = '';
+	Price:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
@@ -24,6 +27,10 @@ export class XCourseDesc_Service {
 		var qry:string;
 		qry='';
 		
+		if(this.CourseCode!=''){
+			if(qry !='') qry=qry +'&';
+			qry='CourseCode='+encodeURIComponent(this.CourseCode)
+		}
 		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
 			qry='name='+encodeURIComponent(this.name)
@@ -35,6 +42,14 @@ export class XCourseDesc_Service {
 		if(this.StudentGuide!=''){
 			if(qry !='') qry=qry +'&';
 			qry='StudentGuide='+encodeURIComponent(this.StudentGuide)
+		}
+		if(this.LabGuide!=''){
+			if(qry !='') qry=qry +'&';
+			qry='LabGuide='+encodeURIComponent(this.LabGuide)
+		}
+		if(this.Price!=''){
+			if(qry !='') qry=qry +'&';
+			qry='Price='+encodeURIComponent(this.Price)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -55,9 +70,12 @@ export class XCourseDesc_Service {
     }
 	
 	clearSearch():void{
+	this.CourseCode = '';
 	this.name = '';
 	this.CourseDescription = '';
 	this.StudentGuide = '';
+	this.LabGuide = '';
+	this.Price = '';
 		
 	}
  

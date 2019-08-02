@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Пользователь::Результаты обучения 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -43,6 +43,21 @@
 	 [data]="AppService.ComboXCourseDesc"
 	 
 	 [(ngModel)]="currentXUserProfile.theCourse"
+	 >
+  </amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+	 <amexio-dropdown 
+	 [place-holder] = "'Завершенный модуль'"
+	 name ="ComplModule"
+	 [field-label]= "'Завершенный модуль'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Завершенный модуль'" 
+	 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.ComboXCourseModule"
+	 
+	 [(ngModel)]="currentXUserProfile.ComplModule"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -79,6 +94,7 @@
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'theCourse_name'" [data-type]="'string'" [hidden]="false" [text]="'Курс'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'ComplModule_name'" [data-type]="'string'" [hidden]="false" [text]="'Завершенный модуль'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -90,7 +106,7 @@
 Удалить строку:  Пользователь::Результаты обучения ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXUserProfile.theCourse_name||'').length >100 ? (currentXUserProfile.theCourse_name||'').substr(0,100)+'...' : (currentXUserProfile.theCourse_name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentXUserProfile.theCourse_name +'; '+  currentXUserProfile.ComplModule_name||'').length >100 ? (currentXUserProfile.theCourse_name +'; '+  currentXUserProfile.ComplModule_name||'').substr(0,100)+'...' : (currentXUserProfile.theCourse_name +'; '+  currentXUserProfile.ComplModule_name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

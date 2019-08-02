@@ -305,8 +305,8 @@ export namespace enums {
  export enum enum_Sex {
 	/* Sex - Мужской / Женский */ 
 	Sex_Ne_susestvenno=0 // Не существенно
-	,Sex_Mugskoy=1 // Мужской
-	,Sex_Genskiy=-1 // Женский
+	,Sex_Mugskoy=2 // Мужской
+	,Sex_Genskiy=1 // Женский
 }
  export enum enum_YesNo {
 	/* YesNo - Да / Нет (0 или 1) */ 

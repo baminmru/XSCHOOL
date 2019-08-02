@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Курс::Модули курса 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -31,6 +31,14 @@
 </amexio-box>
       </amexio-header> 
      <amexio-body> 
+     <amexio-row><amexio-column size="12" >
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Номер по порядку'" name ="ModuleNo" 
+                    [place-holder]="'Номер по порядку'" 
+            [allow-blank]="false" [error-msg] ="'Не задано: Номер по порядку'" 
+	 [(ngModel)]="currentXCourseModule.ModuleNo"
+                    > 
+ </amexio-number-input>
+     </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Название'" name ="name"  
                     [place-holder] = "'Название'" 
@@ -87,6 +95,7 @@
 		  [data]="XCourseModuleArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
+		  <amexio-data-table-column [data-index]="'ModuleNo'" [data-type]="'number'" [hidden]="false" [text]="'Номер по порядку'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Название'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
              {{  ((row.name) ? ((row.name.length>100) ? row.name.substr(0,100)+'...' : row.name ) : '-') | removehtmltag }} 
@@ -113,7 +122,7 @@
 Удалить строку:  Курс::Модули курса ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXCourseModule.name||'').length >100 ? (currentXCourseModule.name||'').substr(0,100)+'...' : (currentXCourseModule.name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'').length >100 ? (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'').substr(0,100)+'...' : (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

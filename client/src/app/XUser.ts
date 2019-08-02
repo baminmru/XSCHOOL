@@ -11,7 +11,13 @@ export namespace XUser {
 	EMail:string; // e-mail
 	Phone:string; // Телефон
 	Name:string; // Имя
+	Birthday:string; // Дата рождения
 	Password:string; // Пароль
+	City:string; // Город
+	 PIaccept:enums.enum_YesNo; // Принята политика ПД
+	 PIaccept_name :string; // enum to text for Принята политика ПД
+	 HRaccept:enums.enum_YesNo; // Принята политика HR
+	 HRaccept_name :string; // enum to text for Принята политика HR
  }
 
  export interface   XSubscription { // Подписки
@@ -36,8 +42,10 @@ export namespace XUser {
 	XUserProfileId:string; // Primary key field
 	  XUserInfoId:string; // Описание
 	theCourse:string; //Курс -> XCourseDesc
+	ComplModule:string; //Завершенный модуль -> XCourseModule
 	// add dereference fields 
 	theCourse_name :string; // dereference for XCourseDesc
+	ComplModule_name :string; // dereference for XCourseModule
  }
 
  export interface   XUserRegistartion { // Запись на  курс
@@ -53,6 +61,7 @@ export namespace XUser {
 	  XUserInfoId:string; // Описание
 	theCourse:string; //Курс -> XCourseDesc
 	SubscriptionType:string; //Тип подписки -> XSubscriptionType
+	Price:Number; // Цена
 	FromDate:string; // С
 	ToDate:string; // По
 	// add dereference fields 

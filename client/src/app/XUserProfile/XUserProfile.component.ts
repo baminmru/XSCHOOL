@@ -40,6 +40,7 @@ export class XUserProfileComponent implements OnInit {
     }
     refreshCombo() {
      this.AppService.refreshComboXCourseDesc();
+     this.AppService.refreshComboXCourseModule();
     }
     ngOnDestroy() {
 		   console.log("Unsubscribe XUserProfile"); 
@@ -112,6 +113,7 @@ export class XUserProfileComponent implements OnInit {
     save(item: XUser.XUserProfile) {
         this.valid=true; 
      if(this.currentXUserProfile.theCourse == undefined ) this.valid=false;
+     if(this.currentXUserProfile.ComplModule == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {

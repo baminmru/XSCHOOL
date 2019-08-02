@@ -13,4 +13,14 @@ export namespace XSchedule {
 	theCourse_name :string; // dereference for XCourseDesc
 	theInstructor_name :string; // dereference for XInstructorInfo
  }
+
+ export interface   XScheduleSubst { // Замещения
+	XScheduleSubstId:string; // Primary key field
+	  XScheduleItemId:string; // Расписание
+	theInstructor:string; //Инструктор -> XInstructorInfo
+	FromDate:string; // С
+	ToDate:string; // По
+	// add dereference fields 
+	theInstructor_name :string; // dereference for XInstructorInfo
+ }
 }

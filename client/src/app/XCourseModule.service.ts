@@ -13,6 +13,7 @@ export class XCourseModule_Service {
 	}
 	
 	
+	ModuleNo:string = '';
 	name:string = '';
 	info:string = '';
 	reglament:string = '';
@@ -24,6 +25,10 @@ export class XCourseModule_Service {
 		var qry:string;
 		qry='';
 		
+		if(this.ModuleNo!=''){
+			if(qry !='') qry=qry +'&';
+			qry='ModuleNo='+encodeURIComponent(this.ModuleNo)
+		}
 		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
 			qry='name='+encodeURIComponent(this.name)
@@ -55,6 +60,7 @@ export class XCourseModule_Service {
     }
 	
 	clearSearch():void{
+	this.ModuleNo = '';
 	this.name = '';
 	this.info = '';
 	this.reglament = '';

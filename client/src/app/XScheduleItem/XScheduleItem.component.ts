@@ -46,6 +46,8 @@ export class XScheduleItemComponent implements OnInit {
 		   console.log("refreshing XScheduleItem"); 
         this.XScheduleItem_Service.getAll_XScheduleItems().subscribe(XScheduleItemArray => { this.XScheduleItemArray = XScheduleItemArray; }, error => { this.ShowError(error.message); })
         this.currentXScheduleItem = {} as XSchedule.XScheduleItem;
+        console.log("clear selection for XScheduleItem on refresh");
+        this.AppService.pushSelectedXScheduleItem(this.currentXScheduleItem);
     }
 
 	   ShowError(message:string){
@@ -60,6 +62,7 @@ export class XScheduleItemComponent implements OnInit {
 
     onSelect(item: XSchedule.XScheduleItem) {
         this.currentXScheduleItem = item;
+        this.AppService.pushSelectedXScheduleItem(item);
     }
 
     onNew() {
@@ -118,6 +121,8 @@ export class XScheduleItemComponent implements OnInit {
         this.confirmOpened = false;
         this.mode = MODE_LIST;
         this.currentXScheduleItem = {} as XSchedule.XScheduleItem;
+        console.log("clear selection for XScheduleItem");
+        this.AppService.pushSelectedXScheduleItem(this.currentXScheduleItem);
     }
 }
  

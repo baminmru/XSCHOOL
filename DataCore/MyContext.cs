@@ -139,18 +139,23 @@ namespace x_srv.models
         public DbSet<x_srv.models.XCourseDesc> XCourseDesc { get; set; }
         public DbSet<x_srv.models.XCourseModule> XCourseModule { get; set; }
         public DbSet<x_srv.models.XChepter> XChepter { get; set; }
-        public DbSet<x_srv.models.XSubscription> XSubscription { get; set; }
+        public DbSet<x_srv.models.XCoursePrice> XCoursePrice { get; set; }
         public DbSet<x_srv.models.XUserInfo> XUserInfo { get; set; }
+        public DbSet<x_srv.models.XSubscription> XSubscription { get; set; }
         public DbSet<x_srv.models.XUserPurchase> XUserPurchase { get; set; }
         public DbSet<x_srv.models.XUserProfile> XUserProfile { get; set; }
-        public DbSet<x_srv.models.XUserCart> XUserCart { get; set; }
         public DbSet<x_srv.models.XUserRegistartion> XUserRegistartion { get; set; }
+        public DbSet<x_srv.models.XUserCart> XUserCart { get; set; }
+        public DbSet<x_srv.models.xeduprog_info> xeduprog_info { get; set; }
+        public DbSet<x_srv.models.eduprog_course> eduprog_course { get; set; }
         public DbSet<x_srv.models.XScheduleItem> XScheduleItem { get; set; }
+        public DbSet<x_srv.models.XScheduleSubst> XScheduleSubst { get; set; }
         public DbSet<x_srv.models.XLevel> XLevel { get; set; }
         public DbSet<x_srv.models.XSubject> XSubject { get; set; }
         public DbSet<x_srv.models.XVendor> XVendor { get; set; }
         public DbSet<x_srv.models.XStatus> XStatus { get; set; }
         public DbSet<x_srv.models.XSubscriptionType> XSubscriptionType { get; set; }
+        public DbSet<x_srv.models.XCert> XCert { get; set; }
 
 
     }

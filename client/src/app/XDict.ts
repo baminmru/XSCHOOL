@@ -8,12 +8,12 @@ export namespace XDict {
 	name:string; // Название
  }
 
- export interface   XSubject { // Предмет
+ export interface   XSubject { // Тематика
 	XSubjectId:string; // Primary key field
 	name:string; // Название
  }
 
- export interface   XVendor { // Владелец
+ export interface   XVendor { // Компания-производитель
 	XVendorId:string; // Primary key field
 	name:string; // Название
  }
@@ -25,6 +25,12 @@ export namespace XDict {
 
  export interface   XSubscriptionType { // Тип подписки
 	XSubscriptionTypeId:string; // Primary key field
+	name:string; // Название
+	timerange:Number; // Длительность подписки
+ }
+
+ export interface   XCert { // Сертификаты
+	XCertId:string; // Primary key field
 	name:string; // Название
  }
 }

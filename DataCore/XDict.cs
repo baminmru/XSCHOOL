@@ -12,13 +12,13 @@ namespace x_srv.models {
 	public string  name{ get; set; } // Название
  }
 
- public class  XSubject { // Предмет
+ public class  XSubject { // Тематика
 	 public System.Guid  XSubjectId{ get; set; } // Primary key field
 	[Required]
 	public string  name{ get; set; } // Название
  }
 
- public class  XVendor { // Владелец
+ public class  XVendor { // Компания-производитель
 	 public System.Guid  XVendorId{ get; set; } // Primary key field
 	[Required]
 	public string  name{ get; set; } // Название
@@ -32,6 +32,14 @@ namespace x_srv.models {
 
  public class  XSubscriptionType { // Тип подписки
 	 public System.Guid  XSubscriptionTypeId{ get; set; } // Primary key field
+	[Required]
+	public string  name{ get; set; } // Название
+	[Required]
+	public double  timerange{ get; set; } // Длительность подписки
+ }
+
+ public class  XCert { // Сертификаты
+	 public System.Guid  XCertId{ get; set; } // Primary key field
 	[Required]
 	public string  name{ get; set; } // Название
  }

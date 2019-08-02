@@ -36,7 +36,10 @@ export class XCourseDescComponent implements OnInit {
         this.refreshXCourseDesc();
     }
     refreshCombo() {
+     this.AppService.refreshComboXSubject();
      this.AppService.refreshComboXLevel();
+     this.AppService.refreshComboXCert();
+     this.AppService.refreshComboXInstructorInfo();
      this.AppService.refreshComboXVendor();
     }
     ngOnDestroy() {
@@ -93,10 +96,14 @@ export class XCourseDescComponent implements OnInit {
 
     save(item: XCourse.XCourseDesc) {
         this.valid=true; 
+     if(this.currentXCourseDesc.Subject == undefined ) this.valid=false;
      if(this.currentXCourseDesc.theLevel == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.theVendor == undefined ) this.valid=false;
+     if(this.currentXCourseDesc.Certification == undefined ) this.valid=false;
+     if(this.currentXCourseDesc.theInstructor == undefined ) this.valid=false;
      if(this.currentXCourseDesc.StudentGuide == undefined || this.currentXCourseDesc.StudentGuide=='') this.valid=false;
+     if(this.currentXCourseDesc.LabGuide == undefined || this.currentXCourseDesc.LabGuide=='') this.valid=false;
      if(this.currentXCourseDesc.IsActive == undefined ) this.valid=false;
+     if(this.currentXCourseDesc.theVendor == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {

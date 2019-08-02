@@ -23,7 +23,7 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
         {{formMsg}} Справочник::Тип подписки 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
@@ -36,6 +36,14 @@
                     [place-holder] = "'Название'" 
                     [icon-feedback] = "true" [(ngModel)]="currentXSubscriptionType.name" >
                     </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Длительность подписки'" name ="timerange" 
+                    [place-holder]="'Длительность подписки'" 
+            [allow-blank]="false" [error-msg] ="'Не задано: Длительность подписки'" 
+	 [(ngModel)]="currentXSubscriptionType.timerange"
+                    > 
+ </amexio-number-input>
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
@@ -74,6 +82,7 @@
              {{  ((row.name) ? ((row.name.length>100) ? row.name.substr(0,100)+'...' : row.name ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'timerange'" [data-type]="'number'" [hidden]="false" [text]="'Длительность подписки'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 

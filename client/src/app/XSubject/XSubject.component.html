@@ -23,9 +23,9 @@
 	</amexio-action> 
 </amexio-window>
 <!-- edit row pane -->	 
- <amexio-window [closable]="false" [vertical-position]="'top'"  [horizontal-position]="'right'" [body-height]="90" [show-window]="opened" [header]="true" [footer]="true" > 
+ <amexio-window [closable]="false" [maximize]="true" [vertical-position]="'center'"    [horizontal-position]="'center'"  [draggable]="true" [remember-window-position]="true" [show-window]="opened" [header]="true" [footer]="true" > 
 	  <amexio-header> 
-        {{formMsg}} Справочник::Предмет 
+        {{formMsg}} Справочник::Тематика 
 <amexio-box *ngIf="valid==false" border-color ="red" border="all" padding="true" background-color="yellow">
 	<amexio-label font-color="red"  border="bottom">Ошибка заполнения формы</amexio-label>
 </amexio-box>
@@ -62,7 +62,7 @@
 	</amexio-header> 
 	<amexio-body> 
 		<amexio-datagrid 
-		  [title]="'Справочник::Предмет'" 
+		  [title]="'Справочник::Тематика'" 
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
@@ -82,7 +82,7 @@
 <amexio-window  [(show-window)]="confirmOpened" [closable]="false" [header]="true" [footer]="true" >  
      
     <amexio-header>
-Удалить строку:  Справочник::Предмет ?
+Удалить строку:  Справочник::Тематика ?
     </amexio-header> 
     <amexio-body> 
             Удалить запись: {{ ( (currentXSubject.name||'').length >100 ? (currentXSubject.name||'').substr(0,100)+'...' : (currentXSubject.name||'')) | removehtmltag }}?  
