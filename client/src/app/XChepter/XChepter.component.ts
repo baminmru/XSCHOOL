@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XCourse } from "app/XCourse";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -110,7 +110,7 @@ export class XChepterComponent implements OnInit {
 
     save(item: XCourse.XChepter) {
         this.valid=true; 
-     if(this.currentXChepter.mainText == undefined || this.currentXChepter.mainText=='') this.valid=false;
+     if(this.currentXChepter.name == undefined || this.currentXChepter.name=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
@@ -132,6 +132,49 @@ export class XChepterComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Название';
+            aoa[0][1]='Основной текст';
+/* fill data to array */
+        for(var i = 0; i < this.XChepterArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XChepterArray[i].name;
+            aoa[i+1][1]=this.XChepterArray[i].mainText;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 64}
+,            {wch: 64}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XChepter');
+        
+
+        wb.Props = {
+            Title: "Курс::Глава",
+            Subject: "Курс::Глава",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XChepter.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XUser } from "app/XUser";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -135,6 +135,49 @@ export class XUserProfileComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Курс';
+            aoa[0][1]='Завершенный модуль';
+/* fill data to array */
+        for(var i = 0; i < this.XUserProfileArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XUserProfileArray[i].theCourse_name;
+            aoa[i+1][1]=this.XUserProfileArray[i].ComplModule_name;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 50}
+,            {wch: 50}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XUserProfile');
+        
+
+        wb.Props = {
+            Title: "Пользователь::Результаты обучения",
+            Subject: "Пользователь::Результаты обучения",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XUserProfile.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

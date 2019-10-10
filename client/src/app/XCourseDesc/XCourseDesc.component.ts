@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XCourse } from "app/XCourse";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -96,14 +96,11 @@ export class XCourseDescComponent implements OnInit {
 
     save(item: XCourse.XCourseDesc) {
         this.valid=true; 
+     if(this.currentXCourseDesc.CourseCode == undefined || this.currentXCourseDesc.CourseCode=='') this.valid=false;
+     if(this.currentXCourseDesc.name == undefined || this.currentXCourseDesc.name=='') this.valid=false;
      if(this.currentXCourseDesc.Subject == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.theLevel == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.Certification == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.theInstructor == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.StudentGuide == undefined || this.currentXCourseDesc.StudentGuide=='') this.valid=false;
-     if(this.currentXCourseDesc.LabGuide == undefined || this.currentXCourseDesc.LabGuide=='') this.valid=false;
-     if(this.currentXCourseDesc.IsActive == undefined ) this.valid=false;
-     if(this.currentXCourseDesc.theVendor == undefined ) this.valid=false;
+     if(this.currentXCourseDesc.CourseDescription == undefined || this.currentXCourseDesc.CourseDescription=='') this.valid=false;
+     if(this.currentXCourseDesc.Price == undefined  ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
@@ -125,6 +122,79 @@ export class XCourseDescComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Код курса';
+            aoa[0][1]='Название';
+            aoa[0][2]='Предмет';
+            aoa[0][3]='Уровень сложности';
+            aoa[0][4]='Сертификация';
+            aoa[0][5]='Инструктор';
+            aoa[0][6]='Описание';
+            aoa[0][7]='Методические указания';
+            aoa[0][8]='Лабораторные работы';
+            aoa[0][9]='Цена';
+            aoa[0][10]='Активный курс';
+            aoa[0][11]='Владелец';
+/* fill data to array */
+        for(var i = 0; i < this.XCourseDescArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XCourseDescArray[i].CourseCode;
+            aoa[i+1][1]=this.XCourseDescArray[i].name;
+            aoa[i+1][2]=this.XCourseDescArray[i].Subject_name;
+            aoa[i+1][3]=this.XCourseDescArray[i].theLevel_name;
+            aoa[i+1][4]=this.XCourseDescArray[i].Certification_name;
+            aoa[i+1][5]=this.XCourseDescArray[i].theInstructor_name;
+            aoa[i+1][6]=this.XCourseDescArray[i].CourseDescription;
+            aoa[i+1][7]=this.XCourseDescArray[i].StudentGuide;
+            aoa[i+1][8]=this.XCourseDescArray[i].LabGuide;
+            aoa[i+1][9]=this.XCourseDescArray[i].Price;
+            aoa[i+1][10]=this.XCourseDescArray[i].IsActive_name;
+            aoa[i+1][11]=this.XCourseDescArray[i].theVendor_name;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 64}
+,            {wch: 64}
+,            {wch: 50}
+,            {wch: 50}
+,            {wch: 50}
+,            {wch: 50}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 80}
+,            {wch: 20}
+,            {wch: 30}
+,            {wch: 50}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XCourseDesc');
+        
+
+        wb.Props = {
+            Title: "Курс::Описание курса",
+            Subject: "Курс::Описание курса",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XCourseDesc.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

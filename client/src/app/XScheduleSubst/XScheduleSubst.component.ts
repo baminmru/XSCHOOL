@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XSchedule } from "app/XSchedule";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -111,7 +111,8 @@ export class XScheduleSubstComponent implements OnInit {
 
     save(item: XSchedule.XScheduleSubst) {
         this.valid=true; 
-     if(this.currentXScheduleSubst.theInstructor == undefined ) this.valid=false;
+     if(this.currentXScheduleSubst.FromDate == undefined ) this.valid=false;
+     if(this.currentXScheduleSubst.ToDate == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
@@ -133,6 +134,52 @@ export class XScheduleSubstComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Инструктор';
+            aoa[0][1]='С';
+            aoa[0][2]='По';
+/* fill data to array */
+        for(var i = 0; i < this.XScheduleSubstArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XScheduleSubstArray[i].theInstructor_name;
+            aoa[i+1][1]=this.XScheduleSubstArray[i].FromDate;
+            aoa[i+1][2]=this.XScheduleSubstArray[i].ToDate;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 50}
+,            {wch: 18}
+,            {wch: 18}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XScheduleSubst');
+        
+
+        wb.Props = {
+            Title: "Расписание курсов::Замещения",
+            Subject: "Расписание курсов::Замещения",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XScheduleSubst.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

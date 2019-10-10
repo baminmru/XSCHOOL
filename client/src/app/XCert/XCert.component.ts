@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XDict } from "app/XDict";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -88,6 +88,7 @@ export class XCertComponent implements OnInit {
 
     save(item: XDict.XCert) {
         this.valid=true; 
+     if(this.currentXCert.name == undefined || this.currentXCert.name=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
@@ -109,6 +110,46 @@ export class XCertComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Название';
+/* fill data to array */
+        for(var i = 0; i < this.XCertArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XCertArray[i].name;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 64}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XCert');
+        
+
+        wb.Props = {
+            Title: "Справочник::Сертификаты",
+            Subject: "Справочник::Сертификаты",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XCert.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

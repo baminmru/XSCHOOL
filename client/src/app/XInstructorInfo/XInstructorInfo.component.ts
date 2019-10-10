@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XInstructor } from "app/XInstructor";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -91,9 +91,9 @@ export class XInstructorInfoComponent implements OnInit {
 
     save(item: XInstructor.XInstructorInfo) {
         this.valid=true; 
-     if(this.currentXInstructorInfo.EMail == undefined || this.currentXInstructorInfo.EMail=='') this.valid=false;
-     if(this.currentXInstructorInfo.Phone == undefined || this.currentXInstructorInfo.Phone=='') this.valid=false;
-     if(this.currentXInstructorInfo.LocalPhone == undefined || this.currentXInstructorInfo.LocalPhone=='') this.valid=false;
+     if(this.currentXInstructorInfo.Family == undefined || this.currentXInstructorInfo.Family=='') this.valid=false;
+     if(this.currentXInstructorInfo.Name == undefined || this.currentXInstructorInfo.Name=='') this.valid=false;
+     if(this.currentXInstructorInfo.SurName == undefined || this.currentXInstructorInfo.SurName=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
@@ -115,6 +115,61 @@ export class XInstructorInfoComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Фамилия';
+            aoa[0][1]='Имя';
+            aoa[0][2]='Отчество';
+            aoa[0][3]='e-mail';
+            aoa[0][4]='Телефон';
+            aoa[0][5]='Местный телефон';
+/* fill data to array */
+        for(var i = 0; i < this.XInstructorInfoArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XInstructorInfoArray[i].Family;
+            aoa[i+1][1]=this.XInstructorInfoArray[i].Name;
+            aoa[i+1][2]=this.XInstructorInfoArray[i].SurName;
+            aoa[i+1][3]=this.XInstructorInfoArray[i].EMail;
+            aoa[i+1][4]=this.XInstructorInfoArray[i].Phone;
+            aoa[i+1][5]=this.XInstructorInfoArray[i].LocalPhone;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XInstructorInfo');
+        
+
+        wb.Props = {
+            Title: "Инструктор::Описание",
+            Subject: "Инструктор::Описание",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XInstructorInfo.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;

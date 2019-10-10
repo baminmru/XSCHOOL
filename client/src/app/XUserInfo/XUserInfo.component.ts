@@ -6,7 +6,7 @@ import {  Validators } from "@angular/forms";
 
 import { RemoveHTMLtagPipe } from 'app/pipes';
 import { XUser } from "app/XUser";
-
+import * as XLSX from 'xlsx';
 
 const MODE_LIST = 0;
 const MODE_NEW = 1;
@@ -91,11 +91,10 @@ export class XUserInfoComponent implements OnInit {
 
     save(item: XUser.XUserInfo) {
         this.valid=true; 
-     if(this.currentXUserInfo.EMail == undefined || this.currentXUserInfo.EMail=='') this.valid=false;
-     if(this.currentXUserInfo.Phone == undefined || this.currentXUserInfo.Phone=='') this.valid=false;
-     if(this.currentXUserInfo.Birthday == undefined ) this.valid=false;
-     if(this.currentXUserInfo.Password == undefined || this.currentXUserInfo.Password=='') this.valid=false;
-     if(this.currentXUserInfo.City == undefined || this.currentXUserInfo.City=='') this.valid=false;
+     if(this.currentXUserInfo.Family == undefined || this.currentXUserInfo.Family=='') this.valid=false;
+     if(this.currentXUserInfo.Login == undefined || this.currentXUserInfo.Login=='') this.valid=false;
+     if(this.currentXUserInfo.SurName == undefined || this.currentXUserInfo.SurName=='') this.valid=false;
+     if(this.currentXUserInfo.Name == undefined || this.currentXUserInfo.Name=='') this.valid=false;
      if(this.currentXUserInfo.PIaccept == undefined ) this.valid=false;
      if(this.currentXUserInfo.HRaccept == undefined ) this.valid=false;
         if (this.valid) {
@@ -119,6 +118,76 @@ export class XUserInfoComponent implements OnInit {
         }
     }
 
+ exportXSLX(): void {
+        var aoa = [];
+/* set column headers at first line */
+        if(!aoa[0]) aoa[0] = [];
+            aoa[0][0]='Фамилия';
+            aoa[0][1]='Имя для входа';
+            aoa[0][2]='Отчество';
+            aoa[0][3]='e-mail';
+            aoa[0][4]='Телефон';
+            aoa[0][5]='Имя';
+            aoa[0][6]='Дата рождения';
+            aoa[0][7]='Пароль';
+            aoa[0][8]='Город';
+            aoa[0][9]='Принята политика ПД';
+            aoa[0][10]='Принята политика HR';
+/* fill data to array */
+        for(var i = 0; i < this.XUserInfoArray.length; ++i) {
+            if(!aoa[i+1]) aoa[i+1] = [];
+            aoa[i+1][0]=this.XUserInfoArray[i].Family;
+            aoa[i+1][1]=this.XUserInfoArray[i].Login;
+            aoa[i+1][2]=this.XUserInfoArray[i].SurName;
+            aoa[i+1][3]=this.XUserInfoArray[i].EMail;
+            aoa[i+1][4]=this.XUserInfoArray[i].Phone;
+            aoa[i+1][5]=this.XUserInfoArray[i].Name;
+            aoa[i+1][6]=this.XUserInfoArray[i].Birthday;
+            aoa[i+1][7]=this.XUserInfoArray[i].Password;
+            aoa[i+1][8]=this.XUserInfoArray[i].City;
+            aoa[i+1][9]=this.XUserInfoArray[i].PIaccept_name;
+            aoa[i+1][10]=this.XUserInfoArray[i].HRaccept_name;
+        }
+		/* generate worksheet */
+		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
+
+        var wscols = [
+            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 18}
+,            {wch: 64}
+,            {wch: 64}
+,            {wch: 30}
+,            {wch: 30}
+        ];
+
+        ws['!cols'] = wscols;
+
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'XUserInfo');
+        
+
+        wb.Props = {
+            Title: "Пользователь::Описание",
+            Subject: "Пользователь::Описание",
+            Company: "master.bami",
+            Category: "Experimentation",
+            Keywords: "Export service",
+            Author: "master.bami",
+	           Manager: "master.bami",
+	           Comments: "Raw data export",
+	           LastAuthor: "master.bami",
+            CreatedDate: new Date(Date.now())
+        }
+
+		/* save to file */
+		XLSX.writeFile(wb, 'XUserInfo.xlsx');
+	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
