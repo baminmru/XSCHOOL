@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Swashbuckle.AspNetCore.Swagger;
+
 using x_srv.Services;
 using x_srv.Options;
 using x_srv.models;
