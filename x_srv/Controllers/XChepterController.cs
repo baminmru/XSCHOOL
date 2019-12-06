@@ -12,6 +12,7 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
+    [ApiController]
     [Produces("application/json")]
     [Route("api/XChepter")]
     public class XChepterController : Controller

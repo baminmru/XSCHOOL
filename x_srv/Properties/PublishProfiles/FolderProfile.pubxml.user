@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\bami\projects\SCHOOL\XSCHOOL\x_srv\bin\Debug\netcoreapp2.0\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\bami\projects\SCHOOL\WEB\server\x_srv\bin\Debug\netcoreapp2.0\publish\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Data.SqlClient ;
+using Microsoft.Data.SqlClient ;
 using Newtonsoft.Json;
 
 namespace x_srv.models

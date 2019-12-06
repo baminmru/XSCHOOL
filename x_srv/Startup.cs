@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore; // пространство имен EntityFramework
 
 using Microsoft.AspNetCore.Mvc;
@@ -114,11 +115,11 @@ namespace x_srv
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, Microsoft.Extensions.Hosting.IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -129,25 +130,44 @@ namespace x_srv
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseMvc();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "api",
-                    template: "api/v1/{controller}/{id?}");
-            });
 
-            app.UseMvc(routes =>
+            ///
+         
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllers();
+            });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapFallbackToController("Index", "Home");
             });
 
-            app.UseMvc((routes) =>
-            {
-                routes.MapSpaFallbackRoute("default", new { controller = "Home", action = "Index" });
-            });
+            //app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "api",
+            //        template: "api/v1/{controller}/{id?}");
+            //});
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+            //app.UseMvc((routes) =>
+            //{
+            //    routes.MapSpaFallbackRoute("default", new { controller = "Home", action = "Index" });
+            //});
 
         }
     }

@@ -12,6 +12,7 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
+    [ApiController]
     [Produces("application/json")]
     [Route("api/eduprog_course")]
     public class eduprog_courseController : Controller

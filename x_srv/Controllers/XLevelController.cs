@@ -11,7 +11,8 @@ using x_srv.models;
 
 namespace x_srv.Controllers
 {
-    [Authorize]
+   // [Authorize]
+    [ApiController]
     [Produces("application/json")]
     [Route("api/XLevel")]
     public class XLevelController : Controller

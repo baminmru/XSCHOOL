@@ -36,6 +36,7 @@ namespace survey_api.Controllers
     }
 
     [Authorize]
+    [ApiController]
     [Route("api/account")]
     public class AccountController : Controller
     {
