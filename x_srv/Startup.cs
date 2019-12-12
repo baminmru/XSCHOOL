@@ -111,7 +111,7 @@ namespace x_srv
 
             services.AddTransient<UserService>();
 
-            services.AddMvc();
+            services.AddMvc().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
