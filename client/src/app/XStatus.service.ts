@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XDict} from './XDict';
 @Injectable()
-export class XStatus_Service {
+export class xStatus_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -17,8 +17,8 @@ export class XStatus_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XStatuss
-    getAll_XStatuss(): Observable<XDict.XStatus[]> {
+	//Fetch all xStatuss
+    getAll_xStatuss(): Observable<XDict.xStatus[]> {
 		var qry:string;
 		qry='';
 		
@@ -36,11 +36,11 @@ export class XStatus_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XDict.XStatus[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XDict.xStatus[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XDict.XStatus[]>(this.serviceURL + '/XStatus/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XDict.xStatus[]>(this.serviceURL + '/xStatus/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -49,39 +49,39 @@ export class XStatus_Service {
 		
 	}
  
-	   //Create XStatus
-    create_XStatus(XStatus: XDict.XStatus): Observable<Object > {
-       // XStatus.XStatusId = '';
+	   //Create xStatus
+    create_xStatus(xStatus: XDict.xStatus): Observable<XDict.xStatus > {
+       // xStatus.xStatusId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XStatus/', XStatus, { headers: cpHeaders })
+        return this.http.post<XDict.xStatus >(this.serviceURL + '/xStatus/', xStatus, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XStatus by id
-    get_XStatusById(XStatusId: string): Observable<XDict.XStatus> {
+	//Fetch xStatus by id
+    get_xStatusById(xStatusId: string): Observable<XDict.xStatus> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XStatus/'+ XStatusId)
-        return this.http.get<XDict.XStatus>(this.serviceURL + '/XStatus/' + XStatusId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xStatus/'+ xStatusId)
+        return this.http.get<XDict.xStatus>(this.serviceURL + '/xStatus/' + xStatusId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XStatus
-    update_XStatus(XStatus: XDict.XStatus):Observable<Object > {
+	   //Update xStatus
+    update_xStatus(xStatus: XDict.xStatus):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XStatus/' + XStatus.XStatusId, XStatus, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xStatus/' + xStatus.xStatusId, xStatus, { headers: cpHeaders })
     }
 	
-    //Delete XStatus	
-    delete_XStatusById(XStatusId: string): Observable<Object> {
+    //Delete xStatus	
+    delete_xStatusById(xStatusId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XStatus/' + XStatusId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xStatus/' + xStatusId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XDict.XStatus = null;
+	private mSelecetd:XDict.xStatus = null;
 	
-	public 	get Selected():XDict.XStatus{ return this.mSelecetd;}
+	public 	get Selected():XDict.xStatus{ return this.mSelecetd;}
 	
-	public  set Selected(_XStatus:XDict.XStatus){ this.mSelecetd=_XStatus; }
+	public  set Selected(_xStatus:XDict.xStatus){ this.mSelecetd=_xStatus; }
  
 }

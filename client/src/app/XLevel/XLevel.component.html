@@ -37,15 +37,15 @@
      <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Название'" name ="name"  
                     [place-holder] = "'Название'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXLevel.name" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxLevel.name" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXLevel();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXLevel)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxLevel();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxLevel)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -57,9 +57,9 @@
 	<amexio-row> 
 		<amexio-column size="12" > 
 		<amexio-button [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXLevel.XLevelId==null" [label]="'Изменить'" (onClick)="onEdit(currentXLevel)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXLevel.XLevelId==null" [label]="'Удалить'" (onClick)="onDelete(currentXLevel)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXLevel()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="currentxLevel.xLevelId==null" [label]="'Изменить'" (onClick)="onEdit(currentxLevel)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxLevel.xLevelId==null" [label]="'Удалить'" (onClick)="onDelete(currentxLevel)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxLevel()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -70,7 +70,7 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XLevelArray" 
+		  [data]="xLevelArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Название'"> 
@@ -89,7 +89,7 @@
 Удалить строку:  Справочник::Уровень сложности ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXLevel.name||'').length >100 ? (currentXLevel.name||'').substr(0,100)+'...' : (currentXLevel.name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxLevel.name||'').length >100 ? (currentxLevel.name||'').substr(0,100)+'...' : (currentxLevel.name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

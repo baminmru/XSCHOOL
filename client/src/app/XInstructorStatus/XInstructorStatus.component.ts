@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XInstructorStatus_Service } from "app/XInstructorStatus.service";
+import { xInstructorStatus_Service } from "app/XInstructorStatus.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,56 +13,56 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XInstructorStatus',
+	   selector: 'app-xInstructorStatus',
     styleUrls: ['./XInstructorStatus.component.scss'],
     templateUrl: './XInstructorStatus.component.html',
 })
-export class XInstructorStatusComponent implements OnInit {
+export class xInstructorStatusComponent implements OnInit {
 
-    XInstructorStatusArray: Array<XInstructor.XInstructorStatus> = [];
+    xInstructorStatusArray: Array<XInstructor.xInstructorStatus> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXInstructorStatus: XInstructor.XInstructorStatus = {} as XInstructor.XInstructorStatus;
+    currentxInstructorStatus: XInstructor.xInstructorStatus = {} as XInstructor.xInstructorStatus;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XInstructorStatus_Service: XInstructorStatus_Service,  public AppService:AppService ) {
+    constructor( private xInstructorStatus_Service: xInstructorStatus_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XInstructorStatus"); 
-        this.subscription=this.AppService.currentXInstructorInfo.subscribe(si =>{ this.refreshXInstructorStatus(); }, error => { this.ShowError(error.message); } );
-        this.refreshXInstructorStatus();
+		   // console.log("Subscribe xInstructorStatus"); 
+        this.subscription=this.AppService.currentxInstructorInfo.subscribe(si =>{ this.refreshxInstructorStatus(); }, error => { this.ShowError(error.message); } );
+        this.refreshxInstructorStatus();
     }
     refreshCombo() {
      this.AppService.refreshComboXStatus();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XInstructorStatus"); 
+		   // console.log("Unsubscribe xInstructorStatus"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXInstructorStatus() {
-		let item:XInstructor.XInstructorInfo;
-		item=this.AppService.LastXInstructorInfo;
-		console.log("refreshing XInstructorStatus"); 
-     this.currentXInstructorStatus = {} as XInstructor.XInstructorStatus;
+    refreshxInstructorStatus() {
+		let item:XInstructor.xInstructorInfo;
+		item=this.AppService.LastxInstructorInfo;
+		console.log("refreshing xInstructorStatus"); 
+     this.currentxInstructorStatus = {} as XInstructor.xInstructorStatus;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XInstructorStatus_Service.get_XInstructorStatusByParent('00000000-0000-0000-0000-000000000000').subscribe(XInstructorStatusArray => { this.XInstructorStatusArray = XInstructorStatusArray; }, error => { this.ShowError(error.message); })
+        this.xInstructorStatus_Service.get_xInstructorStatusByParent('00000000-0000-0000-0000-000000000000').subscribe(xInstructorStatusArray => { this.xInstructorStatusArray = xInstructorStatusArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XInstructorInfoId==='undefined') { 
+		if(typeof item.xInstructorInfoId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XInstructorStatus_Service.get_XInstructorStatusByParent('00000000-0000-0000-0000-000000000000').subscribe(XInstructorStatusArray => { this.XInstructorStatusArray = XInstructorStatusArray; }, error => { this.ShowError(error.message); })
+        this.xInstructorStatus_Service.get_xInstructorStatusByParent('00000000-0000-0000-0000-000000000000').subscribe(xInstructorStatusArray => { this.xInstructorStatusArray = xInstructorStatusArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XInstructorInfoId === 'string' ) {
-        this.XInstructorStatus_Service.get_XInstructorStatusByParent(item.XInstructorInfoId).subscribe(XInstructorStatusArray => { this.XInstructorStatusArray = XInstructorStatusArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xInstructorInfoId === 'string' ) {
+        this.xInstructorStatus_Service.get_xInstructorStatusByParent(item.xInstructorInfoId).subscribe(xInstructorStatusArray => { this.xInstructorStatusArray = xInstructorStatusArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -72,56 +72,56 @@ export class XInstructorStatusComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXInstructorStatus();
-		return this.XInstructorStatusArray ;
+		this.refreshxInstructorStatus();
+		return this.xInstructorStatusArray ;
 	   }
 
-    onSelect(item: XInstructor.XInstructorStatus) {
-        this.currentXInstructorStatus = item;
+    onSelect(item: XInstructor.xInstructorStatus) {
+        this.currentxInstructorStatus = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXInstructorInfo.XInstructorInfoId) === 'string' ) {
-        this.currentXInstructorStatus = {} as XInstructor.XInstructorStatus;
-        this.currentXInstructorStatus.XInstructorInfoId = this.AppService.LastXInstructorInfo.XInstructorInfoId;
+      if(typeof ( this.AppService.LastxInstructorInfo.xInstructorInfoId) === 'string' ) {
+        this.currentxInstructorStatus = {} as XInstructor.xInstructorStatus;
+        this.currentxInstructorStatus.xInstructorInfoId = this.AppService.LastxInstructorInfo.xInstructorInfoId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XInstructor.XInstructorStatus) {
+    onEdit(item: XInstructor.xInstructorStatus) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXInstructorStatus = item;
+        this.currentxInstructorStatus = item;
     }
 
-    onDelete(item: XInstructor.XInstructorStatus) {
+    onDelete(item: XInstructor.xInstructorStatus) {
         this.confirmOpened = true;
-        this.currentXInstructorStatus = item;
+        this.currentxInstructorStatus = item;
     }
 
     onConfirmDeletion() {
-        this.XInstructorStatus_Service.delete_XInstructorStatusById(this.currentXInstructorStatus.XInstructorStatusId).subscribe(data => {this.refreshXInstructorStatus()}, error => { this.ShowError(error.message); });
+        this.xInstructorStatus_Service.delete_xInstructorStatusById(this.currentxInstructorStatus.xInstructorStatusId).subscribe(data => {this.refreshxInstructorStatus()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XInstructor.XInstructorStatus) {
+    save(item: XInstructor.xInstructorStatus) {
         this.valid=true; 
-     if(this.currentXInstructorStatus.theStatus == undefined ) this.valid=false;
+     if(this.currentxInstructorStatus.theStatus == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XInstructorStatus_Service.create_XInstructorStatus(item)
-                        .subscribe(data =>{ this.refreshXInstructorStatus()}, error => { this.ShowError(error.message); });
+                    this.xInstructorStatus_Service.create_xInstructorStatus(item)
+                        .subscribe(data =>{ this.refreshxInstructorStatus()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XInstructorStatus_Service.update_XInstructorStatus( item)
-                        .subscribe(data => {this.refreshXInstructorStatus()}, error => { this.ShowError(error.message); });
+                    this.xInstructorStatus_Service.update_xInstructorStatus( item)
+                        .subscribe(data => {this.refreshxInstructorStatus()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -138,23 +138,26 @@ export class XInstructorStatusComponent implements OnInit {
 /* set column headers at first line */
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Статус';
+            aoa[0][1]='Порядок';
 /* fill data to array */
-        for(var i = 0; i < this.XInstructorStatusArray.length; ++i) {
+        for(var i = 0; i < this.xInstructorStatusArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XInstructorStatusArray[i].theStatus_name;
+            aoa[i+1][0]=this.xInstructorStatusArray[i].theStatus_name;
+            aoa[i+1][1]=this.xInstructorStatusArray[i].sequence;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
 
         var wscols = [
             {wch: 50}
+,            {wch: 20}
         ];
 
         ws['!cols'] = wscols;
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XInstructorStatus');
+        XLSX.utils.book_append_sheet(wb, ws, 'xInstructorStatus');
         
 
         wb.Props = {
@@ -171,13 +174,13 @@ export class XInstructorStatusComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XInstructorStatus.xlsx');
+		XLSX.writeFile(wb, 'xInstructorStatus.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXInstructorStatus = {} as XInstructor.XInstructorStatus;
+        this.currentxInstructorStatus = {} as XInstructor.xInstructorStatus;
     }
 }
  

@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XSubscription_Service } from "app/XSubscription.service";
+import { xSubscription_Service } from "app/XSubscription.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,56 +13,56 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XSubscription',
+	   selector: 'app-xSubscription',
     styleUrls: ['./XSubscription.component.scss'],
     templateUrl: './XSubscription.component.html',
 })
-export class XSubscriptionComponent implements OnInit {
+export class xSubscriptionComponent implements OnInit {
 
-    XSubscriptionArray: Array<XUser.XSubscription> = [];
+    xSubscriptionArray: Array<XUser.xSubscription> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXSubscription: XUser.XSubscription = {} as XUser.XSubscription;
+    currentxSubscription: XUser.xSubscription = {} as XUser.xSubscription;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XSubscription_Service: XSubscription_Service,  public AppService:AppService ) {
+    constructor( private xSubscription_Service: xSubscription_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XSubscription"); 
-        this.subscription=this.AppService.currentXUserInfo.subscribe(si =>{ this.refreshXSubscription(); }, error => { this.ShowError(error.message); } );
-        this.refreshXSubscription();
+		   // console.log("Subscribe xSubscription"); 
+        this.subscription=this.AppService.currentxUserInfo.subscribe(si =>{ this.refreshxSubscription(); }, error => { this.ShowError(error.message); } );
+        this.refreshxSubscription();
     }
     refreshCombo() {
      this.AppService.refreshComboXSubscriptionType();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XSubscription"); 
+		   // console.log("Unsubscribe xSubscription"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXSubscription() {
-		let item:XUser.XUserInfo;
-		item=this.AppService.LastXUserInfo;
-		console.log("refreshing XSubscription"); 
-     this.currentXSubscription = {} as XUser.XSubscription;
+    refreshxSubscription() {
+		let item:XUser.xUserInfo;
+		item=this.AppService.LastxUserInfo;
+		console.log("refreshing xSubscription"); 
+     this.currentxSubscription = {} as XUser.xSubscription;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XSubscription_Service.get_XSubscriptionByParent('00000000-0000-0000-0000-000000000000').subscribe(XSubscriptionArray => { this.XSubscriptionArray = XSubscriptionArray; }, error => { this.ShowError(error.message); })
+        this.xSubscription_Service.get_xSubscriptionByParent('00000000-0000-0000-0000-000000000000').subscribe(xSubscriptionArray => { this.xSubscriptionArray = xSubscriptionArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId==='undefined') { 
+		if(typeof item.xUserInfoId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XSubscription_Service.get_XSubscriptionByParent('00000000-0000-0000-0000-000000000000').subscribe(XSubscriptionArray => { this.XSubscriptionArray = XSubscriptionArray; }, error => { this.ShowError(error.message); })
+        this.xSubscription_Service.get_xSubscriptionByParent('00000000-0000-0000-0000-000000000000').subscribe(xSubscriptionArray => { this.xSubscriptionArray = xSubscriptionArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId === 'string' ) {
-        this.XSubscription_Service.get_XSubscriptionByParent(item.XUserInfoId).subscribe(XSubscriptionArray => { this.XSubscriptionArray = XSubscriptionArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xUserInfoId === 'string' ) {
+        this.xSubscription_Service.get_xSubscriptionByParent(item.xUserInfoId).subscribe(xSubscriptionArray => { this.xSubscriptionArray = xSubscriptionArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -72,58 +72,58 @@ export class XSubscriptionComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXSubscription();
-		return this.XSubscriptionArray ;
+		this.refreshxSubscription();
+		return this.xSubscriptionArray ;
 	   }
 
-    onSelect(item: XUser.XSubscription) {
-        this.currentXSubscription = item;
+    onSelect(item: XUser.xSubscription) {
+        this.currentxSubscription = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXUserInfo.XUserInfoId) === 'string' ) {
-        this.currentXSubscription = {} as XUser.XSubscription;
-        this.currentXSubscription.XUserInfoId = this.AppService.LastXUserInfo.XUserInfoId;
+      if(typeof ( this.AppService.LastxUserInfo.xUserInfoId) === 'string' ) {
+        this.currentxSubscription = {} as XUser.xSubscription;
+        this.currentxSubscription.xUserInfoId = this.AppService.LastxUserInfo.xUserInfoId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XUser.XSubscription) {
+    onEdit(item: XUser.xSubscription) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXSubscription = item;
+        this.currentxSubscription = item;
     }
 
-    onDelete(item: XUser.XSubscription) {
+    onDelete(item: XUser.xSubscription) {
         this.confirmOpened = true;
-        this.currentXSubscription = item;
+        this.currentxSubscription = item;
     }
 
     onConfirmDeletion() {
-        this.XSubscription_Service.delete_XSubscriptionById(this.currentXSubscription.XSubscriptionId).subscribe(data => {this.refreshXSubscription()}, error => { this.ShowError(error.message); });
+        this.xSubscription_Service.delete_xSubscriptionById(this.currentxSubscription.xSubscriptionId).subscribe(data => {this.refreshxSubscription()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XUser.XSubscription) {
+    save(item: XUser.xSubscription) {
         this.valid=true; 
-     if(this.currentXSubscription.SubscriptionType == undefined ) this.valid=false;
-     if(this.currentXSubscription.FromDate == undefined ) this.valid=false;
-     if(this.currentXSubscription.ToDate == undefined ) this.valid=false;
+     if(this.currentxSubscription.subscriptionType == undefined ) this.valid=false;
+     if(this.currentxSubscription.fromDate == undefined ) this.valid=false;
+     if(this.currentxSubscription.toDate == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XSubscription_Service.create_XSubscription(item)
-                        .subscribe(data =>{ this.refreshXSubscription()}, error => { this.ShowError(error.message); });
+                    this.xSubscription_Service.create_xSubscription(item)
+                        .subscribe(data =>{ this.refreshxSubscription()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XSubscription_Service.update_XSubscription( item)
-                        .subscribe(data => {this.refreshXSubscription()}, error => { this.ShowError(error.message); });
+                    this.xSubscription_Service.update_xSubscription( item)
+                        .subscribe(data => {this.refreshxSubscription()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -143,11 +143,11 @@ export class XSubscriptionComponent implements OnInit {
             aoa[0][1]='С';
             aoa[0][2]='По';
 /* fill data to array */
-        for(var i = 0; i < this.XSubscriptionArray.length; ++i) {
+        for(var i = 0; i < this.xSubscriptionArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XSubscriptionArray[i].SubscriptionType_name;
-            aoa[i+1][1]=this.XSubscriptionArray[i].FromDate;
-            aoa[i+1][2]=this.XSubscriptionArray[i].ToDate;
+            aoa[i+1][0]=this.xSubscriptionArray[i].subscriptionType_name;
+            aoa[i+1][1]=this.xSubscriptionArray[i].fromDate;
+            aoa[i+1][2]=this.xSubscriptionArray[i].toDate;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -162,7 +162,7 @@ export class XSubscriptionComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XSubscription');
+        XLSX.utils.book_append_sheet(wb, ws, 'xSubscription');
         
 
         wb.Props = {
@@ -179,13 +179,13 @@ export class XSubscriptionComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XSubscription.xlsx');
+		XLSX.writeFile(wb, 'xSubscription.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXSubscription = {} as XUser.XSubscription;
+        this.currentxSubscription = {} as XUser.xSubscription;
     }
 }
  

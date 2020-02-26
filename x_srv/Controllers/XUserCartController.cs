@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XUserCart")]
     public class XUserCartController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XUserCartController(MyContext context, IHostingEnvironment appEnvironment)
+        public XUserCartController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;

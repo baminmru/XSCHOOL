@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XScheduleItem")]
     public class XScheduleItemController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XScheduleItemController(MyContext context, IHostingEnvironment appEnvironment)
+        public XScheduleItemController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;

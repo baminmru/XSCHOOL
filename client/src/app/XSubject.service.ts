@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XDict} from './XDict';
 @Injectable()
-export class XSubject_Service {
+export class xSubject_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -17,8 +17,8 @@ export class XSubject_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XSubjects
-    getAll_XSubjects(): Observable<XDict.XSubject[]> {
+	//Fetch all xSubjects
+    getAll_xSubjects(): Observable<XDict.xSubject[]> {
 		var qry:string;
 		qry='';
 		
@@ -36,11 +36,11 @@ export class XSubject_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XDict.XSubject[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XDict.xSubject[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XDict.XSubject[]>(this.serviceURL + '/XSubject/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XDict.xSubject[]>(this.serviceURL + '/xSubject/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -49,39 +49,39 @@ export class XSubject_Service {
 		
 	}
  
-	   //Create XSubject
-    create_XSubject(XSubject: XDict.XSubject): Observable<Object > {
-       // XSubject.XSubjectId = '';
+	   //Create xSubject
+    create_xSubject(xSubject: XDict.xSubject): Observable<XDict.xSubject > {
+       // xSubject.xSubjectId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XSubject/', XSubject, { headers: cpHeaders })
+        return this.http.post<XDict.xSubject >(this.serviceURL + '/xSubject/', xSubject, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XSubject by id
-    get_XSubjectById(XSubjectId: string): Observable<XDict.XSubject> {
+	//Fetch xSubject by id
+    get_xSubjectById(xSubjectId: string): Observable<XDict.xSubject> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XSubject/'+ XSubjectId)
-        return this.http.get<XDict.XSubject>(this.serviceURL + '/XSubject/' + XSubjectId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xSubject/'+ xSubjectId)
+        return this.http.get<XDict.xSubject>(this.serviceURL + '/xSubject/' + xSubjectId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XSubject
-    update_XSubject(XSubject: XDict.XSubject):Observable<Object > {
+	   //Update xSubject
+    update_xSubject(xSubject: XDict.xSubject):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XSubject/' + XSubject.XSubjectId, XSubject, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xSubject/' + xSubject.xSubjectId, xSubject, { headers: cpHeaders })
     }
 	
-    //Delete XSubject	
-    delete_XSubjectById(XSubjectId: string): Observable<Object> {
+    //Delete xSubject	
+    delete_xSubjectById(xSubjectId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XSubject/' + XSubjectId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xSubject/' + xSubjectId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XDict.XSubject = null;
+	private mSelecetd:XDict.xSubject = null;
 	
-	public 	get Selected():XDict.XSubject{ return this.mSelecetd;}
+	public 	get Selected():XDict.xSubject{ return this.mSelecetd;}
 	
-	public  set Selected(_XSubject:XDict.XSubject){ this.mSelecetd=_XSubject; }
+	public  set Selected(_xSubject:XDict.xSubject){ this.mSelecetd=_xSubject; }
  
 }

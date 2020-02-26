@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XScheduleSubst_Service } from "app/XScheduleSubst.service";
+import { xScheduleSubst_Service } from "app/XScheduleSubst.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,56 +13,56 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XScheduleSubst',
+	   selector: 'app-xScheduleSubst',
     styleUrls: ['./XScheduleSubst.component.scss'],
     templateUrl: './XScheduleSubst.component.html',
 })
-export class XScheduleSubstComponent implements OnInit {
+export class xScheduleSubstComponent implements OnInit {
 
-    XScheduleSubstArray: Array<XSchedule.XScheduleSubst> = [];
+    xScheduleSubstArray: Array<XSchedule.xScheduleSubst> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXScheduleSubst: XSchedule.XScheduleSubst = {} as XSchedule.XScheduleSubst;
+    currentxScheduleSubst: XSchedule.xScheduleSubst = {} as XSchedule.xScheduleSubst;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XScheduleSubst_Service: XScheduleSubst_Service,  public AppService:AppService ) {
+    constructor( private xScheduleSubst_Service: xScheduleSubst_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XScheduleSubst"); 
-        this.subscription=this.AppService.currentXScheduleItem.subscribe(si =>{ this.refreshXScheduleSubst(); }, error => { this.ShowError(error.message); } );
-        this.refreshXScheduleSubst();
+		   // console.log("Subscribe xScheduleSubst"); 
+        this.subscription=this.AppService.currentxScheduleItem.subscribe(si =>{ this.refreshxScheduleSubst(); }, error => { this.ShowError(error.message); } );
+        this.refreshxScheduleSubst();
     }
     refreshCombo() {
      this.AppService.refreshComboXInstructorInfo();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XScheduleSubst"); 
+		   // console.log("Unsubscribe xScheduleSubst"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXScheduleSubst() {
-		let item:XSchedule.XScheduleItem;
-		item=this.AppService.LastXScheduleItem;
-		console.log("refreshing XScheduleSubst"); 
-     this.currentXScheduleSubst = {} as XSchedule.XScheduleSubst;
+    refreshxScheduleSubst() {
+		let item:XSchedule.xScheduleItem;
+		item=this.AppService.LastxScheduleItem;
+		console.log("refreshing xScheduleSubst"); 
+     this.currentxScheduleSubst = {} as XSchedule.xScheduleSubst;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XScheduleSubst_Service.get_XScheduleSubstByParent('00000000-0000-0000-0000-000000000000').subscribe(XScheduleSubstArray => { this.XScheduleSubstArray = XScheduleSubstArray; }, error => { this.ShowError(error.message); })
+        this.xScheduleSubst_Service.get_xScheduleSubstByParent('00000000-0000-0000-0000-000000000000').subscribe(xScheduleSubstArray => { this.xScheduleSubstArray = xScheduleSubstArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XScheduleItemId==='undefined') { 
+		if(typeof item.xScheduleItemId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XScheduleSubst_Service.get_XScheduleSubstByParent('00000000-0000-0000-0000-000000000000').subscribe(XScheduleSubstArray => { this.XScheduleSubstArray = XScheduleSubstArray; }, error => { this.ShowError(error.message); })
+        this.xScheduleSubst_Service.get_xScheduleSubstByParent('00000000-0000-0000-0000-000000000000').subscribe(xScheduleSubstArray => { this.xScheduleSubstArray = xScheduleSubstArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XScheduleItemId === 'string' ) {
-        this.XScheduleSubst_Service.get_XScheduleSubstByParent(item.XScheduleItemId).subscribe(XScheduleSubstArray => { this.XScheduleSubstArray = XScheduleSubstArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xScheduleItemId === 'string' ) {
+        this.xScheduleSubst_Service.get_xScheduleSubstByParent(item.xScheduleItemId).subscribe(xScheduleSubstArray => { this.xScheduleSubstArray = xScheduleSubstArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -72,57 +72,57 @@ export class XScheduleSubstComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXScheduleSubst();
-		return this.XScheduleSubstArray ;
+		this.refreshxScheduleSubst();
+		return this.xScheduleSubstArray ;
 	   }
 
-    onSelect(item: XSchedule.XScheduleSubst) {
-        this.currentXScheduleSubst = item;
+    onSelect(item: XSchedule.xScheduleSubst) {
+        this.currentxScheduleSubst = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXScheduleItem.XScheduleItemId) === 'string' ) {
-        this.currentXScheduleSubst = {} as XSchedule.XScheduleSubst;
-        this.currentXScheduleSubst.XScheduleItemId = this.AppService.LastXScheduleItem.XScheduleItemId;
+      if(typeof ( this.AppService.LastxScheduleItem.xScheduleItemId) === 'string' ) {
+        this.currentxScheduleSubst = {} as XSchedule.xScheduleSubst;
+        this.currentxScheduleSubst.xScheduleItemId = this.AppService.LastxScheduleItem.xScheduleItemId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XSchedule.XScheduleSubst) {
+    onEdit(item: XSchedule.xScheduleSubst) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXScheduleSubst = item;
+        this.currentxScheduleSubst = item;
     }
 
-    onDelete(item: XSchedule.XScheduleSubst) {
+    onDelete(item: XSchedule.xScheduleSubst) {
         this.confirmOpened = true;
-        this.currentXScheduleSubst = item;
+        this.currentxScheduleSubst = item;
     }
 
     onConfirmDeletion() {
-        this.XScheduleSubst_Service.delete_XScheduleSubstById(this.currentXScheduleSubst.XScheduleSubstId).subscribe(data => {this.refreshXScheduleSubst()}, error => { this.ShowError(error.message); });
+        this.xScheduleSubst_Service.delete_xScheduleSubstById(this.currentxScheduleSubst.xScheduleSubstId).subscribe(data => {this.refreshxScheduleSubst()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XSchedule.XScheduleSubst) {
+    save(item: XSchedule.xScheduleSubst) {
         this.valid=true; 
-     if(this.currentXScheduleSubst.FromDate == undefined ) this.valid=false;
-     if(this.currentXScheduleSubst.ToDate == undefined ) this.valid=false;
+     if(this.currentxScheduleSubst.fromDate == undefined ) this.valid=false;
+     if(this.currentxScheduleSubst.toDate == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XScheduleSubst_Service.create_XScheduleSubst(item)
-                        .subscribe(data =>{ this.refreshXScheduleSubst()}, error => { this.ShowError(error.message); });
+                    this.xScheduleSubst_Service.create_xScheduleSubst(item)
+                        .subscribe(data =>{ this.refreshxScheduleSubst()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XScheduleSubst_Service.update_XScheduleSubst( item)
-                        .subscribe(data => {this.refreshXScheduleSubst()}, error => { this.ShowError(error.message); });
+                    this.xScheduleSubst_Service.update_xScheduleSubst( item)
+                        .subscribe(data => {this.refreshxScheduleSubst()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -142,11 +142,11 @@ export class XScheduleSubstComponent implements OnInit {
             aoa[0][1]='С';
             aoa[0][2]='По';
 /* fill data to array */
-        for(var i = 0; i < this.XScheduleSubstArray.length; ++i) {
+        for(var i = 0; i < this.xScheduleSubstArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XScheduleSubstArray[i].theInstructor_name;
-            aoa[i+1][1]=this.XScheduleSubstArray[i].FromDate;
-            aoa[i+1][2]=this.XScheduleSubstArray[i].ToDate;
+            aoa[i+1][0]=this.xScheduleSubstArray[i].theInstructor_name;
+            aoa[i+1][1]=this.xScheduleSubstArray[i].fromDate;
+            aoa[i+1][2]=this.xScheduleSubstArray[i].toDate;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -161,7 +161,7 @@ export class XScheduleSubstComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XScheduleSubst');
+        XLSX.utils.book_append_sheet(wb, ws, 'xScheduleSubst');
         
 
         wb.Props = {
@@ -178,13 +178,13 @@ export class XScheduleSubstComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XScheduleSubst.xlsx');
+		XLSX.writeFile(wb, 'xScheduleSubst.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXScheduleSubst = {} as XSchedule.XScheduleSubst;
+        this.currentxScheduleSubst = {} as XSchedule.xScheduleSubst;
     }
 }
  

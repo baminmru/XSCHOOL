@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XUser} from './XUser';
 @Injectable()
-export class XSubscription_Service {
+export class xSubscription_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,23 +13,23 @@ export class XSubscription_Service {
 	}
 	
 	
-	FromDate:string = '';
-	ToDate:string = '';
+	fromDate:string = '';
+	toDate:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XSubscriptions
-    getAll_XSubscriptions(): Observable<XUser.XSubscription[]> {
+	//Fetch all xSubscriptions
+    getAll_xSubscriptions(): Observable<XUser.xSubscription[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.FromDate!=''){
+		if(this.fromDate!=''){
 			if(qry !='') qry=qry +'&';
-			qry='FromDate='+encodeURIComponent(this.FromDate)
+			qry='fromDate='+encodeURIComponent(this.fromDate)
 		}
-		if(this.ToDate!=''){
+		if(this.toDate!=''){
 			if(qry !='') qry=qry +'&';
-			qry='ToDate='+encodeURIComponent(this.ToDate)
+			qry='toDate='+encodeURIComponent(this.toDate)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -41,60 +41,60 @@ export class XSubscription_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XUser.XSubscription[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XUser.xSubscription[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XUser.XSubscription[]>(this.serviceURL + '/XSubscription/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XUser.xSubscription[]>(this.serviceURL + '/xSubscription/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.FromDate = '';
-	this.ToDate = '';
+	this.fromDate = '';
+	this.toDate = '';
 		
 	}
  
-	   //Create XSubscription
-    create_XSubscription(XSubscription: XUser.XSubscription): Observable<Object > {
-       // XSubscription.XSubscriptionId = '';
+	   //Create xSubscription
+    create_xSubscription(xSubscription: XUser.xSubscription): Observable<XUser.xSubscription > {
+       // xSubscription.xSubscriptionId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XSubscription/', XSubscription, { headers: cpHeaders })
+        return this.http.post<XUser.xSubscription >(this.serviceURL + '/xSubscription/', xSubscription, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XSubscription by parent
-    get_XSubscriptionByParent(parentId: string): Observable<XUser.XSubscription[]> {
+	//Fetch xSubscription by parent
+    get_xSubscriptionByParent(parentId: string): Observable<XUser.xSubscription[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XSubscription/byparent/'+ parentId)
-        return this.http.get<XUser.XSubscription[]>(this.serviceURL + '/XSubscription/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xSubscription/byparent/'+ parentId)
+        return this.http.get<XUser.xSubscription[]>(this.serviceURL + '/xSubscription/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XSubscription by id
-    get_XSubscriptionById(XSubscriptionId: string): Observable<XUser.XSubscription> {
+	//Fetch xSubscription by id
+    get_xSubscriptionById(xSubscriptionId: string): Observable<XUser.xSubscription> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XSubscription/'+ XSubscriptionId)
-        return this.http.get<XUser.XSubscription>(this.serviceURL + '/XSubscription/' + XSubscriptionId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xSubscription/'+ xSubscriptionId)
+        return this.http.get<XUser.xSubscription>(this.serviceURL + '/xSubscription/' + xSubscriptionId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XSubscription
-    update_XSubscription(XSubscription: XUser.XSubscription):Observable<Object > {
+	   //Update xSubscription
+    update_xSubscription(xSubscription: XUser.xSubscription):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XSubscription/' + XSubscription.XSubscriptionId, XSubscription, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xSubscription/' + xSubscription.xSubscriptionId, xSubscription, { headers: cpHeaders })
     }
 	
-    //Delete XSubscription	
-    delete_XSubscriptionById(XSubscriptionId: string): Observable<Object> {
+    //Delete xSubscription	
+    delete_xSubscriptionById(xSubscriptionId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XSubscription/' + XSubscriptionId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xSubscription/' + xSubscriptionId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XUser.XSubscription = null;
+	private mSelecetd:XUser.xSubscription = null;
 	
-	public 	get Selected():XUser.XSubscription{ return this.mSelecetd;}
+	public 	get Selected():XUser.xSubscription{ return this.mSelecetd;}
 	
-	public  set Selected(_XSubscription:XUser.XSubscription){ this.mSelecetd=_XSubscription; }
+	public  set Selected(_xSubscription:XUser.xSubscription){ this.mSelecetd=_xSubscription; }
  
 }

@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XUser} from './XUser';
 @Injectable()
-export class XUserPurchase_Service {
+export class xUserPurchase_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -16,8 +16,8 @@ export class XUserPurchase_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XUserPurchases
-    getAll_XUserPurchases(): Observable<XUser.XUserPurchase[]> {
+	//Fetch all xUserPurchases
+    getAll_xUserPurchases(): Observable<XUser.xUserPurchase[]> {
 		var qry:string;
 		qry='';
 		
@@ -31,11 +31,11 @@ export class XUserPurchase_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XUser.XUserPurchase[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XUser.xUserPurchase[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XUser.XUserPurchase[]>(this.serviceURL + '/XUserPurchase/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XUser.xUserPurchase[]>(this.serviceURL + '/xUserPurchase/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -43,46 +43,46 @@ export class XUserPurchase_Service {
 		
 	}
  
-	   //Create XUserPurchase
-    create_XUserPurchase(XUserPurchase: XUser.XUserPurchase): Observable<Object > {
-       // XUserPurchase.XUserPurchaseId = '';
+	   //Create xUserPurchase
+    create_xUserPurchase(xUserPurchase: XUser.xUserPurchase): Observable<XUser.xUserPurchase > {
+       // xUserPurchase.xUserPurchaseId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XUserPurchase/', XUserPurchase, { headers: cpHeaders })
+        return this.http.post<XUser.xUserPurchase >(this.serviceURL + '/xUserPurchase/', xUserPurchase, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XUserPurchase by parent
-    get_XUserPurchaseByParent(parentId: string): Observable<XUser.XUserPurchase[]> {
+	//Fetch xUserPurchase by parent
+    get_xUserPurchaseByParent(parentId: string): Observable<XUser.xUserPurchase[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XUserPurchase/byparent/'+ parentId)
-        return this.http.get<XUser.XUserPurchase[]>(this.serviceURL + '/XUserPurchase/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xUserPurchase/byparent/'+ parentId)
+        return this.http.get<XUser.xUserPurchase[]>(this.serviceURL + '/xUserPurchase/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XUserPurchase by id
-    get_XUserPurchaseById(XUserPurchaseId: string): Observable<XUser.XUserPurchase> {
+	//Fetch xUserPurchase by id
+    get_xUserPurchaseById(xUserPurchaseId: string): Observable<XUser.xUserPurchase> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XUserPurchase/'+ XUserPurchaseId)
-        return this.http.get<XUser.XUserPurchase>(this.serviceURL + '/XUserPurchase/' + XUserPurchaseId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xUserPurchase/'+ xUserPurchaseId)
+        return this.http.get<XUser.xUserPurchase>(this.serviceURL + '/xUserPurchase/' + xUserPurchaseId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XUserPurchase
-    update_XUserPurchase(XUserPurchase: XUser.XUserPurchase):Observable<Object > {
+	   //Update xUserPurchase
+    update_xUserPurchase(xUserPurchase: XUser.xUserPurchase):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XUserPurchase/' + XUserPurchase.XUserPurchaseId, XUserPurchase, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xUserPurchase/' + xUserPurchase.xUserPurchaseId, xUserPurchase, { headers: cpHeaders })
     }
 	
-    //Delete XUserPurchase	
-    delete_XUserPurchaseById(XUserPurchaseId: string): Observable<Object> {
+    //Delete xUserPurchase	
+    delete_xUserPurchaseById(xUserPurchaseId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XUserPurchase/' + XUserPurchaseId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xUserPurchase/' + xUserPurchaseId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XUser.XUserPurchase = null;
+	private mSelecetd:XUser.xUserPurchase = null;
 	
-	public 	get Selected():XUser.XUserPurchase{ return this.mSelecetd;}
+	public 	get Selected():XUser.xUserPurchase{ return this.mSelecetd;}
 	
-	public  set Selected(_XUserPurchase:XUser.XUserPurchase){ this.mSelecetd=_XUserPurchase; }
+	public  set Selected(_xUserPurchase:XUser.xUserPurchase){ this.mSelecetd=_xUserPurchase; }
  
 }

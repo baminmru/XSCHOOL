@@ -35,24 +35,24 @@
       </amexio-header> 
      <amexio-body> 
      <amexio-row><amexio-column size="12" >
- <amexio-number-input  [enable-popover]= "false" [field-label]="'Номер по порядку'" name ="ModuleNo" 
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Номер по порядку'" name ="moduleNo" 
                     [place-holder]="'Номер по порядку'" 
             [allow-blank]="false" [error-msg] ="'Не задано: Номер по порядку'" 
-	 [(ngModel)]="currentXCourseModule.ModuleNo"
+	 [(ngModel)]="currentxCourseModule.moduleNo"
                     > 
  </amexio-number-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Название'" name ="name"  
                     [place-holder] = "'Название'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXCourseModule.name" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxCourseModule.name" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
  <amexio-textarea-input [enable-popover]="false"  [field-label]="'Описание'" name ="info" 
              [place-holder]="'Описание'" 
             [allow-blank]="true" 
-	            [(ngModel)]="currentXCourseModule.info"
+	            [(ngModel)]="currentxCourseModule.info"
              [icon-feedback]="true" [rows]="'5'" [columns]="'12'" 
               > 
 </amexio-textarea-input>
@@ -61,7 +61,7 @@
  <amexio-textarea-input [enable-popover]="false"  [field-label]="'Регламент'" name ="reglament" 
              [place-holder]="'Регламент'" 
             [allow-blank]="true" 
-	            [(ngModel)]="currentXCourseModule.reglament"
+	            [(ngModel)]="currentxCourseModule.reglament"
              [icon-feedback]="true" [rows]="'5'" [columns]="'12'" 
               > 
 </amexio-textarea-input>
@@ -70,8 +70,8 @@
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXCourseModule();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXCourseModule)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxCourseModule();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxCourseModule)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -82,10 +82,10 @@
     <amexio-header> 
 	<amexio-row> 
 		<amexio-column size="12" > 
-		<amexio-button [disabled]="AppService.LastXCourseDesc.XCourseDescId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXCourseModule.XCourseModuleId==null" [label]="'Изменить'" (onClick)="onEdit(currentXCourseModule)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXCourseModule.XCourseModuleId==null" [label]="'Удалить'" (onClick)="onDelete(currentXCourseModule)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXCourseModule()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="AppService.LastxCourseDesc.xCourseDescId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
+		<amexio-button [disabled]="currentxCourseModule.xCourseModuleId==null" [label]="'Изменить'" (onClick)="onEdit(currentxCourseModule)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxCourseModule.xCourseModuleId==null" [label]="'Удалить'" (onClick)="onDelete(currentxCourseModule)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxCourseModule()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -96,10 +96,10 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XCourseModuleArray" 
+		  [data]="xCourseModuleArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
-		  <amexio-data-table-column [data-index]="'ModuleNo'" [data-type]="'number'" [hidden]="false" [text]="'Номер по порядку'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'moduleNo'" [data-type]="'number'" [hidden]="false" [text]="'Номер по порядку'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Название'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
              {{  ((row.name) ? ((row.name.length>100) ? row.name.substr(0,100)+'...' : row.name ) : '-') | removehtmltag }} 
@@ -126,7 +126,7 @@
 Удалить строку:  Курс::Модули курса ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'').length >100 ? (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'').substr(0,100)+'...' : (currentXCourseModule.ModuleNo +'; '+  currentXCourseModule.name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxCourseModule.moduleNo +'; '+  currentxCourseModule.name||'').length >100 ? (currentxCourseModule.moduleNo +'; '+  currentxCourseModule.name||'').substr(0,100)+'...' : (currentxCourseModule.moduleNo +'; '+  currentxCourseModule.name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

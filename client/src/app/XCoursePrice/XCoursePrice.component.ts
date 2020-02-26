@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XCoursePrice_Service } from "app/XCoursePrice.service";
+import { xCoursePrice_Service } from "app/XCoursePrice.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,55 +13,55 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XCoursePrice',
+	   selector: 'app-xCoursePrice',
     styleUrls: ['./XCoursePrice.component.scss'],
     templateUrl: './XCoursePrice.component.html',
 })
-export class XCoursePriceComponent implements OnInit {
+export class xCoursePriceComponent implements OnInit {
 
-    XCoursePriceArray: Array<XCourse.XCoursePrice> = [];
+    xCoursePriceArray: Array<XCourse.xCoursePrice> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXCoursePrice: XCourse.XCoursePrice = {} as XCourse.XCoursePrice;
+    currentxCoursePrice: XCourse.xCoursePrice = {} as XCourse.xCoursePrice;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XCoursePrice_Service: XCoursePrice_Service,  public AppService:AppService ) {
+    constructor( private xCoursePrice_Service: xCoursePrice_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XCoursePrice"); 
-        this.subscription=this.AppService.currentXCourseDesc.subscribe(si =>{ this.refreshXCoursePrice(); }, error => { this.ShowError(error.message); } );
-        this.refreshXCoursePrice();
+		   // console.log("Subscribe xCoursePrice"); 
+        this.subscription=this.AppService.currentxCourseDesc.subscribe(si =>{ this.refreshxCoursePrice(); }, error => { this.ShowError(error.message); } );
+        this.refreshxCoursePrice();
     }
     refreshCombo() {
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XCoursePrice"); 
+		   // console.log("Unsubscribe xCoursePrice"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXCoursePrice() {
-		let item:XCourse.XCourseDesc;
-		item=this.AppService.LastXCourseDesc;
-		console.log("refreshing XCoursePrice"); 
-     this.currentXCoursePrice = {} as XCourse.XCoursePrice;
+    refreshxCoursePrice() {
+		let item:XCourse.xCourseDesc;
+		item=this.AppService.LastxCourseDesc;
+		console.log("refreshing xCoursePrice"); 
+     this.currentxCoursePrice = {} as XCourse.xCoursePrice;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XCoursePrice_Service.get_XCoursePriceByParent('00000000-0000-0000-0000-000000000000').subscribe(XCoursePriceArray => { this.XCoursePriceArray = XCoursePriceArray; }, error => { this.ShowError(error.message); })
+        this.xCoursePrice_Service.get_xCoursePriceByParent('00000000-0000-0000-0000-000000000000').subscribe(xCoursePriceArray => { this.xCoursePriceArray = xCoursePriceArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XCourseDescId==='undefined') { 
+		if(typeof item.xCourseDescId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XCoursePrice_Service.get_XCoursePriceByParent('00000000-0000-0000-0000-000000000000').subscribe(XCoursePriceArray => { this.XCoursePriceArray = XCoursePriceArray; }, error => { this.ShowError(error.message); })
+        this.xCoursePrice_Service.get_xCoursePriceByParent('00000000-0000-0000-0000-000000000000').subscribe(xCoursePriceArray => { this.xCoursePriceArray = xCoursePriceArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XCourseDescId === 'string' ) {
-        this.XCoursePrice_Service.get_XCoursePriceByParent(item.XCourseDescId).subscribe(XCoursePriceArray => { this.XCoursePriceArray = XCoursePriceArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xCourseDescId === 'string' ) {
+        this.xCoursePrice_Service.get_xCoursePriceByParent(item.xCourseDescId).subscribe(xCoursePriceArray => { this.xCoursePriceArray = xCoursePriceArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -71,57 +71,57 @@ export class XCoursePriceComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXCoursePrice();
-		return this.XCoursePriceArray ;
+		this.refreshxCoursePrice();
+		return this.xCoursePriceArray ;
 	   }
 
-    onSelect(item: XCourse.XCoursePrice) {
-        this.currentXCoursePrice = item;
+    onSelect(item: XCourse.xCoursePrice) {
+        this.currentxCoursePrice = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXCourseDesc.XCourseDescId) === 'string' ) {
-        this.currentXCoursePrice = {} as XCourse.XCoursePrice;
-        this.currentXCoursePrice.XCourseDescId = this.AppService.LastXCourseDesc.XCourseDescId;
+      if(typeof ( this.AppService.LastxCourseDesc.xCourseDescId) === 'string' ) {
+        this.currentxCoursePrice = {} as XCourse.xCoursePrice;
+        this.currentxCoursePrice.xCourseDescId = this.AppService.LastxCourseDesc.xCourseDescId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XCourse.XCoursePrice) {
+    onEdit(item: XCourse.xCoursePrice) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXCoursePrice = item;
+        this.currentxCoursePrice = item;
     }
 
-    onDelete(item: XCourse.XCoursePrice) {
+    onDelete(item: XCourse.xCoursePrice) {
         this.confirmOpened = true;
-        this.currentXCoursePrice = item;
+        this.currentxCoursePrice = item;
     }
 
     onConfirmDeletion() {
-        this.XCoursePrice_Service.delete_XCoursePriceById(this.currentXCoursePrice.XCoursePriceId).subscribe(data => {this.refreshXCoursePrice()}, error => { this.ShowError(error.message); });
+        this.xCoursePrice_Service.delete_xCoursePriceById(this.currentxCoursePrice.xCoursePriceId).subscribe(data => {this.refreshxCoursePrice()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XCourse.XCoursePrice) {
+    save(item: XCourse.xCoursePrice) {
         this.valid=true; 
-     if(this.currentXCoursePrice.PriceDate == undefined ) this.valid=false;
-     if(this.currentXCoursePrice.Price == undefined  ) this.valid=false;
+     if(this.currentxCoursePrice.priceDate == undefined ) this.valid=false;
+     if(this.currentxCoursePrice.price == undefined  ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XCoursePrice_Service.create_XCoursePrice(item)
-                        .subscribe(data =>{ this.refreshXCoursePrice()}, error => { this.ShowError(error.message); });
+                    this.xCoursePrice_Service.create_xCoursePrice(item)
+                        .subscribe(data =>{ this.refreshxCoursePrice()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XCoursePrice_Service.update_XCoursePrice( item)
-                        .subscribe(data => {this.refreshXCoursePrice()}, error => { this.ShowError(error.message); });
+                    this.xCoursePrice_Service.update_xCoursePrice( item)
+                        .subscribe(data => {this.refreshxCoursePrice()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -140,10 +140,10 @@ export class XCoursePriceComponent implements OnInit {
             aoa[0][0]='Дата назначения цены';
             aoa[0][1]='Цена';
 /* fill data to array */
-        for(var i = 0; i < this.XCoursePriceArray.length; ++i) {
+        for(var i = 0; i < this.xCoursePriceArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XCoursePriceArray[i].PriceDate;
-            aoa[i+1][1]=this.XCoursePriceArray[i].Price;
+            aoa[i+1][0]=this.xCoursePriceArray[i].priceDate;
+            aoa[i+1][1]=this.xCoursePriceArray[i].price;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -157,7 +157,7 @@ export class XCoursePriceComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XCoursePrice');
+        XLSX.utils.book_append_sheet(wb, ws, 'xCoursePrice');
         
 
         wb.Props = {
@@ -174,13 +174,13 @@ export class XCoursePriceComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XCoursePrice.xlsx');
+		XLSX.writeFile(wb, 'xCoursePrice.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXCoursePrice = {} as XCourse.XCoursePrice;
+        this.currentxCoursePrice = {} as XCourse.xCoursePrice;
     }
 }
  

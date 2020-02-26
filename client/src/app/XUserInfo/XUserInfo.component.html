@@ -35,65 +35,118 @@
       </amexio-header> 
      <amexio-body> 
      <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Фамилия'" name ="Family"  
+                    <amexio-text-input [field-label]= "'Фамилия'" name ="family"  
                     [place-holder] = "'Фамилия'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Family" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.family" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Имя для входа'" name ="Login"  
-                    [place-holder] = "'Имя для входа'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Login" >
-                    </amexio-text-input>
-     </amexio-column></amexio-row>
-     <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Отчество'" name ="SurName"  
-                    [place-holder] = "'Отчество'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.SurName" >
-                    </amexio-text-input>
-     </amexio-column></amexio-row>
-     <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'e-mail'" name ="EMail"  
-                    [place-holder] = "'e-mail'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.EMail" >
-                    </amexio-text-input>
-     </amexio-column></amexio-row>
-     <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Телефон'" name ="Phone"  
-                    [place-holder] = "'Телефон'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Phone" >
-                    </amexio-text-input>
-     </amexio-column></amexio-row>
-     <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Имя'" name ="Name"  
+                    <amexio-text-input [field-label]= "'Имя'" name ="name"  
                     [place-holder] = "'Имя'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Name" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.name" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Отчество'" name ="middleName"  
+                    [place-holder] = "'Отчество'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.middleName" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Имя для входа'" name ="login"  
+                    [place-holder] = "'Имя для входа'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.login" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Пароль'" name ="password"  
+                    [place-holder] = "'Пароль'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.password" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     
+      <amexio-fieldset [collapsible]="true" title="Фотография">
+        <amexio-row>
+        <amexio-column size="4" >
+                    <img [src]="currentxUserInfo.photoUrl" style="border: 1px solid #000; max-width:128px; max-height:128px;"/>
+        </amexio-column>
+        <amexio-column size="8" >
+                    <input type="file" ng2FileSelect [uploader]="uploader" />
+        </amexio-column>
+        </amexio-row>                                        
+        </amexio-fieldset>
+        
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'e-mail'" name ="eMail"  
+                    [place-holder] = "'e-mail'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.eMail" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Телефон'" name ="phone"  
+                    [place-holder] = "'Телефон'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.phone" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
   <amexio-date-time-picker   [field-label]="'Дата рождения'" 
         [time-picker]="false"  
         [date-picker]="true"  
-        [(ngModel)]="currentXUserInfo.Birthday"> 
+        [(ngModel)]="currentxUserInfo.birthday"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Пароль'" name ="Password"  
-                    [place-holder] = "'Пароль'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.Password" >
+                    <amexio-text-input [field-label]= "'Страна'" name ="country"  
+                    [place-holder] = "'Страна'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.country" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
-                    <amexio-text-input [field-label]= "'Город'" name ="City"  
+                    <amexio-text-input [field-label]= "'Город'" name ="city"  
                     [place-holder] = "'Город'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXUserInfo.City" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.city" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Родной язык'" name ="nativeLanguage"  
+                    [place-holder] = "'Родной язык'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.nativeLanguage" >
+                    </amexio-text-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+	 <amexio-dropdown 
+	 [place-holder] = "'Уровень владения русским'"
+	 name ="userSkill"
+	 [field-label]= "'Уровень владения русским'"
+            [allow-blank]="false" [error-msg] ="'Не задано: Уровень владения русским'" 
+	 
+	 [display-field]="'name'"
+	 [value-field]="'id'"
+	 [data]="AppService.ComboXUserSkillLevel"
+	 
+	 [(ngModel)]="currentxUserInfo.userSkill"
+	 >
+  </amexio-dropdown>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Количество лет изучения русского'" name ="learningYears" 
+                    [place-holder]="'Количество лет изучения русского'" 
+            [allow-blank]="true" 
+	 [(ngModel)]="currentxUserInfo.learningYears"
+                    > 
+ </amexio-number-input>
+     </amexio-column></amexio-row>
+     <amexio-row><amexio-column size="12" >
+                    <amexio-text-input [field-label]= "'Цель обучения'" name ="learningGoal"  
+                    [place-holder] = "'Цель обучения'" 
+                    [icon-feedback] = "true" [(ngModel)]="currentxUserInfo.learningGoal" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
 <amexio-dropdown 
-	 [field-label]="'Принята политика ПД'" name ="PIaccept" 
+	 [field-label]="'Принята политика ПД'" name ="pIaccept" 
                     [place-holder]="'Принята политика ПД'" 
-	 [(ngModel)]="currentXUserInfo.PIaccept"
+	 [(ngModel)]="currentxUserInfo.pIaccept"
             [allow-blank]="false" [error-msg] ="'Не задано: Принята политика ПД'" 
 	 [display-field]="'name'"
 	 [value-field]="'id'"
@@ -103,9 +156,9 @@
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
 <amexio-dropdown 
-	 [field-label]="'Принята политика HR'" name ="HRaccept" 
+	 [field-label]="'Принята политика HR'" name ="hRaccept" 
                     [place-holder]="'Принята политика HR'" 
-	 [(ngModel)]="currentXUserInfo.HRaccept"
+	 [(ngModel)]="currentxUserInfo.hRaccept"
             [allow-blank]="false" [error-msg] ="'Не задано: Принята политика HR'" 
 	 [display-field]="'name'"
 	 [value-field]="'id'"
@@ -117,8 +170,8 @@
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXUserInfo();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXUserInfo)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxUserInfo();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxUserInfo)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -130,9 +183,9 @@
 	<amexio-row> 
 		<amexio-column size="12" > 
 		<amexio-button [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXUserInfo.XUserInfoId==null" [label]="'Изменить'" (onClick)="onEdit(currentXUserInfo)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXUserInfo.XUserInfoId==null" [label]="'Удалить'" (onClick)="onDelete(currentXUserInfo)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXUserInfo()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="currentxUserInfo.xUserInfoId==null" [label]="'Изменить'" (onClick)="onEdit(currentxUserInfo)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxUserInfo.xUserInfoId==null" [label]="'Удалить'" (onClick)="onDelete(currentxUserInfo)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxUserInfo()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -143,44 +196,66 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XUserInfoArray" 
+		  [data]="xUserInfoArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
-		  <amexio-data-table-column [data-index]="'Family'" [data-type]="'string'" [hidden]="false" [text]="'Фамилия'"> 
+		  <amexio-data-table-column [data-index]="'family'" [data-type]="'string'" [hidden]="false" [text]="'Фамилия'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.Family) ? ((row.Family.length>100) ? row.Family.substr(0,100)+'...' : row.Family ) : '-') | removehtmltag }} 
+             {{  ((row.family) ? ((row.family.length>100) ? row.family.substr(0,100)+'...' : row.family ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Login'" [data-type]="'string'" [hidden]="false" [text]="'Имя для входа'"> 
+		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Имя'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.Login) ? ((row.Login.length>100) ? row.Login.substr(0,100)+'...' : row.Login ) : '-') | removehtmltag }} 
+             {{  ((row.name) ? ((row.name.length>100) ? row.name.substr(0,100)+'...' : row.name ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'SurName'" [data-type]="'string'" [hidden]="false" [text]="'Отчество'"> 
+		  <amexio-data-table-column [data-index]="'middleName'" [data-type]="'string'" [hidden]="false" [text]="'Отчество'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.SurName) ? ((row.SurName.length>100) ? row.SurName.substr(0,100)+'...' : row.SurName ) : '-') | removehtmltag }} 
+             {{  ((row.middleName) ? ((row.middleName.length>100) ? row.middleName.substr(0,100)+'...' : row.middleName ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'EMail'" [data-type]="'string'" [hidden]="false" [text]="'e-mail'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Phone'" [data-type]="'string'" [hidden]="false" [text]="'Телефон'"> 
+		  <amexio-data-table-column [data-index]="'login'" [data-type]="'string'" [hidden]="false" [text]="'Имя для входа'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.Phone) ? ((row.Phone.length>100) ? row.Phone.substr(0,100)+'...' : row.Phone ) : '-') | removehtmltag }} 
+             {{  ((row.login) ? ((row.login.length>100) ? row.login.substr(0,100)+'...' : row.login ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Name'" [data-type]="'string'" [hidden]="false" [text]="'Имя'"> 
+		  <amexio-data-table-column [data-index]="'password'" [data-type]="'string'" [hidden]="false" [text]="'Пароль'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'photoUrl'" [data-type]="'string'" [hidden]="false" [text]="'Фотография'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.Name) ? ((row.Name.length>100) ? row.Name.substr(0,100)+'...' : row.Name ) : '-') | removehtmltag }} 
+             {{  ((row.photoUrl) ? ((row.photoUrl.length>100) ? row.photoUrl.substr(0,100)+'...' : row.photoUrl ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Birthday'" [data-type]="'string'" [hidden]="false" [text]="'Дата рождения'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Password'" [data-type]="'string'" [hidden]="false" [text]="'Пароль'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'City'" [data-type]="'string'" [hidden]="false" [text]="'Город'"> 
+		  <amexio-data-table-column [data-index]="'eMail'" [data-type]="'string'" [hidden]="false" [text]="'e-mail'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'phone'" [data-type]="'string'" [hidden]="false" [text]="'Телефон'"> 
  		  <ng-template #amexioBodyTmpl let-column let-row="row">
-             {{  ((row.City) ? ((row.City.length>100) ? row.City.substr(0,100)+'...' : row.City ) : '-') | removehtmltag }} 
+             {{  ((row.phone) ? ((row.phone.length>100) ? row.phone.substr(0,100)+'...' : row.phone ) : '-') | removehtmltag }} 
            </ng-template>
 		  </amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'PIaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика ПД'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'HRaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика HR'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'birthday'" [data-type]="'string'" [hidden]="false" [text]="'Дата рождения'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'country'" [data-type]="'string'" [hidden]="false" [text]="'Страна'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.country) ? ((row.country.length>100) ? row.country.substr(0,100)+'...' : row.country ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'city'" [data-type]="'string'" [hidden]="false" [text]="'Город'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.city) ? ((row.city.length>100) ? row.city.substr(0,100)+'...' : row.city ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'nativeLanguage'" [data-type]="'string'" [hidden]="false" [text]="'Родной язык'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.nativeLanguage) ? ((row.nativeLanguage.length>100) ? row.nativeLanguage.substr(0,100)+'...' : row.nativeLanguage ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'userSkill_name'" [data-type]="'string'" [hidden]="false" [text]="'Уровень владения русским'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'learningYears'" [data-type]="'number'" [hidden]="false" [text]="'Количество лет изучения русского'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'learningGoal'" [data-type]="'string'" [hidden]="false" [text]="'Цель обучения'"> 
+ 		  <ng-template #amexioBodyTmpl let-column let-row="row">
+             {{  ((row.learningGoal) ? ((row.learningGoal.length>100) ? row.learningGoal.substr(0,100)+'...' : row.learningGoal ) : '-') | removehtmltag }} 
+           </ng-template>
+		  </amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'pIaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика ПД'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'hRaccept_name'" [data-type]="'string'" [hidden]="false" [text]="'Принята политика HR'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -192,7 +267,7 @@
 Удалить строку:  Пользователь::Описание ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXUserInfo.Family +'; '+  currentXUserInfo.SurName +'; '+  currentXUserInfo.Name||'').length >100 ? (currentXUserInfo.Family +'; '+  currentXUserInfo.SurName +'; '+  currentXUserInfo.Name||'').substr(0,100)+'...' : (currentXUserInfo.Family +'; '+  currentXUserInfo.SurName +'; '+  currentXUserInfo.Name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxUserInfo.family +'; '+  currentxUserInfo.name +'; '+  currentxUserInfo.middleName||'').length >100 ? (currentxUserInfo.family +'; '+  currentxUserInfo.name +'; '+  currentxUserInfo.middleName||'').substr(0,100)+'...' : (currentxUserInfo.family +'; '+  currentxUserInfo.name +'; '+  currentxUserInfo.middleName||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

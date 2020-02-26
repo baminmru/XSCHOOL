@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XStatus_Service } from "app/XStatus.service";
+import { xStatus_Service } from "app/XStatus.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,37 +13,37 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XStatus',
+	   selector: 'app-xStatus',
     styleUrls: ['./XStatus.component.scss'],
     templateUrl: './XStatus.component.html',
 })
-export class XStatusComponent implements OnInit {
+export class xStatusComponent implements OnInit {
 
-    XStatusArray: Array<XDict.XStatus> = [];
+    xStatusArray: Array<XDict.xStatus> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXStatus: XDict.XStatus = {} as XDict.XStatus;
+    currentxStatus: XDict.xStatus = {} as XDict.xStatus;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
 
-    constructor( private XStatus_Service: XStatus_Service,  public AppService:AppService ) {
+    constructor( private xStatus_Service: xStatus_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-        this.refreshXStatus();
+        this.refreshxStatus();
     }
     refreshCombo() {
     }
     ngOnDestroy() {
     }
 
-    refreshXStatus() {
-		   console.log("refreshing XStatus"); 
-        this.XStatus_Service.getAll_XStatuss().subscribe(XStatusArray => { this.XStatusArray = XStatusArray; }, error => { this.ShowError(error.message); })
-        this.currentXStatus = {} as XDict.XStatus;
+    refreshxStatus() {
+		   console.log("refreshing xStatus"); 
+        this.xStatus_Service.getAll_xStatuss().subscribe(xStatusArray => { this.xStatusArray = xStatusArray; }, error => { this.ShowError(error.message); })
+        this.currentxStatus = {} as XDict.xStatus;
     }
 
 	   ShowError(message:string){
@@ -52,53 +52,53 @@ export class XStatusComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXStatus();
-		return this.XStatusArray ;
+		this.refreshxStatus();
+		return this.xStatusArray ;
 	   }
 
-    onSelect(item: XDict.XStatus) {
-        this.currentXStatus = item;
+    onSelect(item: XDict.xStatus) {
+        this.currentxStatus = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-        this.currentXStatus = {} as XDict.XStatus;
+        this.currentxStatus = {} as XDict.xStatus;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
     }
 
-    onEdit(item: XDict.XStatus) {
+    onEdit(item: XDict.xStatus) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXStatus = item;
+        this.currentxStatus = item;
     }
 
-    onDelete(item: XDict.XStatus) {
+    onDelete(item: XDict.xStatus) {
         this.confirmOpened = true;
-        this.currentXStatus = item;
+        this.currentxStatus = item;
     }
 
     onConfirmDeletion() {
-        this.XStatus_Service.delete_XStatusById(this.currentXStatus.XStatusId).subscribe(data => {this.refreshXStatus()}, error => { this.ShowError(error.message); });
+        this.xStatus_Service.delete_xStatusById(this.currentxStatus.xStatusId).subscribe(data => {this.refreshxStatus()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XDict.XStatus) {
+    save(item: XDict.xStatus) {
         this.valid=true; 
-     if(this.currentXStatus.name == undefined || this.currentXStatus.name=='') this.valid=false;
+     if(this.currentxStatus.name == undefined || this.currentxStatus.name=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XStatus_Service.create_XStatus(item)
-                        .subscribe(data =>{ this.refreshXStatus()}, error => { this.ShowError(error.message); });
+                    this.xStatus_Service.create_xStatus(item)
+                        .subscribe(data =>{ this.refreshxStatus()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XStatus_Service.update_XStatus( item)
-                        .subscribe(data => {this.refreshXStatus()}, error => { this.ShowError(error.message); });
+                    this.xStatus_Service.update_xStatus( item)
+                        .subscribe(data => {this.refreshxStatus()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -116,9 +116,9 @@ export class XStatusComponent implements OnInit {
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Название';
 /* fill data to array */
-        for(var i = 0; i < this.XStatusArray.length; ++i) {
+        for(var i = 0; i < this.xStatusArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XStatusArray[i].name;
+            aoa[i+1][0]=this.xStatusArray[i].name;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -131,7 +131,7 @@ export class XStatusComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XStatus');
+        XLSX.utils.book_append_sheet(wb, ws, 'xStatus');
         
 
         wb.Props = {
@@ -148,13 +148,13 @@ export class XStatusComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XStatus.xlsx');
+		XLSX.writeFile(wb, 'xStatus.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXStatus = {} as XDict.XStatus;
+        this.currentxStatus = {} as XDict.xStatus;
     }
 }
  

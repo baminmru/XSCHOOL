@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XSubscriptionType")]
     public class XSubscriptionTypeController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XSubscriptionTypeController(MyContext context, IHostingEnvironment appEnvironment)
+        public XSubscriptionTypeController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;

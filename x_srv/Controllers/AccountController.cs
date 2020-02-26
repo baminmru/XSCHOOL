@@ -1,57 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using MySys.Common.Extensions;
-using MySys.Common.Service;
-using MySys.Identity.Data;
-using MySys.Identity.Models;
-using x_srv.Services.Users;
-using x_srv.models;
-using x_srv.Services.Data.User;
-using x_srv.Settings;
-
+﻿/*
+AccountController.cs
+Created by: BAMINOTE\bami
+Modified: 17.12.2019
+*/
 
 namespace survey_api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using MySys.Common.Extensions;
+    using MySys.Common.Service;
+    using MySys.Identity.Data;
+    using MySys.Identity.Models;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using x_srv.models;
+    using x_srv.Services.Data.User;
+    using x_srv.Services.Users;
+    using x_srv.Settings;
 
+    /// <summary>
+    /// Defines the <see cref="NewUserInfo" />
+    /// </summary>
     public class NewUserInfo
     {
-        public  string email;
+        /// <summary>
+        /// Defines the email
+        /// </summary>
+        public string email;
+
+        /// <summary>
+        /// Defines the password
+        /// </summary>
         public string password;
+
+        /// <summary>
+        /// Defines the role
+        /// </summary>
         public string role;
+
+        /// <summary>
+        /// Defines the firstName
+        /// </summary>
         public string firstName;
+
+        /// <summary>
+        /// Defines the lastName
+        /// </summary>
         public string lastName;
     }
 
+    /// <summary>
+    /// Defines the <see cref="AccountController" />
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/account")]
     public class AccountController : Controller
     {
-        private readonly MyContext _context;
+        /// <summary>
+        /// Defines the _context
+        /// </summary>
+        private readonly GoodRussianDbContext _context;
+
+        /// <summary>
+        /// Defines the _identityContext
+        /// </summary>
         private readonly MySysIdentityDbContext _identityContext;
+
+        /// <summary>
+        /// Defines the _userService
+        /// </summary>
         private readonly UserService _userService;
+
+        /// <summary>
+        /// Defines the _userManager
+        /// </summary>
         private readonly UserManager<ApplicationUser> _userManager;
+
+        /// <summary>
+        /// Defines the _roleManager
+        /// </summary>
         private readonly RoleManager<MyIdentityRole> _roleManager;
+
+        /// <summary>
+        /// Defines the _signInManager
+        /// </summary>
         private readonly SignInManager<ApplicationUser> _signInManager;
+
+        /// <summary>
+        /// Defines the _jwtOptions
+        /// </summary>
         private readonly JwtIssuerOptions _jwtOptions;
+
+        /// <summary>
+        /// Defines the _serializerSettings
+        /// </summary>
         private readonly JsonSerializerSettings _serializerSettings;
+
+        /// <summary>
+        /// Defines the _logger
+        /// </summary>
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="identityContext">The identityContext<see cref="MySysIdentityDbContext"/></param>
+        /// <param name="context">The context<see cref="GoodRussianDbContext"/></param>
+        /// <param name="userService">The userService<see cref="UserService"/></param>
+        /// <param name="userManager">The userManager<see cref="UserManager{ApplicationUser}"/></param>
+        /// <param name="roleManager">The roleManager<see cref="RoleManager{MyIdentityRole}"/></param>
+        /// <param name="signInManager">The signInManager<see cref="SignInManager{ApplicationUser}"/></param>
+        /// <param name="jwtOptions">The jwtOptions<see cref="IOptions{JwtIssuerOptions}"/></param>
+        /// <param name="logger">The logger<see cref="ILogger{AccountController}"/></param>
         public AccountController(MySysIdentityDbContext identityContext,
-            MyContext context,
+            GoodRussianDbContext context,
             UserService userService,
             UserManager<ApplicationUser> userManager,
             RoleManager<MyIdentityRole> roleManager,
@@ -74,12 +147,22 @@ namespace survey_api.Controllers
             };
         }
 
+        /// <summary>
+        /// The Logout
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Json("ok");
         }
+
+        /// <summary>
+        /// The RegisterDevice
+        /// </summary>
+        /// <param name="request">The request<see cref="RegisterDeviceRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{TokenInfo}}"/></returns>
         [HttpPost("RegisterDevice")]
         [AllowAnonymous]
         [Produces(typeof(ResponseData<TokenInfo>))]
@@ -108,9 +191,9 @@ namespace survey_api.Controllers
 
                     _context.Add(new XUserInfo
                     {
-                        Name = "App",
-                        Family = "Mobile",
-                        Login = user.Id.ToString(),
+                        name = "App",
+                        family = "Mobile",
+                        login = user.Id.ToString(),
                         XUserInfoId = user.Id
                     });
                     await _context.SaveChangesAsync();
@@ -161,7 +244,11 @@ namespace survey_api.Controllers
             return response;
         }
 
-
+        /// <summary>
+        /// The ClassLogin
+        /// </summary>
+        /// <param name="request">The request<see cref="ClassLoginRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{TokenInfo}}"/></returns>
         [HttpPost("ClassLogin")]
         [AllowAnonymous]
         [Produces(typeof(ResponseData<TokenInfo>))]
@@ -194,9 +281,73 @@ namespace survey_api.Controllers
                 if (user != null && !user.IsDisabled)
                 {
                     var result = await _signInManager.PasswordSignInAsync(user.Email, "TestClassPassword", false, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        var currentUser = await _userManager.FindByEmailAsync(user.Email);
+                        string encodedJwt = await CreateToken(currentUser);
+
+                        // Serialize and return the response
+                        var oldTokens = await _identityContext.RefreshTokens.
+                            Where(p => p.UserId == currentUser.Id && p.IsExpired).
+                            ToListAsync();
+                        oldTokens.ForEach(p => { p.IsExpired = true; });
+
+                        var refresh_token = $"{Guid.NewGuid()}{Guid.NewGuid()}{Guid.NewGuid()}".Replace("-", "");
+                        var refreshToken = new RefreshToken
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = currentUser.Id,
+                            Token = refresh_token,
+                            DateIssued = DateTime.Now,
+                            IsExpired = false
+                        };
+
+                        response.code = BaseStatus.Success;
+                        response.data = new TokenInfo
+                        {
+                            access_token = encodedJwt,
+                            expires_in = (int)_jwtOptions.ValidFor.TotalSeconds,
+                            token_type = "jwt",
+                            refresh_token = refresh_token
+                        };
+
+                        _identityContext.Add(refreshToken);
+                        await _identityContext.SaveChangesAsync();
+
+                        return response;
+                    }
+                }
+                response.code = BaseStatus.Error;
+                response.description = "Не удалось войти в систему";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "could not login");
+                response.code = BaseStatus.Exception;
+                response.message = "Ошибка";
+                response.description = "Не удалось выполнить вход";
+                return response;
+            }
+        }
+
+        /// <summary>
+        /// The Login
+        /// </summary>
+        /// <param name="request">The request<see cref="LoginRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{TokenInfo}}"/></returns>
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        [Produces(typeof(ResponseData<TokenInfo>))]
+        public async Task<ResponseData<TokenInfo>> Login([FromBody] LoginRequest request)
+        {
+            var response = new ResponseData<TokenInfo>();
+            try
+            {
+                var result = await _signInManager.PasswordSignInAsync(request.email, request.password, false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                        var currentUser = await _userManager.FindByEmailAsync(user.Email);
+                    var currentUser = await _userManager.FindByEmailAsync(request.email);
                     string encodedJwt = await CreateToken(currentUser);
 
                     // Serialize and return the response
@@ -229,7 +380,7 @@ namespace survey_api.Controllers
 
                     return response;
                 }
-                }
+
                 response.code = BaseStatus.Error;
                 response.description = "Не удалось войти в систему";
                 return response;
@@ -244,67 +395,11 @@ namespace survey_api.Controllers
             }
         }
 
-        [HttpPost("Login")]
-        [AllowAnonymous]
-        [Produces(typeof(ResponseData<TokenInfo>))]
-        public async Task<ResponseData<TokenInfo>> Login([FromBody] LoginRequest request)
-        {
-            var response = new ResponseData<TokenInfo>();
-            try
-            {
-            var result = await _signInManager.PasswordSignInAsync(request.email, request.password, false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                var currentUser = await _userManager.FindByEmailAsync(request.email);
-                string encodedJwt = await CreateToken(currentUser);
-
-                // Serialize and return the response
-                var oldTokens = await _identityContext.RefreshTokens.
-                    Where(p => p.UserId == currentUser.Id && p.IsExpired).
-                    ToListAsync();
-                oldTokens.ForEach(p => { p.IsExpired = true; });
-
-                var refresh_token = $"{Guid.NewGuid()}{Guid.NewGuid()}{Guid.NewGuid()}".Replace("-", "");
-                var refreshToken = new RefreshToken
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = currentUser.Id,
-                    Token = refresh_token,
-                    DateIssued = DateTime.Now,
-                    IsExpired = false
-                };
-
-                response.code = BaseStatus.Success;
-                response.data = new TokenInfo
-                {
-                    access_token = encodedJwt,
-                    expires_in = (int)_jwtOptions.ValidFor.TotalSeconds,
-                    token_type = "jwt",
-                    refresh_token = refresh_token
-                };
-
-                _identityContext.Add(refreshToken);
-                await _identityContext.SaveChangesAsync();
-
-                return response;
-            }
-
-            response.code = BaseStatus.Error;
-            response.description = "Не удалось войти в систему";
-            return response;
-        }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "could not login");
-                response.code = BaseStatus.Exception;
-                response.message = "Ошибка";
-                response.description = "Не удалось выполнить вход";
-                return response;
-            }
-        }
-
-
-
+        /// <summary>
+        /// The RefreshToken
+        /// </summary>
+        /// <param name="request">The request<see cref="RefreshTokenRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{TokenInfo}}"/></returns>
         [HttpPost("RefreshToken")]
         [AllowAnonymous]
         [Produces(typeof(ResponseData<TokenInfo>))]
@@ -339,6 +434,12 @@ namespace survey_api.Controllers
             response.description = "Не удалось войти в систему";
             return response;
         }
+
+        /// <summary>
+        /// The CreateToken
+        /// </summary>
+        /// <param name="currentUser">The currentUser<see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task{string}"/></returns>
         private async Task<string> CreateToken(ApplicationUser currentUser)
         {
             var roles = await _userManager.GetRolesAsync(currentUser);
@@ -369,12 +470,24 @@ namespace survey_api.Controllers
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             return encodedJwt;
         }
+
+        /// <summary>
+        /// The ConvertToUnixTimestamp
+        /// </summary>
+        /// <param name="date">The date<see cref="DateTime"/></param>
+        /// <returns>The <see cref="double"/></returns>
         private static double ConvertToUnixTimestamp(DateTime date)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             TimeSpan diff = date.ToUniversalTime() - origin;
             return Math.Floor(diff.TotalSeconds);
         }
+
+        /// <summary>
+        /// The RedirectToLocal
+        /// </summary>
+        /// <param name="returnUrl">The returnUrl<see cref="string"/></param>
+        /// <returns>The <see cref="IActionResult"/></returns>
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -386,34 +499,58 @@ namespace survey_api.Controllers
                 return Content(""); // RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
+
+        /// <summary>
+        /// The Index
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpGet("Index")]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return Content("Hello");
         }
+
+        /// <summary>
+        /// The Private
+        /// </summary>
+        /// <returns>The <see cref="IActionResult"/></returns>
         [HttpPost("Private")]
-        public  IActionResult Private()
+        public IActionResult Private()
         {
             var id = User.GetUserId();
             var roles = User.GetRoles();
 
-            
-            return Json(new { id = id, roles = string.Join(',', roles.Select(p=>p.Value)) });
+
+            return Json(new { id = id, roles = string.Join(',', roles.Select(p => p.Value)) });
         }
+
+        /// <summary>
+        /// The PrivateAdmin
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpPost("PrivateAdmin")]
         [Authorize(Roles = "SUPERADMIN")]
         public async Task<IActionResult> PrivateAdmin()
         {
             return Json(new { name = "Hello from private method" });
         }
+
+        /// <summary>
+        /// The PrivatePost
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpPost("PrivatePost")]
         public async Task<IActionResult> PrivatePost()
         {
             return Content("Hello from private method");
         }
 
-
+        /// <summary>
+        /// The AddUser
+        /// </summary>
+        /// <param name="newUser">The newUser<see cref="NewUserInfo"/></param>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpPost("AddUser")]
         [AllowAnonymous]
         public async Task<IActionResult> AddUser([FromBody] NewUserInfo newUser)
@@ -421,7 +558,7 @@ namespace survey_api.Controllers
             try
             {
                 System.Diagnostics.Debug.Print(newUser.email);
-               var email = newUser.email;
+                var email = newUser.email;
                 var user = new ApplicationUser
                 {
                     Id = Guid.NewGuid(),
@@ -437,16 +574,16 @@ namespace survey_api.Controllers
 
                 _context.Add(new XUserInfo
                 {
-                    EMail = email,
-                    Name = newUser.lastName,
-                    Family = newUser.firstName,
-                    Login= user.Id.ToString() ,
+                    eMail = email,
+                    name = newUser.lastName,
+                    family = newUser.firstName,
+                    login = user.Id.ToString(),
                     XUserInfoId = user.Id
                 });
 
                 await _context.SaveChangesAsync();
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 System.Diagnostics.Debug.Print("\r\n\r\n");
                 System.Diagnostics.Debug.Print(ex.Message);
@@ -455,6 +592,10 @@ namespace survey_api.Controllers
             return Content("ОК");
         }
 
+        /// <summary>
+        /// The InitUsers
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpGet("InitUsers")]
         [AllowAnonymous]
         public async Task<IActionResult> InitUsers()
@@ -469,7 +610,7 @@ namespace survey_api.Controllers
                 Name = MyIdentityRole.ROLE_CLIENT,
                 Id = new Guid("EA275962-49D0-4A0A-658B-08D5AF855020")
             });
-            
+
             var email = "developer.bami@gmail.com";
             var user = new ApplicationUser
             {
@@ -489,10 +630,10 @@ namespace survey_api.Controllers
 
             _context.Add(new XUserInfo
             {
-                EMail = email,
-                Name = "Super",
-                Family = "Administrator",
-                Login = user.Id.ToString(),
+                eMail = email,
+                name = "Super",
+                family = "Administrator",
+                login = user.Id.ToString(),
                 XUserInfoId = user.Id
             });
             await _context.SaveChangesAsync();
@@ -500,13 +641,15 @@ namespace survey_api.Controllers
             return Content("User created");
         }
 
+        /// <summary>
+        /// The AccessDenied
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         [HttpGet("AccessDenied")]
         [AllowAnonymous]
         public async Task<IActionResult> AccessDenied()
         {
             return StatusCode(401);
         }
-
     }
 }
-

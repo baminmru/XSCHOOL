@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XCourse} from './XCourse';
 @Injectable()
-export class XCoursePrice_Service {
+export class xCoursePrice_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,23 +13,23 @@ export class XCoursePrice_Service {
 	}
 	
 	
-	PriceDate:string = '';
-	Price:string = '';
+	priceDate:string = '';
+	price:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XCoursePrices
-    getAll_XCoursePrices(): Observable<XCourse.XCoursePrice[]> {
+	//Fetch all xCoursePrices
+    getAll_xCoursePrices(): Observable<XCourse.xCoursePrice[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.PriceDate!=''){
+		if(this.priceDate!=''){
 			if(qry !='') qry=qry +'&';
-			qry='PriceDate='+encodeURIComponent(this.PriceDate)
+			qry='priceDate='+encodeURIComponent(this.priceDate)
 		}
-		if(this.Price!=''){
+		if(this.price!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Price='+encodeURIComponent(this.Price)
+			qry='price='+encodeURIComponent(this.price)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -41,60 +41,60 @@ export class XCoursePrice_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XCourse.XCoursePrice[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XCourse.xCoursePrice[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XCourse.XCoursePrice[]>(this.serviceURL + '/XCoursePrice/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XCourse.xCoursePrice[]>(this.serviceURL + '/xCoursePrice/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.PriceDate = '';
-	this.Price = '';
+	this.priceDate = '';
+	this.price = '';
 		
 	}
  
-	   //Create XCoursePrice
-    create_XCoursePrice(XCoursePrice: XCourse.XCoursePrice): Observable<Object > {
-       // XCoursePrice.XCoursePriceId = '';
+	   //Create xCoursePrice
+    create_xCoursePrice(xCoursePrice: XCourse.xCoursePrice): Observable<XCourse.xCoursePrice > {
+       // xCoursePrice.xCoursePriceId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XCoursePrice/', XCoursePrice, { headers: cpHeaders })
+        return this.http.post<XCourse.xCoursePrice >(this.serviceURL + '/xCoursePrice/', xCoursePrice, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XCoursePrice by parent
-    get_XCoursePriceByParent(parentId: string): Observable<XCourse.XCoursePrice[]> {
+	//Fetch xCoursePrice by parent
+    get_xCoursePriceByParent(parentId: string): Observable<XCourse.xCoursePrice[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XCoursePrice/byparent/'+ parentId)
-        return this.http.get<XCourse.XCoursePrice[]>(this.serviceURL + '/XCoursePrice/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xCoursePrice/byparent/'+ parentId)
+        return this.http.get<XCourse.xCoursePrice[]>(this.serviceURL + '/xCoursePrice/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XCoursePrice by id
-    get_XCoursePriceById(XCoursePriceId: string): Observable<XCourse.XCoursePrice> {
+	//Fetch xCoursePrice by id
+    get_xCoursePriceById(xCoursePriceId: string): Observable<XCourse.xCoursePrice> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XCoursePrice/'+ XCoursePriceId)
-        return this.http.get<XCourse.XCoursePrice>(this.serviceURL + '/XCoursePrice/' + XCoursePriceId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xCoursePrice/'+ xCoursePriceId)
+        return this.http.get<XCourse.xCoursePrice>(this.serviceURL + '/xCoursePrice/' + xCoursePriceId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XCoursePrice
-    update_XCoursePrice(XCoursePrice: XCourse.XCoursePrice):Observable<Object > {
+	   //Update xCoursePrice
+    update_xCoursePrice(xCoursePrice: XCourse.xCoursePrice):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XCoursePrice/' + XCoursePrice.XCoursePriceId, XCoursePrice, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xCoursePrice/' + xCoursePrice.xCoursePriceId, xCoursePrice, { headers: cpHeaders })
     }
 	
-    //Delete XCoursePrice	
-    delete_XCoursePriceById(XCoursePriceId: string): Observable<Object> {
+    //Delete xCoursePrice	
+    delete_xCoursePriceById(xCoursePriceId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XCoursePrice/' + XCoursePriceId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xCoursePrice/' + xCoursePriceId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XCourse.XCoursePrice = null;
+	private mSelecetd:XCourse.xCoursePrice = null;
 	
-	public 	get Selected():XCourse.XCoursePrice{ return this.mSelecetd;}
+	public 	get Selected():XCourse.xCoursePrice{ return this.mSelecetd;}
 	
-	public  set Selected(_XCoursePrice:XCourse.XCoursePrice){ this.mSelecetd=_XCoursePrice; }
+	public  set Selected(_xCoursePrice:XCourse.xCoursePrice){ this.mSelecetd=_xCoursePrice; }
  
 }

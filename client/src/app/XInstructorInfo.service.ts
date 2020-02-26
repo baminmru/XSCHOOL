@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XInstructor} from './XInstructor';
 @Injectable()
-export class XInstructorInfo_Service {
+export class xInstructorInfo_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,43 +13,48 @@ export class XInstructorInfo_Service {
 	}
 	
 	
-	Family:string = '';
-	Name:string = '';
-	SurName:string = '';
-	EMail:string = '';
-	Phone:string = '';
-	LocalPhone:string = '';
+	family:string = '';
+	name:string = '';
+	middleName:string = '';
+	eMail:string = '';
+	phone:string = '';
+	photoUrl:string = '';
+	localPhone:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XInstructorInfos
-    getAll_XInstructorInfos(): Observable<XInstructor.XInstructorInfo[]> {
+	//Fetch all xInstructorInfos
+    getAll_xInstructorInfos(): Observable<XInstructor.xInstructorInfo[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.Family!=''){
+		if(this.family!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Family='+encodeURIComponent(this.Family)
+			qry='family='+encodeURIComponent(this.family)
 		}
-		if(this.Name!=''){
+		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Name='+encodeURIComponent(this.Name)
+			qry='name='+encodeURIComponent(this.name)
 		}
-		if(this.SurName!=''){
+		if(this.middleName!=''){
 			if(qry !='') qry=qry +'&';
-			qry='SurName='+encodeURIComponent(this.SurName)
+			qry='middleName='+encodeURIComponent(this.middleName)
 		}
-		if(this.EMail!=''){
+		if(this.eMail!=''){
 			if(qry !='') qry=qry +'&';
-			qry='EMail='+encodeURIComponent(this.EMail)
+			qry='eMail='+encodeURIComponent(this.eMail)
 		}
-		if(this.Phone!=''){
+		if(this.phone!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Phone='+encodeURIComponent(this.Phone)
+			qry='phone='+encodeURIComponent(this.phone)
 		}
-		if(this.LocalPhone!=''){
+		if(this.photoUrl!=''){
 			if(qry !='') qry=qry +'&';
-			qry='LocalPhone='+encodeURIComponent(this.LocalPhone)
+			qry='photoUrl='+encodeURIComponent(this.photoUrl)
+		}
+		if(this.localPhone!=''){
+			if(qry !='') qry=qry +'&';
+			qry='localPhone='+encodeURIComponent(this.localPhone)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -61,57 +66,58 @@ export class XInstructorInfo_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XInstructor.XInstructorInfo[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XInstructor.xInstructorInfo[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XInstructor.XInstructorInfo[]>(this.serviceURL + '/XInstructorInfo/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XInstructor.xInstructorInfo[]>(this.serviceURL + '/xInstructorInfo/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.Family = '';
-	this.Name = '';
-	this.SurName = '';
-	this.EMail = '';
-	this.Phone = '';
-	this.LocalPhone = '';
+	this.family = '';
+	this.name = '';
+	this.middleName = '';
+	this.eMail = '';
+	this.phone = '';
+	this.photoUrl = '';
+	this.localPhone = '';
 		
 	}
  
-	   //Create XInstructorInfo
-    create_XInstructorInfo(XInstructorInfo: XInstructor.XInstructorInfo): Observable<Object > {
-       // XInstructorInfo.XInstructorInfoId = '';
+	   //Create xInstructorInfo
+    create_xInstructorInfo(xInstructorInfo: XInstructor.xInstructorInfo): Observable<XInstructor.xInstructorInfo > {
+       // xInstructorInfo.xInstructorInfoId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XInstructorInfo/', XInstructorInfo, { headers: cpHeaders })
+        return this.http.post<XInstructor.xInstructorInfo >(this.serviceURL + '/xInstructorInfo/', xInstructorInfo, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XInstructorInfo by id
-    get_XInstructorInfoById(XInstructorInfoId: string): Observable<XInstructor.XInstructorInfo> {
+	//Fetch xInstructorInfo by id
+    get_xInstructorInfoById(xInstructorInfoId: string): Observable<XInstructor.xInstructorInfo> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XInstructorInfo/'+ XInstructorInfoId)
-        return this.http.get<XInstructor.XInstructorInfo>(this.serviceURL + '/XInstructorInfo/' + XInstructorInfoId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xInstructorInfo/'+ xInstructorInfoId)
+        return this.http.get<XInstructor.xInstructorInfo>(this.serviceURL + '/xInstructorInfo/' + xInstructorInfoId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XInstructorInfo
-    update_XInstructorInfo(XInstructorInfo: XInstructor.XInstructorInfo):Observable<Object > {
+	   //Update xInstructorInfo
+    update_xInstructorInfo(xInstructorInfo: XInstructor.xInstructorInfo):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XInstructorInfo/' + XInstructorInfo.XInstructorInfoId, XInstructorInfo, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xInstructorInfo/' + xInstructorInfo.xInstructorInfoId, xInstructorInfo, { headers: cpHeaders })
     }
 	
-    //Delete XInstructorInfo	
-    delete_XInstructorInfoById(XInstructorInfoId: string): Observable<Object> {
+    //Delete xInstructorInfo	
+    delete_xInstructorInfoById(xInstructorInfoId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XInstructorInfo/' + XInstructorInfoId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xInstructorInfo/' + xInstructorInfoId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XInstructor.XInstructorInfo = null;
+	private mSelecetd:XInstructor.xInstructorInfo = null;
 	
-	public 	get Selected():XInstructor.XInstructorInfo{ return this.mSelecetd;}
+	public 	get Selected():XInstructor.xInstructorInfo{ return this.mSelecetd;}
 	
-	public  set Selected(_XInstructorInfo:XInstructor.XInstructorInfo){ this.mSelecetd=_XInstructorInfo; }
+	public  set Selected(_xInstructorInfo:XInstructor.xInstructorInfo){ this.mSelecetd=_xInstructorInfo; }
  
 }

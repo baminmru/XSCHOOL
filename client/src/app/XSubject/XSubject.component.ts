@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XSubject_Service } from "app/XSubject.service";
+import { xSubject_Service } from "app/XSubject.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,37 +13,37 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XSubject',
+	   selector: 'app-xSubject',
     styleUrls: ['./XSubject.component.scss'],
     templateUrl: './XSubject.component.html',
 })
-export class XSubjectComponent implements OnInit {
+export class xSubjectComponent implements OnInit {
 
-    XSubjectArray: Array<XDict.XSubject> = [];
+    xSubjectArray: Array<XDict.xSubject> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXSubject: XDict.XSubject = {} as XDict.XSubject;
+    currentxSubject: XDict.xSubject = {} as XDict.xSubject;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
 
-    constructor( private XSubject_Service: XSubject_Service,  public AppService:AppService ) {
+    constructor( private xSubject_Service: xSubject_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-        this.refreshXSubject();
+        this.refreshxSubject();
     }
     refreshCombo() {
     }
     ngOnDestroy() {
     }
 
-    refreshXSubject() {
-		   console.log("refreshing XSubject"); 
-        this.XSubject_Service.getAll_XSubjects().subscribe(XSubjectArray => { this.XSubjectArray = XSubjectArray; }, error => { this.ShowError(error.message); })
-        this.currentXSubject = {} as XDict.XSubject;
+    refreshxSubject() {
+		   console.log("refreshing xSubject"); 
+        this.xSubject_Service.getAll_xSubjects().subscribe(xSubjectArray => { this.xSubjectArray = xSubjectArray; }, error => { this.ShowError(error.message); })
+        this.currentxSubject = {} as XDict.xSubject;
     }
 
 	   ShowError(message:string){
@@ -52,53 +52,53 @@ export class XSubjectComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXSubject();
-		return this.XSubjectArray ;
+		this.refreshxSubject();
+		return this.xSubjectArray ;
 	   }
 
-    onSelect(item: XDict.XSubject) {
-        this.currentXSubject = item;
+    onSelect(item: XDict.xSubject) {
+        this.currentxSubject = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-        this.currentXSubject = {} as XDict.XSubject;
+        this.currentxSubject = {} as XDict.xSubject;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
     }
 
-    onEdit(item: XDict.XSubject) {
+    onEdit(item: XDict.xSubject) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXSubject = item;
+        this.currentxSubject = item;
     }
 
-    onDelete(item: XDict.XSubject) {
+    onDelete(item: XDict.xSubject) {
         this.confirmOpened = true;
-        this.currentXSubject = item;
+        this.currentxSubject = item;
     }
 
     onConfirmDeletion() {
-        this.XSubject_Service.delete_XSubjectById(this.currentXSubject.XSubjectId).subscribe(data => {this.refreshXSubject()}, error => { this.ShowError(error.message); });
+        this.xSubject_Service.delete_xSubjectById(this.currentxSubject.xSubjectId).subscribe(data => {this.refreshxSubject()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XDict.XSubject) {
+    save(item: XDict.xSubject) {
         this.valid=true; 
-     if(this.currentXSubject.name == undefined || this.currentXSubject.name=='') this.valid=false;
+     if(this.currentxSubject.name == undefined || this.currentxSubject.name=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XSubject_Service.create_XSubject(item)
-                        .subscribe(data =>{ this.refreshXSubject()}, error => { this.ShowError(error.message); });
+                    this.xSubject_Service.create_xSubject(item)
+                        .subscribe(data =>{ this.refreshxSubject()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XSubject_Service.update_XSubject( item)
-                        .subscribe(data => {this.refreshXSubject()}, error => { this.ShowError(error.message); });
+                    this.xSubject_Service.update_xSubject( item)
+                        .subscribe(data => {this.refreshxSubject()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -116,9 +116,9 @@ export class XSubjectComponent implements OnInit {
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Название';
 /* fill data to array */
-        for(var i = 0; i < this.XSubjectArray.length; ++i) {
+        for(var i = 0; i < this.xSubjectArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XSubjectArray[i].name;
+            aoa[i+1][0]=this.xSubjectArray[i].name;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -131,7 +131,7 @@ export class XSubjectComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XSubject');
+        XLSX.utils.book_append_sheet(wb, ws, 'xSubject');
         
 
         wb.Props = {
@@ -148,13 +148,13 @@ export class XSubjectComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XSubject.xlsx');
+		XLSX.writeFile(wb, 'xSubject.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXSubject = {} as XDict.XSubject;
+        this.currentxSubject = {} as XDict.xSubject;
     }
 }
  

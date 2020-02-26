@@ -8,23 +8,34 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using x_srv.models;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XUserInfo")]
     public class XUserInfoController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
+        public static IConfiguration _configuration { get; set; }
 
-        public XUserInfoController(MyContext context, IHostingEnvironment appEnvironment)
+        private static string FilePath;
+        public XUserInfoController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment, IConfiguration configuration)
         {
             _context = context;
             _appEnvironment = appEnvironment;
-        }
+            _configuration = configuration;
+            FilePath = _appEnvironment.WebRootPath + "/" + _configuration["fileStoragePath"] + "/";
+
+            if (!Directory.Exists(FilePath))
+            {
+                Directory.CreateDirectory(FilePath);
+            }
+        
+    }
 
         // GET: api/XUserInfo
         [HttpGet]
@@ -127,6 +138,73 @@ namespace x_srv.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetXUserInfo", new { id = varXUserInfo.XUserInfoId }, varXUserInfo);
+        }
+
+        [HttpPost("upload")]
+        [AllowAnonymous]
+        // [RequestSizeLimit(1024 * 1024 * 1024)]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
+        {
+            Guid id;
+
+            try
+            {
+                id = new Guid(Request.Form["rowid"]);
+            }
+            catch
+            {
+                return NoContent();
+            }
+            XUserInfo xi = _context.XUserInfo.FirstOrDefault(x => x.XUserInfoId == id);
+            if (xi != null)
+            {
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files[0];
+
+                    if (file == null || file.Length == 0)
+                    {
+                        return NoContent();
+                    }
+
+                    // try to delete old file
+                    if (xi.photoUrl != null  && xi.photoUrl.Length > 20)  // guid-name
+                    {
+                        if (System.IO.File.Exists(FilePath + xi.photoUrl))
+                        {
+                            try
+                            {
+                                System.IO.File.Delete(FilePath + xi.photoUrl);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    // handle file here
+                    var stream = file.OpenReadStream();
+                    FileInfo fi;
+                    string realFileName;
+                    fi = new FileInfo(file.FileName);
+                    Guid rowid = Guid.NewGuid();
+                    realFileName = rowid.ToString().Replace("{", "").Replace("}", "").Replace("-", "") + fi.Extension;
+                    string targetFilePath = FilePath + realFileName;
+
+                    using (var targetStream = System.IO.File.Create(targetFilePath))
+                    {
+                        await stream.CopyToAsync(targetStream);
+                        stream.Close();
+                        targetStream.Close();
+                    }
+
+                    xi.photoUrl = "/" + _configuration["fileStoragePath"] + "/" + realFileName;
+                    await _context.SaveChangesAsync();
+                    return Ok(xi.photoUrl);
+                }
+            }
+            return NoContent();
         }
 
         // DELETE: api/XUserInfo/5

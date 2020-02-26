@@ -5,15 +5,17 @@
   <amexio-body>
 	<amexio-tab-view  [closable]="false">
 		<amexio-tab  title="Описание курса"  [active]="true" >
-			<app-XCourseDesc></app-XCourseDesc>
+			<app-xCourseDesc></app-xCourseDesc>
 		</amexio-tab>
 		
 		<amexio-tab  title="Модули курса"  >
-			<app-XCourseModule></app-XCourseModule>
+			<app-xCourseModule></app-xCourseModule>
+			<br/>
+			<app-xChepter></app-xChepter>
 		</amexio-tab>
 		
 		<amexio-tab  title="Цены"  >
-			<app-XCoursePrice></app-XCoursePrice>
+			<app-xCoursePrice></app-xCoursePrice>
 		</amexio-tab>
 		
 	</amexio-tab-view>

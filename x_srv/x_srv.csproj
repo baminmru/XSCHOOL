@@ -8,7 +8,7 @@
     <Compile Remove="Controllers\AccountsController.cs" />
     <Compile Remove="Controllers\AuthController.cs" />
     <Compile Remove="Data\ApplicationDbContext.cs" />
-    <Compile Remove="Data\MyContext.cs" />
+    <Compile Remove="Data\GoodRussianDbContext.cs" />
     <Compile Remove="Models\DATA.cs" />
     <Compile Remove="Models\moncli.cs" />
     <Compile Remove="Models\MOND.cs" />
@@ -46,5 +46,7 @@
     <ProjectReference Include="..\MySys.Common\MySys.Common.csproj" />
     <ProjectReference Include="..\MySys.Identity\MySys.Identity.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

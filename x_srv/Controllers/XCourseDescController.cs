@@ -8,28 +8,39 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using x_srv.models;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XCourseDesc")]
-    public class XCourseDescController : Controller
+    public class xCourseDescController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
+        public static IConfiguration _configuration { get; set; }
 
-        public XCourseDescController(MyContext context, IHostingEnvironment appEnvironment)
+        private static string FilePath;
+
+        public xCourseDescController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment, IConfiguration configuration)
         {
             _context = context;
             _appEnvironment = appEnvironment;
+            _configuration = configuration;
+            FilePath = _appEnvironment.WebRootPath + "/" + _configuration["fileStoragePath"] + "/";
+
+            if (!Directory.Exists(FilePath))
+            {
+                Directory.CreateDirectory(FilePath);
+            }
         }
 
         // GET: api/XCourseDesc
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetXCourseDesc()
+        public IActionResult GetxCourseDesc()
         {
             return Json (_context.XCourseDesc, _context.serializerSettings());
         }
@@ -40,7 +51,7 @@ namespace x_srv.Controllers
         {
             //var uid = User.GetUserId();
 
-            string sql = @"SELECT XCourseDescId id, ( [dbo].[XCourseDesc_BRIEF_F](XCourseDescId,null)  ) name
+            string sql = @"SELECT XCourseDescId id, ( [dbo].[xCourseDesc_BRIEF_F](XCourseDescId,null)  ) name
                          FROM            
                           XCourseDesc 
                             order by name ";
@@ -53,46 +64,46 @@ namespace x_srv.Controllers
         {
             //var uid = User.GetUserId();
 
-            string sql = @"SELECT * FROM V_XCourseDesc ";
+            string sql = @"SELECT * FROM V_xCourseDesc ";
             return _context.GetRaw(sql);
         }
         
         // GET: api/XCourseDesc/5
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetXCourseDesc([FromRoute] Guid id)
+        public async Task<IActionResult> GetxCourseDesc([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var varXCourseDesc = await _context.XCourseDesc.SingleOrDefaultAsync(m => m.XCourseDescId == id);
+            var varxCourseDesc = await _context.XCourseDesc.SingleOrDefaultAsync(m => m.XCourseDescId == id);
 
-            if (varXCourseDesc == null)
+            if (varxCourseDesc == null)
             {
                 return NotFound();
             }
 
-            return Ok(varXCourseDesc);
+            return Ok(varxCourseDesc);
         }
 
         // PUT: api/XCourseDesc/5
         [HttpPut("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> PutXCourseDesc([FromRoute] Guid id, [FromBody] XCourseDesc varXCourseDesc)
+        public async Task<IActionResult> PutxCourseDesc([FromRoute] Guid id, [FromBody] XCourseDesc varxCourseDesc)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != varXCourseDesc.XCourseDescId)
+            if (id != varxCourseDesc.XCourseDescId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(varXCourseDesc).State = EntityState.Modified;
+            _context.Entry(varxCourseDesc).State = EntityState.Modified;
 
             try
             {
@@ -100,7 +111,7 @@ namespace x_srv.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!XCourseDescExists(id))
+                if (!xCourseDescExists(id))
                 {
                     return NotFound();
                 }
@@ -113,45 +124,116 @@ namespace x_srv.Controllers
             return NoContent();
         }
 
+
+        
+        [HttpPost("upload")]
+        [AllowAnonymous]
+        // [RequestSizeLimit(1024 * 1024 * 1024)]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
+        {
+            Guid id;
+
+            try
+            {
+                id = new Guid(Request.Form["rowid"]);
+            }
+            catch
+            {
+                return NoContent();
+            }
+            XCourseDesc xi = _context.XCourseDesc.FirstOrDefault(x => x.XCourseDescId == id);
+            if (xi != null)
+            {
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files[0];
+
+                    if (file == null || file.Length == 0)
+                    {
+                        return NoContent();
+                    }
+
+
+                    // try to delete old file
+                    if (xi.imageUrl != null && xi.imageUrl.Length > 20)  // guid-name
+                    {
+                        if (System.IO.File.Exists(FilePath + xi.imageUrl))
+                        {
+                            try
+                            {
+                                System.IO.File.Delete(FilePath + xi.imageUrl);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    // handle file here
+                    var stream = file.OpenReadStream();
+                    FileInfo fi;
+                    string realFileName;
+                    fi = new FileInfo(file.FileName);
+                    Guid rowid = Guid.NewGuid();
+                    realFileName = rowid.ToString().Replace("{", "").Replace("}", "").Replace("-", "") + fi.Extension;
+                    string targetFilePath = FilePath + realFileName;
+
+                    using (var targetStream = System.IO.File.Create(targetFilePath))
+                    {
+                        await stream.CopyToAsync(targetStream);
+                        stream.Close();
+                        targetStream.Close();
+                    }
+
+                    xi.imageUrl = "/" + _configuration["fileStoragePath"] + "/" + realFileName;
+                    await _context.SaveChangesAsync();
+                    return Ok(xi.imageUrl);
+                }
+            }
+            return NoContent();
+        }
+
+
         // POST: api/XCourseDesc
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> PostXCourseDesc([FromBody] XCourseDesc varXCourseDesc)
+        public async Task<IActionResult> PostxCourseDesc([FromBody] XCourseDesc varxCourseDesc)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.XCourseDesc.Add(varXCourseDesc);
+            _context.XCourseDesc.Add(varxCourseDesc);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetXCourseDesc", new { id = varXCourseDesc.XCourseDescId }, varXCourseDesc);
+            return CreatedAtAction("GetxCourseDesc", new { id = varxCourseDesc.XCourseDescId }, varxCourseDesc);
         }
 
         // DELETE: api/XCourseDesc/5
         [HttpDelete("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> DeleteXCourseDesc([FromRoute] Guid id)
+        public async Task<IActionResult> DeletexCourseDesc([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var varXCourseDesc = await _context.XCourseDesc.SingleOrDefaultAsync(m => m.XCourseDescId == id);
-            if (varXCourseDesc == null)
+            var varxCourseDesc = await _context.XCourseDesc.SingleOrDefaultAsync(m => m.XCourseDescId == id);
+            if (varxCourseDesc == null)
             {
                 return NotFound();
             }
 
-            _context.XCourseDesc.Remove(varXCourseDesc);
+            _context.XCourseDesc.Remove(varxCourseDesc);
             await _context.SaveChangesAsync();
 
-            return Ok(varXCourseDesc);
+            return Ok(varxCourseDesc);
         }
 
-        private bool XCourseDescExists(Guid id)
+        private bool xCourseDescExists(Guid id)
         {
             return _context.XCourseDesc.Any(e => e.XCourseDescId == id);
         }

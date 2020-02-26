@@ -1,31 +1,58 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using MySys.Identity.Models;
-using MySys.Common.Service ;
-using MySys.Common.User;
-using x_srv.Services.Users.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using x_srv.models;
-using x_srv.Services.Data.User;
+﻿/*
+UserService.cs
+Created by: BAMINOTE\bami
+Modified: 17.12.2019
+*/
 
 namespace x_srv.Services.Users
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+    using MySys.Common.Service;
+    using MySys.Common.User;
+    using MySys.Identity.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using x_srv.models;
+    using x_srv.Services.Data.User;
+    using x_srv.Services.Users.Data;
+
+    /// <summary>
+    /// Defines the <see cref="UserService" />
+    /// </summary>
     public class UserService
     {
-        public MyContext _ctx { get; set; }
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<MyIdentityRole> _roleManager;
-        private readonly ILogger _logger;
-        //private readonly SignInManager<ApplicationUser> _signInManager;
-        //private readonly EmailService _emailService;
-        //private readonly ILogger _logger;
+        /// <summary>
+        /// Gets or sets the _ctx
+        /// </summary>
+        public GoodRussianDbContext _ctx { get; set; }
 
-        public UserService(MyContext ctx,
+        /// <summary>
+        /// Defines the _userManager
+        /// </summary>
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        /// <summary>
+        /// Defines the _roleManager
+        /// </summary>
+        private readonly RoleManager<MyIdentityRole> _roleManager;
+
+        /// <summary>
+        /// Defines the _logger
+        /// </summary>
+        private readonly ILogger _logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserService"/> class.
+        /// </summary>
+        /// <param name="ctx">The ctx<see cref="GoodRussianDbContext"/></param>
+        /// <param name="userManager">The userManager<see cref="UserManager{ApplicationUser}"/></param>
+        /// <param name="roleManager">The roleManager<see cref="RoleManager{MyIdentityRole}"/></param>
+        /// <param name="logger">The logger<see cref="ILogger{UserService}"/></param>
+        public UserService(GoodRussianDbContext ctx,
             UserManager<ApplicationUser> userManager,
             RoleManager<MyIdentityRole> roleManager,
             //EmailService emailService,
@@ -36,8 +63,6 @@ namespace x_srv.Services.Users
             _userManager = userManager;
             _roleManager = roleManager;
             _logger = logger;
-            //_emailService = emailService;
-            //_logger = logger;
         }
 
         //public async Task<TokenResponse> ClientLoginAsync(string email, string password, string clientid, string appsecret, string ip, string userAgent, string appVersion)
@@ -60,7 +85,11 @@ namespace x_srv.Services.Users
         //        throw new Exception("Fail login", ex);
         //    }
         //}
-
+        /// <summary>
+        /// The GetUserProfile
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <returns>The <see cref="Task{ResponseData{GetUserProfileResponse}}"/></returns>
         public async Task<ResponseData<GetUserProfileResponse>> GetUserProfile(UserToken userToken)
         {
             return await GetUserProfile(userToken, new GetUserProfileRequest
@@ -68,6 +97,13 @@ namespace x_srv.Services.Users
                 Id = userToken.Id
             });
         }
+
+        /// <summary>
+        /// The GetUserProfile
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="GetUserProfileRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{GetUserProfileResponse}}"/></returns>
         public async Task<ResponseData<GetUserProfileResponse>> GetUserProfile(UserToken userToken, GetUserProfileRequest request)
         {
             try
@@ -98,6 +134,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The UpdateUserProfile
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="UpdateUserProfileRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{UpdateUserProfileResponse}}"/></returns>
         public async Task<ResponseData<UpdateUserProfileResponse>> UpdateUserProfile(UserToken userToken, UpdateUserProfileRequest request)
         {
             try
@@ -113,10 +156,10 @@ namespace x_srv.Services.Users
                     throw new ServiceException("Неправильный пользователь");
 
 
-                profile.Phone = request.Phone;
-                profile.Name = request.FirstName;
-                profile.SurName  = request.MiddleName;
-                profile.Family = request.LastName;
+                profile.phone = request.Phone;
+                profile.name = request.FirstName;
+                profile.middleName = request.MiddleName;
+                profile.family = request.LastName;
 
                 await _ctx.SaveChangesAsync();
 
@@ -137,6 +180,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The UpdateUserProfileRole
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="UpdateUserProfileRoleRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{UpdateUserProfileRoleResponse}}"/></returns>
         public async Task<ResponseData<UpdateUserProfileRoleResponse>> UpdateUserProfileRole(UserToken userToken, UpdateUserProfileRoleRequest request)
         {
             try
@@ -155,7 +205,7 @@ namespace x_srv.Services.Users
                 if (role == null)
                     throw new ServiceException("Роль не найдена");
 
-                var user = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == profile.XUserInfoId );
+                var user = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == profile.XUserInfoId);
 
                 var removeRoleResult = await _userManager.RemoveFromRolesAsync(user, MyIdentityRole.ALL_ROLES);
                 if (!removeRoleResult.Succeeded)
@@ -195,6 +245,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The CreateUserProfile
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="CreateUserProfileRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{CreateUserProfileResponse}}"/></returns>
         public async Task<ResponseData<CreateUserProfileResponse>> CreateUserProfile(UserToken userToken, CreateUserProfileRequest request)
         {
             try
@@ -214,14 +271,14 @@ namespace x_srv.Services.Users
                 //    throw new ServiceException("Несуществующая организация");
 
                 var selfProfile = await _ctx.XUserInfo
-                                    .Where(p => p.Login == userToken.Id.ToString())
+                                    .Where(p => p.login == userToken.Id.ToString())
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync();
 
                 var currentuser = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == userToken.Id);
 
                 if (await _userManager.IsInRoleAsync(currentuser, MyIdentityRole.ROLE_SUPERADMIN) ||
-                    (await _userManager.IsInRoleAsync(currentuser, MyIdentityRole.ROLE_ADMIN) 
+                    (await _userManager.IsInRoleAsync(currentuser, MyIdentityRole.ROLE_ADMIN)
                     //&& selfProfile.theClient  == request.OrganizationId
                     ))
                 {
@@ -253,12 +310,12 @@ namespace x_srv.Services.Users
 
                 _ctx.Add(new XUserInfo
                 {
-                    EMail  = request.Email,
-                    Name = request.FirstName,
-                    Family  = request.FirstName,
-                    SurName = request.MiddleName,
+                    eMail = request.Email,
+                    name = request.FirstName,
+                    family = request.FirstName,
+                    middleName = request.MiddleName,
                     //theClient  = request.OrganizationId,
-                    Phone  = request.Phone,
+                    phone = request.Phone,
                     //login  = user.Id.ToString(),
                     XUserInfoId = user.Id
                 });
@@ -287,6 +344,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The DeleteUserProfile
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="DeleteUserProfileRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{DeleteUserProfileResponse}}"/></returns>
         public async Task<ResponseData<DeleteUserProfileResponse>> DeleteUserProfile(UserToken userToken, DeleteUserProfileRequest request)
         {
             try
@@ -329,6 +393,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The ChangePassword
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="ChangePasswordRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{ChangePasswordResponse}}"/></returns>
         public async Task<ResponseData<ChangePasswordResponse>> ChangePassword(UserToken userToken, ChangePasswordRequest request)
         {
             try
@@ -339,7 +410,7 @@ namespace x_srv.Services.Users
                     throw new UnauthorizedAccessException();
 
                 var profile = await _ctx.XUserInfo
-                                .Where(p => p.Login == request.Id.ToString())
+                                .Where(p => p.login == request.Id.ToString())
                                 .FirstOrDefaultAsync();
 
                 // access
@@ -347,15 +418,15 @@ namespace x_srv.Services.Users
                 if (userToken.Id != request.Id)
                 {
                     var selfProfile = await _ctx.XUserInfo
-                        .Where(p => p.Login == userToken.Id.ToString() )
+                        .Where(p => p.login == userToken.Id.ToString())
                         .AsNoTracking()
                         .FirstOrDefaultAsync();
 
                     var selfuser = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == userToken.Id);
 
                     if (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_SUPERADMIN) ||
-                        (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_ADMIN) 
-                         // && selfProfile.theClient  == profile.theClient
+                        (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_ADMIN)
+                        // && selfProfile.theClient  == profile.theClient
                         ))
                     {
                         // ok, have access
@@ -419,6 +490,12 @@ namespace x_srv.Services.Users
             }
         }
 
+        /// <summary>
+        /// The GetOrganizations
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="GetOrganizationsRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{GetOrganizationsResponse}}"/></returns>
         public async Task<ResponseData<GetOrganizationsResponse>> GetOrganizations(UserToken userToken, GetOrganizationsRequest request)
         {
             try
@@ -429,7 +506,7 @@ namespace x_srv.Services.Users
                     throw new UnauthorizedAccessException();
 
                 var selfProfile = await _ctx.XUserInfo
-                        .Where(p => p.Login == userToken.Id.ToString())
+                        .Where(p => p.login == userToken.Id.ToString())
                         .AsNoTracking()
                         .FirstOrDefaultAsync();
 
@@ -467,6 +544,13 @@ namespace x_srv.Services.Users
                 };
             }
         }
+
+        /// <summary>
+        /// The GetOrganizationUsers
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="request">The request<see cref="GetOrganizationUsersRequest"/></param>
+        /// <returns>The <see cref="Task{ResponseData{GetOrganizationUsersResponse}}"/></returns>
         public async Task<ResponseData<GetOrganizationUsersResponse>> GetOrganizationUsers(UserToken userToken, GetOrganizationUsersRequest request)
         {
             try
@@ -478,14 +562,14 @@ namespace x_srv.Services.Users
 
                 // access
                 var selfProfile = await _ctx.XUserInfo
-                    .Where(p => p.Login == userToken.Id.ToString())
+                    .Where(p => p.login == userToken.Id.ToString())
                     .AsNoTracking()
                     .FirstOrDefaultAsync();
 
                 var selfuser = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == userToken.Id);
 
                 List<OrganizationUserItem> items = null;
-                if (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_SUPERADMIN) 
+                if (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_SUPERADMIN)
                     // || request.Id == selfProfile.theClient 
                     )
                 {
@@ -494,7 +578,7 @@ namespace x_srv.Services.Users
                     //    {
                     //        Id = p.XUserInfoId,
                     //        FirstName = p.name,
-                    //        MiddleName = p.surname,
+                    //        MiddleName = p.MiddleName,
                     //        LastName = p.lastname,
                     //        Email = p.email,
                     //    }).ToListAsync();
@@ -505,7 +589,7 @@ namespace x_srv.Services.Users
                         var roles = await _userManager.GetRolesAsync(user);
                         item.Role = roles.FirstOrDefault();
                     }
-                    
+
                 }
                 else
                     throw new UnauthorizedAccessException();
@@ -529,23 +613,29 @@ namespace x_srv.Services.Users
             }
         }
 
+        /// <summary>
+        /// The CheckAccess
+        /// </summary>
+        /// <param name="userToken">The userToken<see cref="UserToken"/></param>
+        /// <param name="userId">The userId<see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{XUserInfo}"/></returns>
         private async Task<XUserInfo> CheckAccess(UserToken userToken, Guid userId)
         {
             var profile = await _ctx.XUserInfo
-                                .Where(p => p.Login  == userId.ToString())
+                                .Where(p => p.login == userId.ToString())
                                 .FirstOrDefaultAsync();
 
             // access
             if (userToken.Id != userId)
             {
                 var selfProfile = await _ctx.XUserInfo
-                    .Where(p => p.Login == userToken.Id.ToString())
+                    .Where(p => p.login == userToken.Id.ToString())
                     .AsNoTracking()
                     .FirstOrDefaultAsync();
 
                 var selfuser = await _userManager.Users.FirstOrDefaultAsync(p => p.Id == userToken.Id);
                 if (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_SUPERADMIN) ||
-                    (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_ADMIN) 
+                    (await _userManager.IsInRoleAsync(selfuser, MyIdentityRole.ROLE_ADMIN)
                     //&& selfProfile.theClient == profile.theClient 
                     ))
                 {
@@ -559,6 +649,5 @@ namespace x_srv.Services.Users
 
             return profile;
         }
-
     }
 }

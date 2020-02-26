@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XSubscriptionType_Service } from "app/XSubscriptionType.service";
+import { xSubscriptionType_Service } from "app/XSubscriptionType.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,37 +13,37 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XSubscriptionType',
+	   selector: 'app-xSubscriptionType',
     styleUrls: ['./XSubscriptionType.component.scss'],
     templateUrl: './XSubscriptionType.component.html',
 })
-export class XSubscriptionTypeComponent implements OnInit {
+export class xSubscriptionTypeComponent implements OnInit {
 
-    XSubscriptionTypeArray: Array<XDict.XSubscriptionType> = [];
+    xSubscriptionTypeArray: Array<XDict.xSubscriptionType> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXSubscriptionType: XDict.XSubscriptionType = {} as XDict.XSubscriptionType;
+    currentxSubscriptionType: XDict.xSubscriptionType = {} as XDict.xSubscriptionType;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
 
-    constructor( private XSubscriptionType_Service: XSubscriptionType_Service,  public AppService:AppService ) {
+    constructor( private xSubscriptionType_Service: xSubscriptionType_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-        this.refreshXSubscriptionType();
+        this.refreshxSubscriptionType();
     }
     refreshCombo() {
     }
     ngOnDestroy() {
     }
 
-    refreshXSubscriptionType() {
-		   console.log("refreshing XSubscriptionType"); 
-        this.XSubscriptionType_Service.getAll_XSubscriptionTypes().subscribe(XSubscriptionTypeArray => { this.XSubscriptionTypeArray = XSubscriptionTypeArray; }, error => { this.ShowError(error.message); })
-        this.currentXSubscriptionType = {} as XDict.XSubscriptionType;
+    refreshxSubscriptionType() {
+		   console.log("refreshing xSubscriptionType"); 
+        this.xSubscriptionType_Service.getAll_xSubscriptionTypes().subscribe(xSubscriptionTypeArray => { this.xSubscriptionTypeArray = xSubscriptionTypeArray; }, error => { this.ShowError(error.message); })
+        this.currentxSubscriptionType = {} as XDict.xSubscriptionType;
     }
 
 	   ShowError(message:string){
@@ -52,54 +52,54 @@ export class XSubscriptionTypeComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXSubscriptionType();
-		return this.XSubscriptionTypeArray ;
+		this.refreshxSubscriptionType();
+		return this.xSubscriptionTypeArray ;
 	   }
 
-    onSelect(item: XDict.XSubscriptionType) {
-        this.currentXSubscriptionType = item;
+    onSelect(item: XDict.xSubscriptionType) {
+        this.currentxSubscriptionType = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-        this.currentXSubscriptionType = {} as XDict.XSubscriptionType;
+        this.currentxSubscriptionType = {} as XDict.xSubscriptionType;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
     }
 
-    onEdit(item: XDict.XSubscriptionType) {
+    onEdit(item: XDict.xSubscriptionType) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXSubscriptionType = item;
+        this.currentxSubscriptionType = item;
     }
 
-    onDelete(item: XDict.XSubscriptionType) {
+    onDelete(item: XDict.xSubscriptionType) {
         this.confirmOpened = true;
-        this.currentXSubscriptionType = item;
+        this.currentxSubscriptionType = item;
     }
 
     onConfirmDeletion() {
-        this.XSubscriptionType_Service.delete_XSubscriptionTypeById(this.currentXSubscriptionType.XSubscriptionTypeId).subscribe(data => {this.refreshXSubscriptionType()}, error => { this.ShowError(error.message); });
+        this.xSubscriptionType_Service.delete_xSubscriptionTypeById(this.currentxSubscriptionType.xSubscriptionTypeId).subscribe(data => {this.refreshxSubscriptionType()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XDict.XSubscriptionType) {
+    save(item: XDict.xSubscriptionType) {
         this.valid=true; 
-     if(this.currentXSubscriptionType.name == undefined || this.currentXSubscriptionType.name=='') this.valid=false;
-     if(this.currentXSubscriptionType.timerange == undefined  ) this.valid=false;
+     if(this.currentxSubscriptionType.name == undefined || this.currentxSubscriptionType.name=='') this.valid=false;
+     if(this.currentxSubscriptionType.timerange == undefined  ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XSubscriptionType_Service.create_XSubscriptionType(item)
-                        .subscribe(data =>{ this.refreshXSubscriptionType()}, error => { this.ShowError(error.message); });
+                    this.xSubscriptionType_Service.create_xSubscriptionType(item)
+                        .subscribe(data =>{ this.refreshxSubscriptionType()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XSubscriptionType_Service.update_XSubscriptionType( item)
-                        .subscribe(data => {this.refreshXSubscriptionType()}, error => { this.ShowError(error.message); });
+                    this.xSubscriptionType_Service.update_xSubscriptionType( item)
+                        .subscribe(data => {this.refreshxSubscriptionType()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -118,10 +118,10 @@ export class XSubscriptionTypeComponent implements OnInit {
             aoa[0][0]='Название';
             aoa[0][1]='Длительность подписки';
 /* fill data to array */
-        for(var i = 0; i < this.XSubscriptionTypeArray.length; ++i) {
+        for(var i = 0; i < this.xSubscriptionTypeArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XSubscriptionTypeArray[i].name;
-            aoa[i+1][1]=this.XSubscriptionTypeArray[i].timerange;
+            aoa[i+1][0]=this.xSubscriptionTypeArray[i].name;
+            aoa[i+1][1]=this.xSubscriptionTypeArray[i].timerange;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -135,7 +135,7 @@ export class XSubscriptionTypeComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XSubscriptionType');
+        XLSX.utils.book_append_sheet(wb, ws, 'xSubscriptionType');
         
 
         wb.Props = {
@@ -152,13 +152,13 @@ export class XSubscriptionTypeComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XSubscriptionType.xlsx');
+		XLSX.writeFile(wb, 'xSubscriptionType.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXSubscriptionType = {} as XDict.XSubscriptionType;
+        this.currentxSubscriptionType = {} as XDict.xSubscriptionType;
     }
 }
  

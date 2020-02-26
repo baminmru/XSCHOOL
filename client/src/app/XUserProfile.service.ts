@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XUser} from './XUser';
 @Injectable()
-export class XUserProfile_Service {
+export class xUserProfile_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -16,8 +16,8 @@ export class XUserProfile_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XUserProfiles
-    getAll_XUserProfiles(): Observable<XUser.XUserProfile[]> {
+	//Fetch all xUserProfiles
+    getAll_xUserProfiles(): Observable<XUser.xUserProfile[]> {
 		var qry:string;
 		qry='';
 		
@@ -31,11 +31,11 @@ export class XUserProfile_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XUser.XUserProfile[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XUser.xUserProfile[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XUser.XUserProfile[]>(this.serviceURL + '/XUserProfile/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XUser.xUserProfile[]>(this.serviceURL + '/xUserProfile/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -43,46 +43,46 @@ export class XUserProfile_Service {
 		
 	}
  
-	   //Create XUserProfile
-    create_XUserProfile(XUserProfile: XUser.XUserProfile): Observable<Object > {
-       // XUserProfile.XUserProfileId = '';
+	   //Create xUserProfile
+    create_xUserProfile(xUserProfile: XUser.xUserProfile): Observable<XUser.xUserProfile > {
+       // xUserProfile.xUserProfileId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XUserProfile/', XUserProfile, { headers: cpHeaders })
+        return this.http.post<XUser.xUserProfile >(this.serviceURL + '/xUserProfile/', xUserProfile, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XUserProfile by parent
-    get_XUserProfileByParent(parentId: string): Observable<XUser.XUserProfile[]> {
+	//Fetch xUserProfile by parent
+    get_xUserProfileByParent(parentId: string): Observable<XUser.xUserProfile[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XUserProfile/byparent/'+ parentId)
-        return this.http.get<XUser.XUserProfile[]>(this.serviceURL + '/XUserProfile/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xUserProfile/byparent/'+ parentId)
+        return this.http.get<XUser.xUserProfile[]>(this.serviceURL + '/xUserProfile/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XUserProfile by id
-    get_XUserProfileById(XUserProfileId: string): Observable<XUser.XUserProfile> {
+	//Fetch xUserProfile by id
+    get_xUserProfileById(xUserProfileId: string): Observable<XUser.xUserProfile> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XUserProfile/'+ XUserProfileId)
-        return this.http.get<XUser.XUserProfile>(this.serviceURL + '/XUserProfile/' + XUserProfileId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xUserProfile/'+ xUserProfileId)
+        return this.http.get<XUser.xUserProfile>(this.serviceURL + '/xUserProfile/' + xUserProfileId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XUserProfile
-    update_XUserProfile(XUserProfile: XUser.XUserProfile):Observable<Object > {
+	   //Update xUserProfile
+    update_xUserProfile(xUserProfile: XUser.xUserProfile):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XUserProfile/' + XUserProfile.XUserProfileId, XUserProfile, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xUserProfile/' + xUserProfile.xUserProfileId, xUserProfile, { headers: cpHeaders })
     }
 	
-    //Delete XUserProfile	
-    delete_XUserProfileById(XUserProfileId: string): Observable<Object> {
+    //Delete xUserProfile	
+    delete_xUserProfileById(xUserProfileId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XUserProfile/' + XUserProfileId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xUserProfile/' + xUserProfileId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XUser.XUserProfile = null;
+	private mSelecetd:XUser.xUserProfile = null;
 	
-	public 	get Selected():XUser.XUserProfile{ return this.mSelecetd;}
+	public 	get Selected():XUser.xUserProfile{ return this.mSelecetd;}
 	
-	public  set Selected(_XUserProfile:XUser.XUserProfile){ this.mSelecetd=_XUserProfile; }
+	public  set Selected(_xUserProfile:XUser.xUserProfile){ this.mSelecetd=_xUserProfile; }
  
 }

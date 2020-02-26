@@ -37,7 +37,7 @@
      <amexio-row><amexio-column size="12" >
 	 <amexio-dropdown 
 	 [place-holder] = "'Тип подписки'"
-	 name ="SubscriptionType"
+	 name ="subscriptionType"
 	 [field-label]= "'Тип подписки'"
             [allow-blank]="false" [error-msg] ="'Не задано: Тип подписки'" 
 	 
@@ -45,7 +45,7 @@
 	 [value-field]="'id'"
 	 [data]="AppService.ComboXSubscriptionType"
 	 
-	 [(ngModel)]="currentXSubscription.SubscriptionType"
+	 [(ngModel)]="currentxSubscription.subscriptionType"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -53,22 +53,22 @@
   <amexio-date-time-picker   [field-label]="'С'" 
         [time-picker]="false"  
         [date-picker]="true"  
-        [(ngModel)]="currentXSubscription.FromDate"> 
+        [(ngModel)]="currentxSubscription.fromDate"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
   <amexio-date-time-picker   [field-label]="'По'" 
         [time-picker]="false"  
         [date-picker]="true"  
-        [(ngModel)]="currentXSubscription.ToDate"> 
+        [(ngModel)]="currentxSubscription.toDate"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXSubscription();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXSubscription)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxSubscription();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxSubscription)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -79,10 +79,10 @@
     <amexio-header> 
 	<amexio-row> 
 		<amexio-column size="12" > 
-		<amexio-button [disabled]="AppService.LastXUserInfo.XUserInfoId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXSubscription.XSubscriptionId==null" [label]="'Изменить'" (onClick)="onEdit(currentXSubscription)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXSubscription.XSubscriptionId==null" [label]="'Удалить'" (onClick)="onDelete(currentXSubscription)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXSubscription()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="AppService.LastxUserInfo.xUserInfoId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
+		<amexio-button [disabled]="currentxSubscription.xSubscriptionId==null" [label]="'Изменить'" (onClick)="onEdit(currentxSubscription)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxSubscription.xSubscriptionId==null" [label]="'Удалить'" (onClick)="onDelete(currentxSubscription)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxSubscription()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -93,12 +93,12 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XSubscriptionArray" 
+		  [data]="xSubscriptionArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
-		  <amexio-data-table-column [data-index]="'SubscriptionType_name'" [data-type]="'string'" [hidden]="false" [text]="'Тип подписки'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'FromDate'" [data-type]="'string'" [hidden]="false" [text]="'С'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'ToDate'" [data-type]="'string'" [hidden]="false" [text]="'По'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'subscriptionType_name'" [data-type]="'string'" [hidden]="false" [text]="'Тип подписки'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'fromDate'" [data-type]="'string'" [hidden]="false" [text]="'С'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'toDate'" [data-type]="'string'" [hidden]="false" [text]="'По'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -110,7 +110,7 @@
 Удалить строку:  Пользователь::Подписки ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXSubscription.SubscriptionType_name||'').length >100 ? (currentXSubscription.SubscriptionType_name||'').substr(0,100)+'...' : (currentXSubscription.SubscriptionType_name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxSubscription.subscriptionType_name||'').length >100 ? (currentxSubscription.subscriptionType_name||'').substr(0,100)+'...' : (currentxSubscription.subscriptionType_name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XCourseModule")]
     public class XCourseModuleController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XCourseModuleController(MyContext context, IHostingEnvironment appEnvironment)
+        public XCourseModuleController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;
@@ -53,7 +52,7 @@ namespace x_srv.Controllers
         {
             //var uid = User.GetUserId();
 
-            string sql = @"SELECT * FROM V_XCourseModule where XCourseDescID='" + id.ToString() + "'";
+            string sql = @"SELECT * FROM V_XCourseModule where xCourseDescID='" + id.ToString() + "'";
             return _context.GetRaw(sql);
         }
         

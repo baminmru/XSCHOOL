@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XUserRegistartion_Service } from "app/XUserRegistartion.service";
+import { xUserRegistartion_Service } from "app/XUserRegistartion.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,56 +13,56 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XUserRegistartion',
+	   selector: 'app-xUserRegistartion',
     styleUrls: ['./XUserRegistartion.component.scss'],
     templateUrl: './XUserRegistartion.component.html',
 })
-export class XUserRegistartionComponent implements OnInit {
+export class xUserRegistartionComponent implements OnInit {
 
-    XUserRegistartionArray: Array<XUser.XUserRegistartion> = [];
+    xUserRegistartionArray: Array<XUser.xUserRegistartion> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXUserRegistartion: XUser.XUserRegistartion = {} as XUser.XUserRegistartion;
+    currentxUserRegistartion: XUser.xUserRegistartion = {} as XUser.xUserRegistartion;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XUserRegistartion_Service: XUserRegistartion_Service,  public AppService:AppService ) {
+    constructor( private xUserRegistartion_Service: xUserRegistartion_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XUserRegistartion"); 
-        this.subscription=this.AppService.currentXUserInfo.subscribe(si =>{ this.refreshXUserRegistartion(); }, error => { this.ShowError(error.message); } );
-        this.refreshXUserRegistartion();
+		   // console.log("Subscribe xUserRegistartion"); 
+        this.subscription=this.AppService.currentxUserInfo.subscribe(si =>{ this.refreshxUserRegistartion(); }, error => { this.ShowError(error.message); } );
+        this.refreshxUserRegistartion();
     }
     refreshCombo() {
      this.AppService.refreshComboXScheduleItem();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XUserRegistartion"); 
+		   // console.log("Unsubscribe xUserRegistartion"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXUserRegistartion() {
-		let item:XUser.XUserInfo;
-		item=this.AppService.LastXUserInfo;
-		console.log("refreshing XUserRegistartion"); 
-     this.currentXUserRegistartion = {} as XUser.XUserRegistartion;
+    refreshxUserRegistartion() {
+		let item:XUser.xUserInfo;
+		item=this.AppService.LastxUserInfo;
+		console.log("refreshing xUserRegistartion"); 
+     this.currentxUserRegistartion = {} as XUser.xUserRegistartion;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XUserRegistartion_Service.get_XUserRegistartionByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserRegistartionArray => { this.XUserRegistartionArray = XUserRegistartionArray; }, error => { this.ShowError(error.message); })
+        this.xUserRegistartion_Service.get_xUserRegistartionByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserRegistartionArray => { this.xUserRegistartionArray = xUserRegistartionArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId==='undefined') { 
+		if(typeof item.xUserInfoId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XUserRegistartion_Service.get_XUserRegistartionByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserRegistartionArray => { this.XUserRegistartionArray = XUserRegistartionArray; }, error => { this.ShowError(error.message); })
+        this.xUserRegistartion_Service.get_xUserRegistartionByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserRegistartionArray => { this.xUserRegistartionArray = xUserRegistartionArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId === 'string' ) {
-        this.XUserRegistartion_Service.get_XUserRegistartionByParent(item.XUserInfoId).subscribe(XUserRegistartionArray => { this.XUserRegistartionArray = XUserRegistartionArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xUserInfoId === 'string' ) {
+        this.xUserRegistartion_Service.get_xUserRegistartionByParent(item.xUserInfoId).subscribe(xUserRegistartionArray => { this.xUserRegistartionArray = xUserRegistartionArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -72,56 +72,56 @@ export class XUserRegistartionComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXUserRegistartion();
-		return this.XUserRegistartionArray ;
+		this.refreshxUserRegistartion();
+		return this.xUserRegistartionArray ;
 	   }
 
-    onSelect(item: XUser.XUserRegistartion) {
-        this.currentXUserRegistartion = item;
+    onSelect(item: XUser.xUserRegistartion) {
+        this.currentxUserRegistartion = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXUserInfo.XUserInfoId) === 'string' ) {
-        this.currentXUserRegistartion = {} as XUser.XUserRegistartion;
-        this.currentXUserRegistartion.XUserInfoId = this.AppService.LastXUserInfo.XUserInfoId;
+      if(typeof ( this.AppService.LastxUserInfo.xUserInfoId) === 'string' ) {
+        this.currentxUserRegistartion = {} as XUser.xUserRegistartion;
+        this.currentxUserRegistartion.xUserInfoId = this.AppService.LastxUserInfo.xUserInfoId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XUser.XUserRegistartion) {
+    onEdit(item: XUser.xUserRegistartion) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXUserRegistartion = item;
+        this.currentxUserRegistartion = item;
     }
 
-    onDelete(item: XUser.XUserRegistartion) {
+    onDelete(item: XUser.xUserRegistartion) {
         this.confirmOpened = true;
-        this.currentXUserRegistartion = item;
+        this.currentxUserRegistartion = item;
     }
 
     onConfirmDeletion() {
-        this.XUserRegistartion_Service.delete_XUserRegistartionById(this.currentXUserRegistartion.XUserRegistartionId).subscribe(data => {this.refreshXUserRegistartion()}, error => { this.ShowError(error.message); });
+        this.xUserRegistartion_Service.delete_xUserRegistartionById(this.currentxUserRegistartion.xUserRegistartionId).subscribe(data => {this.refreshxUserRegistartion()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XUser.XUserRegistartion) {
+    save(item: XUser.xUserRegistartion) {
         this.valid=true; 
-     if(this.currentXUserRegistartion.theCourseSchedule == undefined ) this.valid=false;
+     if(this.currentxUserRegistartion.theCourseSchedule == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XUserRegistartion_Service.create_XUserRegistartion(item)
-                        .subscribe(data =>{ this.refreshXUserRegistartion()}, error => { this.ShowError(error.message); });
+                    this.xUserRegistartion_Service.create_xUserRegistartion(item)
+                        .subscribe(data =>{ this.refreshxUserRegistartion()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XUserRegistartion_Service.update_XUserRegistartion( item)
-                        .subscribe(data => {this.refreshXUserRegistartion()}, error => { this.ShowError(error.message); });
+                    this.xUserRegistartion_Service.update_xUserRegistartion( item)
+                        .subscribe(data => {this.refreshxUserRegistartion()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -139,9 +139,9 @@ export class XUserRegistartionComponent implements OnInit {
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Запись на  курс';
 /* fill data to array */
-        for(var i = 0; i < this.XUserRegistartionArray.length; ++i) {
+        for(var i = 0; i < this.xUserRegistartionArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XUserRegistartionArray[i].theCourseSchedule_name;
+            aoa[i+1][0]=this.xUserRegistartionArray[i].theCourseSchedule_name;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -154,7 +154,7 @@ export class XUserRegistartionComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XUserRegistartion');
+        XLSX.utils.book_append_sheet(wb, ws, 'xUserRegistartion');
         
 
         wb.Props = {
@@ -171,13 +171,13 @@ export class XUserRegistartionComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XUserRegistartion.xlsx');
+		XLSX.writeFile(wb, 'xUserRegistartion.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXUserRegistartion = {} as XUser.XUserRegistartion;
+        this.currentxUserRegistartion = {} as XUser.xUserRegistartion;
     }
 }
  

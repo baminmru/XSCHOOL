@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XUserRegistartion")]
     public class XUserRegistartionController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XUserRegistartionController(MyContext context, IHostingEnvironment appEnvironment)
+        public XUserRegistartionController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;

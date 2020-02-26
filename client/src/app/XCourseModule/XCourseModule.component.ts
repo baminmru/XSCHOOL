@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XCourseModule_Service } from "app/XCourseModule.service";
+import { xCourseModule_Service } from "app/XCourseModule.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,57 +13,57 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XCourseModule',
+	   selector: 'app-xCourseModule',
     styleUrls: ['./XCourseModule.component.scss'],
     templateUrl: './XCourseModule.component.html',
 })
-export class XCourseModuleComponent implements OnInit {
+export class xCourseModuleComponent implements OnInit {
 
-    XCourseModuleArray: Array<XCourse.XCourseModule> = [];
+    xCourseModuleArray: Array<XCourse.xCourseModule> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXCourseModule: XCourse.XCourseModule = {} as XCourse.XCourseModule;
+    currentxCourseModule: XCourse.xCourseModule = {} as XCourse.xCourseModule;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XCourseModule_Service: XCourseModule_Service,  public AppService:AppService ) {
+    constructor( private xCourseModule_Service: xCourseModule_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XCourseModule"); 
-        this.subscription=this.AppService.currentXCourseDesc.subscribe(si =>{ this.refreshXCourseModule(); }, error => { this.ShowError(error.message); } );
-        this.refreshXCourseModule();
+		   // console.log("Subscribe xCourseModule"); 
+        this.subscription=this.AppService.currentxCourseDesc.subscribe(si =>{ this.refreshxCourseModule(); }, error => { this.ShowError(error.message); } );
+        this.refreshxCourseModule();
     }
     refreshCombo() {
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XCourseModule"); 
+		   // console.log("Unsubscribe xCourseModule"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXCourseModule() {
-		let item:XCourse.XCourseDesc;
-		item=this.AppService.LastXCourseDesc;
-		console.log("refreshing XCourseModule"); 
-     this.currentXCourseModule = {} as XCourse.XCourseModule;
-     console.log("clear selection for XCourseModule on refresh");
-     this.AppService.pushSelectedXCourseModule(this.currentXCourseModule);
+    refreshxCourseModule() {
+		let item:XCourse.xCourseDesc;
+		item=this.AppService.LastxCourseDesc;
+		console.log("refreshing xCourseModule"); 
+     this.currentxCourseModule = {} as XCourse.xCourseModule;
+     console.log("clear selection for xCourseModule on refresh");
+     this.AppService.pushSelectedxCourseModule(this.currentxCourseModule);
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XCourseModule_Service.get_XCourseModuleByParent('00000000-0000-0000-0000-000000000000').subscribe(XCourseModuleArray => { this.XCourseModuleArray = XCourseModuleArray; }, error => { this.ShowError(error.message); })
+        this.xCourseModule_Service.get_xCourseModuleByParent('00000000-0000-0000-0000-000000000000').subscribe(xCourseModuleArray => { this.xCourseModuleArray = xCourseModuleArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XCourseDescId==='undefined') { 
+		if(typeof item.xCourseDescId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XCourseModule_Service.get_XCourseModuleByParent('00000000-0000-0000-0000-000000000000').subscribe(XCourseModuleArray => { this.XCourseModuleArray = XCourseModuleArray; }, error => { this.ShowError(error.message); })
+        this.xCourseModule_Service.get_xCourseModuleByParent('00000000-0000-0000-0000-000000000000').subscribe(xCourseModuleArray => { this.xCourseModuleArray = xCourseModuleArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XCourseDescId === 'string' ) {
-        this.XCourseModule_Service.get_XCourseModuleByParent(item.XCourseDescId).subscribe(XCourseModuleArray => { this.XCourseModuleArray = XCourseModuleArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xCourseDescId === 'string' ) {
+        this.xCourseModule_Service.get_xCourseModuleByParent(item.xCourseDescId).subscribe(xCourseModuleArray => { this.xCourseModuleArray = xCourseModuleArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -73,58 +73,58 @@ export class XCourseModuleComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXCourseModule();
-		return this.XCourseModuleArray ;
+		this.refreshxCourseModule();
+		return this.xCourseModuleArray ;
 	   }
 
-    onSelect(item: XCourse.XCourseModule) {
-        this.currentXCourseModule = item;
-        this.AppService.pushSelectedXCourseModule(item);
+    onSelect(item: XCourse.xCourseModule) {
+        this.currentxCourseModule = item;
+        this.AppService.pushSelectedxCourseModule(item);
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXCourseDesc.XCourseDescId) === 'string' ) {
-        this.currentXCourseModule = {} as XCourse.XCourseModule;
-        this.currentXCourseModule.XCourseDescId = this.AppService.LastXCourseDesc.XCourseDescId;
+      if(typeof ( this.AppService.LastxCourseDesc.xCourseDescId) === 'string' ) {
+        this.currentxCourseModule = {} as XCourse.xCourseModule;
+        this.currentxCourseModule.xCourseDescId = this.AppService.LastxCourseDesc.xCourseDescId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XCourse.XCourseModule) {
+    onEdit(item: XCourse.xCourseModule) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXCourseModule = item;
+        this.currentxCourseModule = item;
     }
 
-    onDelete(item: XCourse.XCourseModule) {
+    onDelete(item: XCourse.xCourseModule) {
         this.confirmOpened = true;
-        this.currentXCourseModule = item;
+        this.currentxCourseModule = item;
     }
 
     onConfirmDeletion() {
-        this.XCourseModule_Service.delete_XCourseModuleById(this.currentXCourseModule.XCourseModuleId).subscribe(data => {this.refreshXCourseModule()}, error => { this.ShowError(error.message); });
+        this.xCourseModule_Service.delete_xCourseModuleById(this.currentxCourseModule.xCourseModuleId).subscribe(data => {this.refreshxCourseModule()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XCourse.XCourseModule) {
+    save(item: XCourse.xCourseModule) {
         this.valid=true; 
-     if(this.currentXCourseModule.ModuleNo == undefined  ) this.valid=false;
-     if(this.currentXCourseModule.name == undefined || this.currentXCourseModule.name=='') this.valid=false;
+     if(this.currentxCourseModule.moduleNo == undefined  ) this.valid=false;
+     if(this.currentxCourseModule.name == undefined || this.currentxCourseModule.name=='') this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XCourseModule_Service.create_XCourseModule(item)
-                        .subscribe(data =>{ this.refreshXCourseModule()}, error => { this.ShowError(error.message); });
+                    this.xCourseModule_Service.create_xCourseModule(item)
+                        .subscribe(data =>{ this.refreshxCourseModule()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XCourseModule_Service.update_XCourseModule( item)
-                        .subscribe(data => {this.refreshXCourseModule()}, error => { this.ShowError(error.message); });
+                    this.xCourseModule_Service.update_xCourseModule( item)
+                        .subscribe(data => {this.refreshxCourseModule()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -145,12 +145,12 @@ export class XCourseModuleComponent implements OnInit {
             aoa[0][2]='Описание';
             aoa[0][3]='Регламент';
 /* fill data to array */
-        for(var i = 0; i < this.XCourseModuleArray.length; ++i) {
+        for(var i = 0; i < this.xCourseModuleArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XCourseModuleArray[i].ModuleNo;
-            aoa[i+1][1]=this.XCourseModuleArray[i].name;
-            aoa[i+1][2]=this.XCourseModuleArray[i].info;
-            aoa[i+1][3]=this.XCourseModuleArray[i].reglament;
+            aoa[i+1][0]=this.xCourseModuleArray[i].moduleNo;
+            aoa[i+1][1]=this.xCourseModuleArray[i].name;
+            aoa[i+1][2]=this.xCourseModuleArray[i].info;
+            aoa[i+1][3]=this.xCourseModuleArray[i].reglament;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -166,7 +166,7 @@ export class XCourseModuleComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XCourseModule');
+        XLSX.utils.book_append_sheet(wb, ws, 'xCourseModule');
         
 
         wb.Props = {
@@ -183,15 +183,15 @@ export class XCourseModuleComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XCourseModule.xlsx');
+		XLSX.writeFile(wb, 'xCourseModule.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXCourseModule = {} as XCourse.XCourseModule;
-        console.log("clear selection for XCourseModule");
-        this.AppService.pushSelectedXCourseModule(this.currentXCourseModule);
+        this.currentxCourseModule = {} as XCourse.xCourseModule;
+        console.log("clear selection for xCourseModule");
+        this.AppService.pushSelectedxCourseModule(this.currentxCourseModule);
     }
 }
  

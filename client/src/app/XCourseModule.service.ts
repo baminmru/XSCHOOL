@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XCourse} from './XCourse';
 @Injectable()
-export class XCourseModule_Service {
+export class xCourseModule_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,21 +13,21 @@ export class XCourseModule_Service {
 	}
 	
 	
-	ModuleNo:string = '';
+	moduleNo:string = '';
 	name:string = '';
 	info:string = '';
 	reglament:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XCourseModules
-    getAll_XCourseModules(): Observable<XCourse.XCourseModule[]> {
+	//Fetch all xCourseModules
+    getAll_xCourseModules(): Observable<XCourse.xCourseModule[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.ModuleNo!=''){
+		if(this.moduleNo!=''){
 			if(qry !='') qry=qry +'&';
-			qry='ModuleNo='+encodeURIComponent(this.ModuleNo)
+			qry='moduleNo='+encodeURIComponent(this.moduleNo)
 		}
 		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
@@ -51,62 +51,62 @@ export class XCourseModule_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XCourse.XCourseModule[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XCourse.xCourseModule[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XCourse.XCourseModule[]>(this.serviceURL + '/XCourseModule/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XCourse.xCourseModule[]>(this.serviceURL + '/xCourseModule/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.ModuleNo = '';
+	this.moduleNo = '';
 	this.name = '';
 	this.info = '';
 	this.reglament = '';
 		
 	}
  
-	   //Create XCourseModule
-    create_XCourseModule(XCourseModule: XCourse.XCourseModule): Observable<Object > {
-       // XCourseModule.XCourseModuleId = '';
+	   //Create xCourseModule
+    create_xCourseModule(xCourseModule: XCourse.xCourseModule): Observable<XCourse.xCourseModule > {
+       // xCourseModule.xCourseModuleId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XCourseModule/', XCourseModule, { headers: cpHeaders })
+        return this.http.post<XCourse.xCourseModule >(this.serviceURL + '/xCourseModule/', xCourseModule, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XCourseModule by parent
-    get_XCourseModuleByParent(parentId: string): Observable<XCourse.XCourseModule[]> {
+	//Fetch xCourseModule by parent
+    get_xCourseModuleByParent(parentId: string): Observable<XCourse.xCourseModule[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XCourseModule/byparent/'+ parentId)
-        return this.http.get<XCourse.XCourseModule[]>(this.serviceURL + '/XCourseModule/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xCourseModule/byparent/'+ parentId)
+        return this.http.get<XCourse.xCourseModule[]>(this.serviceURL + '/xCourseModule/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XCourseModule by id
-    get_XCourseModuleById(XCourseModuleId: string): Observable<XCourse.XCourseModule> {
+	//Fetch xCourseModule by id
+    get_xCourseModuleById(xCourseModuleId: string): Observable<XCourse.xCourseModule> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XCourseModule/'+ XCourseModuleId)
-        return this.http.get<XCourse.XCourseModule>(this.serviceURL + '/XCourseModule/' + XCourseModuleId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xCourseModule/'+ xCourseModuleId)
+        return this.http.get<XCourse.xCourseModule>(this.serviceURL + '/xCourseModule/' + xCourseModuleId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XCourseModule
-    update_XCourseModule(XCourseModule: XCourse.XCourseModule):Observable<Object > {
+	   //Update xCourseModule
+    update_xCourseModule(xCourseModule: XCourse.xCourseModule):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XCourseModule/' + XCourseModule.XCourseModuleId, XCourseModule, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xCourseModule/' + xCourseModule.xCourseModuleId, xCourseModule, { headers: cpHeaders })
     }
 	
-    //Delete XCourseModule	
-    delete_XCourseModuleById(XCourseModuleId: string): Observable<Object> {
+    //Delete xCourseModule	
+    delete_xCourseModuleById(xCourseModuleId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XCourseModule/' + XCourseModuleId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xCourseModule/' + xCourseModuleId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XCourse.XCourseModule = null;
+	private mSelecetd:XCourse.xCourseModule = null;
 	
-	public 	get Selected():XCourse.XCourseModule{ return this.mSelecetd;}
+	public 	get Selected():XCourse.xCourseModule{ return this.mSelecetd;}
 	
-	public  set Selected(_XCourseModule:XCourse.XCourseModule){ this.mSelecetd=_XCourseModule; }
+	public  set Selected(_xCourseModule:XCourse.xCourseModule){ this.mSelecetd=_xCourseModule; }
  
 }

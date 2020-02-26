@@ -37,15 +37,15 @@
      <amexio-row><amexio-column size="12" >
                     <amexio-text-input [field-label]= "'Название'" name ="name"  
                     [place-holder] = "'Название'" 
-                    [icon-feedback] = "true" [(ngModel)]="currentXSubject.name" >
+                    [icon-feedback] = "true" [(ngModel)]="currentxSubject.name" >
                     </amexio-text-input>
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXSubject();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXSubject)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxSubject();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxSubject)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -57,9 +57,9 @@
 	<amexio-row> 
 		<amexio-column size="12" > 
 		<amexio-button [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXSubject.XSubjectId==null" [label]="'Изменить'" (onClick)="onEdit(currentXSubject)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXSubject.XSubjectId==null" [label]="'Удалить'" (onClick)="onDelete(currentXSubject)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXSubject()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="currentxSubject.xSubjectId==null" [label]="'Изменить'" (onClick)="onEdit(currentxSubject)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxSubject.xSubjectId==null" [label]="'Удалить'" (onClick)="onDelete(currentxSubject)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxSubject()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -70,7 +70,7 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XSubjectArray" 
+		  [data]="xSubjectArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'Название'"> 
@@ -89,7 +89,7 @@
 Удалить строку:  Справочник::Тематика ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXSubject.name||'').length >100 ? (currentXSubject.name||'').substr(0,100)+'...' : (currentXSubject.name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxSubject.name||'').length >100 ? (currentxSubject.name||'').substr(0,100)+'...' : (currentxSubject.name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XDict} from './XDict';
 @Injectable()
-export class XCert_Service {
+export class xCert_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -17,8 +17,8 @@ export class XCert_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XCerts
-    getAll_XCerts(): Observable<XDict.XCert[]> {
+	//Fetch all xCerts
+    getAll_xCerts(): Observable<XDict.xCert[]> {
 		var qry:string;
 		qry='';
 		
@@ -36,11 +36,11 @@ export class XCert_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XDict.XCert[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XDict.xCert[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XDict.XCert[]>(this.serviceURL + '/XCert/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XDict.xCert[]>(this.serviceURL + '/xCert/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -49,39 +49,39 @@ export class XCert_Service {
 		
 	}
  
-	   //Create XCert
-    create_XCert(XCert: XDict.XCert): Observable<Object > {
-       // XCert.XCertId = '';
+	   //Create xCert
+    create_xCert(xCert: XDict.xCert): Observable<XDict.xCert > {
+       // xCert.xCertId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XCert/', XCert, { headers: cpHeaders })
+        return this.http.post<XDict.xCert >(this.serviceURL + '/xCert/', xCert, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XCert by id
-    get_XCertById(XCertId: string): Observable<XDict.XCert> {
+	//Fetch xCert by id
+    get_xCertById(xCertId: string): Observable<XDict.xCert> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XCert/'+ XCertId)
-        return this.http.get<XDict.XCert>(this.serviceURL + '/XCert/' + XCertId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xCert/'+ xCertId)
+        return this.http.get<XDict.xCert>(this.serviceURL + '/xCert/' + xCertId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XCert
-    update_XCert(XCert: XDict.XCert):Observable<Object > {
+	   //Update xCert
+    update_xCert(xCert: XDict.xCert):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XCert/' + XCert.XCertId, XCert, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xCert/' + xCert.xCertId, xCert, { headers: cpHeaders })
     }
 	
-    //Delete XCert	
-    delete_XCertById(XCertId: string): Observable<Object> {
+    //Delete xCert	
+    delete_xCertById(xCertId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XCert/' + XCertId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xCert/' + xCertId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XDict.XCert = null;
+	private mSelecetd:XDict.xCert = null;
 	
-	public 	get Selected():XDict.XCert{ return this.mSelecetd;}
+	public 	get Selected():XDict.xCert{ return this.mSelecetd;}
 	
-	public  set Selected(_XCert:XDict.XCert){ this.mSelecetd=_XCert; }
+	public  set Selected(_xCert:XDict.xCert){ this.mSelecetd=_xCert; }
  
 }

@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XUser} from './XUser';
 @Injectable()
-export class XUserInfo_Service {
+export class xUserInfo_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,58 +13,83 @@ export class XUserInfo_Service {
 	}
 	
 	
-	Family:string = '';
-	Login:string = '';
-	SurName:string = '';
-	EMail:string = '';
-	Phone:string = '';
-	Name:string = '';
-	Birthday:string = '';
-	Password:string = '';
-	City:string = '';
+	family:string = '';
+	name:string = '';
+	middleName:string = '';
+	login:string = '';
+	password:string = '';
+	photoUrl:string = '';
+	eMail:string = '';
+	phone:string = '';
+	birthday:string = '';
+	country:string = '';
+	city:string = '';
+	nativeLanguage:string = '';
+	learningYears:string = '';
+	learningGoal:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XUserInfos
-    getAll_XUserInfos(): Observable<XUser.XUserInfo[]> {
+	//Fetch all xUserInfos
+    getAll_xUserInfos(): Observable<XUser.xUserInfo[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.Family!=''){
+		if(this.family!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Family='+encodeURIComponent(this.Family)
+			qry='family='+encodeURIComponent(this.family)
 		}
-		if(this.Login!=''){
+		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Login='+encodeURIComponent(this.Login)
+			qry='name='+encodeURIComponent(this.name)
 		}
-		if(this.SurName!=''){
+		if(this.middleName!=''){
 			if(qry !='') qry=qry +'&';
-			qry='SurName='+encodeURIComponent(this.SurName)
+			qry='middleName='+encodeURIComponent(this.middleName)
 		}
-		if(this.EMail!=''){
+		if(this.login!=''){
 			if(qry !='') qry=qry +'&';
-			qry='EMail='+encodeURIComponent(this.EMail)
+			qry='login='+encodeURIComponent(this.login)
 		}
-		if(this.Phone!=''){
+		if(this.password!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Phone='+encodeURIComponent(this.Phone)
+			qry='password='+encodeURIComponent(this.password)
 		}
-		if(this.Name!=''){
+		if(this.photoUrl!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Name='+encodeURIComponent(this.Name)
+			qry='photoUrl='+encodeURIComponent(this.photoUrl)
 		}
-		if(this.Birthday!=''){
+		if(this.eMail!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Birthday='+encodeURIComponent(this.Birthday)
+			qry='eMail='+encodeURIComponent(this.eMail)
 		}
-		if(this.Password!=''){
+		if(this.phone!=''){
 			if(qry !='') qry=qry +'&';
-			qry='Password='+encodeURIComponent(this.Password)
+			qry='phone='+encodeURIComponent(this.phone)
 		}
-		if(this.City!=''){
+		if(this.birthday!=''){
 			if(qry !='') qry=qry +'&';
-			qry='City='+encodeURIComponent(this.City)
+			qry='birthday='+encodeURIComponent(this.birthday)
+		}
+		if(this.country!=''){
+			if(qry !='') qry=qry +'&';
+			qry='country='+encodeURIComponent(this.country)
+		}
+		if(this.city!=''){
+			if(qry !='') qry=qry +'&';
+			qry='city='+encodeURIComponent(this.city)
+		}
+		if(this.nativeLanguage!=''){
+			if(qry !='') qry=qry +'&';
+			qry='nativeLanguage='+encodeURIComponent(this.nativeLanguage)
+		}
+		if(this.learningYears!=''){
+			if(qry !='') qry=qry +'&';
+			qry='learningYears='+encodeURIComponent(this.learningYears)
+		}
+		if(this.learningGoal!=''){
+			if(qry !='') qry=qry +'&';
+			qry='learningGoal='+encodeURIComponent(this.learningGoal)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -76,60 +101,65 @@ export class XUserInfo_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XUser.XUserInfo[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XUser.xUserInfo[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XUser.XUserInfo[]>(this.serviceURL + '/XUserInfo/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XUser.xUserInfo[]>(this.serviceURL + '/xUserInfo/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.Family = '';
-	this.Login = '';
-	this.SurName = '';
-	this.EMail = '';
-	this.Phone = '';
-	this.Name = '';
-	this.Birthday = '';
-	this.Password = '';
-	this.City = '';
+	this.family = '';
+	this.name = '';
+	this.middleName = '';
+	this.login = '';
+	this.password = '';
+	this.photoUrl = '';
+	this.eMail = '';
+	this.phone = '';
+	this.birthday = '';
+	this.country = '';
+	this.city = '';
+	this.nativeLanguage = '';
+	this.learningYears = '';
+	this.learningGoal = '';
 		
 	}
  
-	   //Create XUserInfo
-    create_XUserInfo(XUserInfo: XUser.XUserInfo): Observable<Object > {
-       // XUserInfo.XUserInfoId = '';
+	   //Create xUserInfo
+    create_xUserInfo(xUserInfo: XUser.xUserInfo): Observable<XUser.xUserInfo > {
+       // xUserInfo.xUserInfoId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XUserInfo/', XUserInfo, { headers: cpHeaders })
+        return this.http.post<XUser.xUserInfo >(this.serviceURL + '/xUserInfo/', xUserInfo, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XUserInfo by id
-    get_XUserInfoById(XUserInfoId: string): Observable<XUser.XUserInfo> {
+	//Fetch xUserInfo by id
+    get_xUserInfoById(xUserInfoId: string): Observable<XUser.xUserInfo> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XUserInfo/'+ XUserInfoId)
-        return this.http.get<XUser.XUserInfo>(this.serviceURL + '/XUserInfo/' + XUserInfoId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xUserInfo/'+ xUserInfoId)
+        return this.http.get<XUser.xUserInfo>(this.serviceURL + '/xUserInfo/' + xUserInfoId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XUserInfo
-    update_XUserInfo(XUserInfo: XUser.XUserInfo):Observable<Object > {
+	   //Update xUserInfo
+    update_xUserInfo(xUserInfo: XUser.xUserInfo):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XUserInfo/' + XUserInfo.XUserInfoId, XUserInfo, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xUserInfo/' + xUserInfo.xUserInfoId, xUserInfo, { headers: cpHeaders })
     }
 	
-    //Delete XUserInfo	
-    delete_XUserInfoById(XUserInfoId: string): Observable<Object> {
+    //Delete xUserInfo	
+    delete_xUserInfoById(xUserInfoId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XUserInfo/' + XUserInfoId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xUserInfo/' + xUserInfoId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XUser.XUserInfo = null;
+	private mSelecetd:XUser.xUserInfo = null;
 	
-	public 	get Selected():XUser.XUserInfo{ return this.mSelecetd;}
+	public 	get Selected():XUser.xUserInfo{ return this.mSelecetd;}
 	
-	public  set Selected(_XUserInfo:XUser.XUserInfo){ this.mSelecetd=_XUserInfo; }
+	public  set Selected(_xUserInfo:XUser.xUserInfo){ this.mSelecetd=_xUserInfo; }
  
 }

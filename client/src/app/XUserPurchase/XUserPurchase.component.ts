@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XUserPurchase_Service } from "app/XUserPurchase.service";
+import { xUserPurchase_Service } from "app/XUserPurchase.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,56 +13,56 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XUserPurchase',
+	   selector: 'app-xUserPurchase',
     styleUrls: ['./XUserPurchase.component.scss'],
     templateUrl: './XUserPurchase.component.html',
 })
-export class XUserPurchaseComponent implements OnInit {
+export class xUserPurchaseComponent implements OnInit {
 
-    XUserPurchaseArray: Array<XUser.XUserPurchase> = [];
+    xUserPurchaseArray: Array<XUser.xUserPurchase> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXUserPurchase: XUser.XUserPurchase = {} as XUser.XUserPurchase;
+    currentxUserPurchase: XUser.xUserPurchase = {} as XUser.xUserPurchase;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XUserPurchase_Service: XUserPurchase_Service,  public AppService:AppService ) {
+    constructor( private xUserPurchase_Service: xUserPurchase_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XUserPurchase"); 
-        this.subscription=this.AppService.currentXUserInfo.subscribe(si =>{ this.refreshXUserPurchase(); }, error => { this.ShowError(error.message); } );
-        this.refreshXUserPurchase();
+		   // console.log("Subscribe xUserPurchase"); 
+        this.subscription=this.AppService.currentxUserInfo.subscribe(si =>{ this.refreshxUserPurchase(); }, error => { this.ShowError(error.message); } );
+        this.refreshxUserPurchase();
     }
     refreshCombo() {
      this.AppService.refreshComboXCourseDesc();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XUserPurchase"); 
+		   // console.log("Unsubscribe xUserPurchase"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXUserPurchase() {
-		let item:XUser.XUserInfo;
-		item=this.AppService.LastXUserInfo;
-		console.log("refreshing XUserPurchase"); 
-     this.currentXUserPurchase = {} as XUser.XUserPurchase;
+    refreshxUserPurchase() {
+		let item:XUser.xUserInfo;
+		item=this.AppService.LastxUserInfo;
+		console.log("refreshing xUserPurchase"); 
+     this.currentxUserPurchase = {} as XUser.xUserPurchase;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XUserPurchase_Service.get_XUserPurchaseByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserPurchaseArray => { this.XUserPurchaseArray = XUserPurchaseArray; }, error => { this.ShowError(error.message); })
+        this.xUserPurchase_Service.get_xUserPurchaseByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserPurchaseArray => { this.xUserPurchaseArray = xUserPurchaseArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId==='undefined') { 
+		if(typeof item.xUserInfoId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XUserPurchase_Service.get_XUserPurchaseByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserPurchaseArray => { this.XUserPurchaseArray = XUserPurchaseArray; }, error => { this.ShowError(error.message); })
+        this.xUserPurchase_Service.get_xUserPurchaseByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserPurchaseArray => { this.xUserPurchaseArray = xUserPurchaseArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId === 'string' ) {
-        this.XUserPurchase_Service.get_XUserPurchaseByParent(item.XUserInfoId).subscribe(XUserPurchaseArray => { this.XUserPurchaseArray = XUserPurchaseArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xUserInfoId === 'string' ) {
+        this.xUserPurchase_Service.get_xUserPurchaseByParent(item.xUserInfoId).subscribe(xUserPurchaseArray => { this.xUserPurchaseArray = xUserPurchaseArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -72,56 +72,56 @@ export class XUserPurchaseComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXUserPurchase();
-		return this.XUserPurchaseArray ;
+		this.refreshxUserPurchase();
+		return this.xUserPurchaseArray ;
 	   }
 
-    onSelect(item: XUser.XUserPurchase) {
-        this.currentXUserPurchase = item;
+    onSelect(item: XUser.xUserPurchase) {
+        this.currentxUserPurchase = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXUserInfo.XUserInfoId) === 'string' ) {
-        this.currentXUserPurchase = {} as XUser.XUserPurchase;
-        this.currentXUserPurchase.XUserInfoId = this.AppService.LastXUserInfo.XUserInfoId;
+      if(typeof ( this.AppService.LastxUserInfo.xUserInfoId) === 'string' ) {
+        this.currentxUserPurchase = {} as XUser.xUserPurchase;
+        this.currentxUserPurchase.xUserInfoId = this.AppService.LastxUserInfo.xUserInfoId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XUser.XUserPurchase) {
+    onEdit(item: XUser.xUserPurchase) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXUserPurchase = item;
+        this.currentxUserPurchase = item;
     }
 
-    onDelete(item: XUser.XUserPurchase) {
+    onDelete(item: XUser.xUserPurchase) {
         this.confirmOpened = true;
-        this.currentXUserPurchase = item;
+        this.currentxUserPurchase = item;
     }
 
     onConfirmDeletion() {
-        this.XUserPurchase_Service.delete_XUserPurchaseById(this.currentXUserPurchase.XUserPurchaseId).subscribe(data => {this.refreshXUserPurchase()}, error => { this.ShowError(error.message); });
+        this.xUserPurchase_Service.delete_xUserPurchaseById(this.currentxUserPurchase.xUserPurchaseId).subscribe(data => {this.refreshxUserPurchase()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XUser.XUserPurchase) {
+    save(item: XUser.xUserPurchase) {
         this.valid=true; 
-     if(this.currentXUserPurchase.theCourse == undefined ) this.valid=false;
+     if(this.currentxUserPurchase.theCourse == undefined ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XUserPurchase_Service.create_XUserPurchase(item)
-                        .subscribe(data =>{ this.refreshXUserPurchase()}, error => { this.ShowError(error.message); });
+                    this.xUserPurchase_Service.create_xUserPurchase(item)
+                        .subscribe(data =>{ this.refreshxUserPurchase()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XUserPurchase_Service.update_XUserPurchase( item)
-                        .subscribe(data => {this.refreshXUserPurchase()}, error => { this.ShowError(error.message); });
+                    this.xUserPurchase_Service.update_xUserPurchase( item)
+                        .subscribe(data => {this.refreshxUserPurchase()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -139,9 +139,9 @@ export class XUserPurchaseComponent implements OnInit {
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Курс';
 /* fill data to array */
-        for(var i = 0; i < this.XUserPurchaseArray.length; ++i) {
+        for(var i = 0; i < this.xUserPurchaseArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XUserPurchaseArray[i].theCourse_name;
+            aoa[i+1][0]=this.xUserPurchaseArray[i].theCourse_name;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -154,7 +154,7 @@ export class XUserPurchaseComponent implements OnInit {
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XUserPurchase');
+        XLSX.utils.book_append_sheet(wb, ws, 'xUserPurchase');
         
 
         wb.Props = {
@@ -171,13 +171,13 @@ export class XUserPurchaseComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XUserPurchase.xlsx');
+		XLSX.writeFile(wb, 'xUserPurchase.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXUserPurchase = {} as XUser.XUserPurchase;
+        this.currentxUserPurchase = {} as XUser.xUserPurchase;
     }
 }
  

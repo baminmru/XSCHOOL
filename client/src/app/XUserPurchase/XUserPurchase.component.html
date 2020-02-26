@@ -45,7 +45,7 @@
 	 [value-field]="'id'"
 	 [data]="AppService.ComboXCourseDesc"
 	 
-	 [(ngModel)]="currentXUserPurchase.theCourse"
+	 [(ngModel)]="currentxUserPurchase.theCourse"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -53,8 +53,8 @@
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXUserPurchase();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXUserPurchase)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxUserPurchase();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxUserPurchase)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -65,10 +65,10 @@
     <amexio-header> 
 	<amexio-row> 
 		<amexio-column size="12" > 
-		<amexio-button [disabled]="AppService.LastXUserInfo.XUserInfoId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXUserPurchase.XUserPurchaseId==null" [label]="'Изменить'" (onClick)="onEdit(currentXUserPurchase)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXUserPurchase.XUserPurchaseId==null" [label]="'Удалить'" (onClick)="onDelete(currentXUserPurchase)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXUserPurchase()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="AppService.LastxUserInfo.xUserInfoId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
+		<amexio-button [disabled]="currentxUserPurchase.xUserPurchaseId==null" [label]="'Изменить'" (onClick)="onEdit(currentxUserPurchase)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxUserPurchase.xUserPurchaseId==null" [label]="'Удалить'" (onClick)="onDelete(currentxUserPurchase)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxUserPurchase()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -79,7 +79,7 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XUserPurchaseArray" 
+		  [data]="xUserPurchaseArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'theCourse_name'" [data-type]="'string'" [hidden]="false" [text]="'Курс'"></amexio-data-table-column> 
@@ -94,7 +94,7 @@
 Удалить строку:  Пользователь::Покупки пользователя ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXUserPurchase.theCourse_name||'').length >100 ? (currentXUserPurchase.theCourse_name||'').substr(0,100)+'...' : (currentXUserPurchase.theCourse_name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxUserPurchase.theCourse_name||'').length >100 ? (currentxUserPurchase.theCourse_name||'').substr(0,100)+'...' : (currentxUserPurchase.theCourse_name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

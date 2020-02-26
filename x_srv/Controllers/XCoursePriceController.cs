@@ -12,15 +12,14 @@ using x_srv.models;
 namespace x_srv.Controllers
 {
     [Authorize]
-    [ApiController]
     [Produces("application/json")]
     [Route("api/XCoursePrice")]
     public class XCoursePriceController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XCoursePriceController(MyContext context, IHostingEnvironment appEnvironment)
+        public XCoursePriceController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;
@@ -53,7 +52,7 @@ namespace x_srv.Controllers
         {
             //var uid = User.GetUserId();
 
-            string sql = @"SELECT * FROM V_XCoursePrice where XCourseDescID='" + id.ToString() + "'";
+            string sql = @"SELECT * FROM V_XCoursePrice where xCourseDescID='" + id.ToString() + "'";
             return _context.GetRaw(sql);
         }
         

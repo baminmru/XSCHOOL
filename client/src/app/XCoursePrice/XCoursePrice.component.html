@@ -38,14 +38,14 @@
   <amexio-date-time-picker   [field-label]="'Дата назначения цены'" 
         [time-picker]="true"  
         [date-picker]="true"  
-        [(ngModel)]="currentXCoursePrice.PriceDate"> 
+        [(ngModel)]="currentxCoursePrice.priceDate"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
- <amexio-number-input  [enable-popover]= "false" [field-label]="'Цена'" name ="Price" 
+ <amexio-number-input  [enable-popover]= "false" [field-label]="'Цена'" name ="price" 
                     [place-holder]="'Цена'" 
             [allow-blank]="false" [error-msg] ="'Не задано: Цена'" 
-	 [(ngModel)]="currentXCoursePrice.Price"
+	 [(ngModel)]="currentxCoursePrice.price"
                     > 
  </amexio-number-input>
      </amexio-column></amexio-row>
@@ -53,8 +53,8 @@
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXCoursePrice();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXCoursePrice)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxCoursePrice();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxCoursePrice)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -65,10 +65,10 @@
     <amexio-header> 
 	<amexio-row> 
 		<amexio-column size="12" > 
-		<amexio-button [disabled]="AppService.LastXCourseDesc.XCourseDescId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXCoursePrice.XCoursePriceId==null" [label]="'Изменить'" (onClick)="onEdit(currentXCoursePrice)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXCoursePrice.XCoursePriceId==null" [label]="'Удалить'" (onClick)="onDelete(currentXCoursePrice)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXCoursePrice()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="AppService.LastxCourseDesc.xCourseDescId==null" [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
+		<amexio-button [disabled]="currentxCoursePrice.xCoursePriceId==null" [label]="'Изменить'" (onClick)="onEdit(currentxCoursePrice)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxCoursePrice.xCoursePriceId==null" [label]="'Удалить'" (onClick)="onDelete(currentxCoursePrice)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxCoursePrice()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -79,11 +79,11 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XCoursePriceArray" 
+		  [data]="xCoursePriceArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
-		  <amexio-data-table-column [data-index]="'PriceDate'" [data-type]="'string'" [hidden]="false" [text]="'Дата назначения цены'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'Price'" [data-type]="'number'" [hidden]="false" [text]="'Цена'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'priceDate'" [data-type]="'string'" [hidden]="false" [text]="'Дата назначения цены'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'price'" [data-type]="'number'" [hidden]="false" [text]="'Цена'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -95,7 +95,7 @@
 Удалить строку:  Курс::Цены ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXCoursePrice.PriceDate +'; '+  currentXCoursePrice.Price||'').length >100 ? (currentXCoursePrice.PriceDate +'; '+  currentXCoursePrice.Price||'').substr(0,100)+'...' : (currentXCoursePrice.PriceDate +'; '+  currentXCoursePrice.Price||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxCoursePrice.priceDate +'; '+  currentxCoursePrice.price||'').length >100 ? (currentxCoursePrice.priceDate +'; '+  currentxCoursePrice.price||'').substr(0,100)+'...' : (currentxCoursePrice.priceDate +'; '+  currentxCoursePrice.price||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

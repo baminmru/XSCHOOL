@@ -11,16 +11,15 @@ using x_srv.models;
 
 namespace x_srv.Controllers
 {
-   // [Authorize]
-    [ApiController]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/XLevel")]
     public class XLevelController : Controller
     {
-        private readonly MyContext _context;
-        IHostingEnvironment _appEnvironment;
+        private readonly GoodRussianDbContext _context;
+        IWebHostEnvironment _appEnvironment;
 
-        public XLevelController(MyContext context, IHostingEnvironment appEnvironment)
+        public XLevelController(GoodRussianDbContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _appEnvironment = appEnvironment;

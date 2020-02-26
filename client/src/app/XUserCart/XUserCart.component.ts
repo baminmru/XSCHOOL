@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy,  Input, Output, EventEmitter } from "@angular/core";
-import { XUserCart_Service } from "app/XUserCart.service";
+import { xUserCart_Service } from "app/XUserCart.service";
 import { AppService } from "app/app.service";
 import { Observable, SubscriptionLike as ISubscription} from "rxjs";
 import {  Validators } from "@angular/forms";
@@ -13,57 +13,57 @@ const MODE_NEW = 1;
 const MODE_EDIT = 2;
 
 @Component({
-	   selector: 'app-XUserCart',
+	   selector: 'app-xUserCart',
     styleUrls: ['./XUserCart.component.scss'],
     templateUrl: './XUserCart.component.html',
 })
-export class XUserCartComponent implements OnInit {
+export class xUserCartComponent implements OnInit {
 
-    XUserCartArray: Array<XUser.XUserCart> = [];
+    xUserCartArray: Array<XUser.xUserCart> = [];
     opened: boolean = false;
     confirmOpened: boolean = false;
     mode: Number = MODE_LIST;
-    currentXUserCart: XUser.XUserCart = {} as XUser.XUserCart;
+    currentxUserCart: XUser.xUserCart = {} as XUser.xUserCart;
     formMsg: string = '';
     valid:boolean=true;
     errorFlag:boolean=false;
     errorMessage:string='';
    subscription:ISubscription;
 
-    constructor( private XUserCart_Service: XUserCart_Service,  public AppService:AppService ) {
+    constructor( private xUserCart_Service: xUserCart_Service,  public AppService:AppService ) {
     }
 
     ngOnInit() {
-		   console.log("Subscribe XUserCart"); 
-        this.subscription=this.AppService.currentXUserInfo.subscribe(si =>{ this.refreshXUserCart(); }, error => { this.ShowError(error.message); } );
-        this.refreshXUserCart();
+		   // console.log("Subscribe xUserCart"); 
+        this.subscription=this.AppService.currentxUserInfo.subscribe(si =>{ this.refreshxUserCart(); }, error => { this.ShowError(error.message); } );
+        this.refreshxUserCart();
     }
     refreshCombo() {
      this.AppService.refreshComboXCourseDesc();
      this.AppService.refreshComboXSubscriptionType();
     }
     ngOnDestroy() {
-		   console.log("Unsubscribe XUserCart"); 
+		   // console.log("Unsubscribe xUserCart"); 
         this.subscription.unsubscribe();
     }
 
-    refreshXUserCart() {
-		let item:XUser.XUserInfo;
-		item=this.AppService.LastXUserInfo;
-		console.log("refreshing XUserCart"); 
-     this.currentXUserCart = {} as XUser.XUserCart;
+    refreshxUserCart() {
+		let item:XUser.xUserInfo;
+		item=this.AppService.LastxUserInfo;
+		console.log("refreshing xUserCart"); 
+     this.currentxUserCart = {} as XUser.xUserCart;
 		if(typeof item === 'undefined') { 
 		   //console.log("no parent item for refresh"); 
-        this.XUserCart_Service.get_XUserCartByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserCartArray => { this.XUserCartArray = XUserCartArray; }, error => { this.ShowError(error.message); })
+        this.xUserCart_Service.get_xUserCartByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserCartArray => { this.xUserCartArray = xUserCartArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId==='undefined') { 
+		if(typeof item.xUserInfoId==='undefined') { 
 		   //console.log("no parent id for refresh"); 
-        this.XUserCart_Service.get_XUserCartByParent('00000000-0000-0000-0000-000000000000').subscribe(XUserCartArray => { this.XUserCartArray = XUserCartArray; }, error => { this.ShowError(error.message); })
+        this.xUserCart_Service.get_xUserCartByParent('00000000-0000-0000-0000-000000000000').subscribe(xUserCartArray => { this.xUserCartArray = xUserCartArray; }, error => { this.ShowError(error.message); })
 			return; 
 		} 
-		if(typeof item.XUserInfoId === 'string' ) {
-        this.XUserCart_Service.get_XUserCartByParent(item.XUserInfoId).subscribe(XUserCartArray => { this.XUserCartArray = XUserCartArray; }, error => { this.ShowError(error.message); })
+		if(typeof item.xUserInfoId === 'string' ) {
+        this.xUserCart_Service.get_xUserCartByParent(item.xUserInfoId).subscribe(xUserCartArray => { this.xUserCartArray = xUserCartArray; }, error => { this.ShowError(error.message); })
       }
     }
 
@@ -73,58 +73,55 @@ export class XUserCartComponent implements OnInit {
 	   }
 
 	   getData(){
-		this.refreshXUserCart();
-		return this.XUserCartArray ;
+		this.refreshxUserCart();
+		return this.xUserCartArray ;
 	   }
 
-    onSelect(item: XUser.XUserCart) {
-        this.currentXUserCart = item;
+    onSelect(item: XUser.xUserCart) {
+        this.currentxUserCart = item;
     }
 
     onNew() {
     this.refreshCombo(); 
-      if(typeof ( this.AppService.LastXUserInfo.XUserInfoId) === 'string' ) {
-        this.currentXUserCart = {} as XUser.XUserCart;
-        this.currentXUserCart.XUserInfoId = this.AppService.LastXUserInfo.XUserInfoId;
+      if(typeof ( this.AppService.LastxUserInfo.xUserInfoId) === 'string' ) {
+        this.currentxUserCart = {} as XUser.xUserCart;
+        this.currentxUserCart.xUserInfoId = this.AppService.LastxUserInfo.xUserInfoId;
         this.opened = true;
         this.mode = MODE_NEW;
         this.formMsg = 'Создать: ';
       }
     }
 
-    onEdit(item: XUser.XUserCart) {
+    onEdit(item: XUser.xUserCart) {
     this.refreshCombo(); 
         this.opened = true;
         this.formMsg = 'Изменить: ';
         this.mode = MODE_EDIT;
-        this.currentXUserCart = item;
+        this.currentxUserCart = item;
     }
 
-    onDelete(item: XUser.XUserCart) {
+    onDelete(item: XUser.xUserCart) {
         this.confirmOpened = true;
-        this.currentXUserCart = item;
+        this.currentxUserCart = item;
     }
 
     onConfirmDeletion() {
-        this.XUserCart_Service.delete_XUserCartById(this.currentXUserCart.XUserCartId).subscribe(data => {this.refreshXUserCart()}, error => { this.ShowError(error.message); });
+        this.xUserCart_Service.delete_xUserCartById(this.currentxUserCart.xUserCartId).subscribe(data => {this.refreshxUserCart()}, error => { this.ShowError(error.message); });
         this.backToList();
     }
 
-    save(item: XUser.XUserCart) {
+    save(item: XUser.xUserCart) {
         this.valid=true; 
-     if(this.currentXUserCart.theCourse == undefined ) this.valid=false;
-     if(this.currentXUserCart.SubscriptionType == undefined ) this.valid=false;
-     if(this.currentXUserCart.Price == undefined  ) this.valid=false;
         if (this.valid) {
             switch (this.mode) {
                 case MODE_NEW: {
-                    this.XUserCart_Service.create_XUserCart(item)
-                        .subscribe(data =>{ this.refreshXUserCart()}, error => { this.ShowError(error.message); });
+                    this.xUserCart_Service.create_xUserCart(item)
+                        .subscribe(data =>{ this.refreshxUserCart()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 case MODE_EDIT: {
-                    this.XUserCart_Service.update_XUserCart( item)
-                        .subscribe(data => {this.refreshXUserCart()}, error => { this.ShowError(error.message); });
+                    this.xUserCart_Service.update_xUserCart( item)
+                        .subscribe(data => {this.refreshxUserCart()}, error => { this.ShowError(error.message); });
                     break;
                 }
                 default:
@@ -142,17 +139,11 @@ export class XUserCartComponent implements OnInit {
         if(!aoa[0]) aoa[0] = [];
             aoa[0][0]='Курс';
             aoa[0][1]='Тип подписки';
-            aoa[0][2]='Цена';
-            aoa[0][3]='С';
-            aoa[0][4]='По';
 /* fill data to array */
-        for(var i = 0; i < this.XUserCartArray.length; ++i) {
+        for(var i = 0; i < this.xUserCartArray.length; ++i) {
             if(!aoa[i+1]) aoa[i+1] = [];
-            aoa[i+1][0]=this.XUserCartArray[i].theCourse_name;
-            aoa[i+1][1]=this.XUserCartArray[i].SubscriptionType_name;
-            aoa[i+1][2]=this.XUserCartArray[i].Price;
-            aoa[i+1][3]=this.XUserCartArray[i].FromDate;
-            aoa[i+1][4]=this.XUserCartArray[i].ToDate;
+            aoa[i+1][0]=this.xUserCartArray[i].theCourse_name;
+            aoa[i+1][1]=this.xUserCartArray[i].subscriptionType_name;
         }
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(aoa);
@@ -160,16 +151,13 @@ export class XUserCartComponent implements OnInit {
         var wscols = [
             {wch: 50}
 ,            {wch: 50}
-,            {wch: 20}
-,            {wch: 18}
-,            {wch: 18}
         ];
 
         ws['!cols'] = wscols;
 
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'XUserCart');
+        XLSX.utils.book_append_sheet(wb, ws, 'xUserCart');
         
 
         wb.Props = {
@@ -186,13 +174,13 @@ export class XUserCartComponent implements OnInit {
         }
 
 		/* save to file */
-		XLSX.writeFile(wb, 'XUserCart.xlsx');
+		XLSX.writeFile(wb, 'xUserCart.xlsx');
 	}
     backToList() {
         this.opened = false;
         this.confirmOpened = false;
         this.mode = MODE_LIST;
-        this.currentXUserCart = {} as XUser.XUserCart;
+        this.currentxUserCart = {} as XUser.xUserCart;
     }
 }
  

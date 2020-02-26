@@ -3,69 +3,74 @@
 export namespace XUser { 
 	/* XUser -  Пользователь */ 
 
- export interface   XUserInfo { // Описание
-	XUserInfoId:string; // Primary key field
-	Family:string; // Фамилия
-	Login:string; // Имя для входа
-	SurName:string; // Отчество
-	EMail:string; // e-mail
-	Phone:string; // Телефон
-	Name:string; // Имя
-	Birthday:string; // Дата рождения
-	Password:string; // Пароль
-	City:string; // Город
-	 PIaccept:enums.enum_YesNo; // Принята политика ПД
-	 PIaccept_name :string; // enum to text for Принята политика ПД
-	 HRaccept:enums.enum_YesNo; // Принята политика HR
-	 HRaccept_name :string; // enum to text for Принята политика HR
- }
-
- export interface   XSubscription { // Подписки
-	XSubscriptionId:string; // Primary key field
-	  XUserInfoId:string; // Описание
-	SubscriptionType:string; //Тип подписки -> XSubscriptionType
-	FromDate:string; // С
-	ToDate:string; // По
+ export interface   xUserInfo { // Описание
+	xUserInfoId:string; // Primary key field
+	family:string; // Фамилия
+	name:string; // Имя
+	middleName:string; // Отчество
+	login:string; // Имя для входа
+	password:string; // Пароль
+	photoUrl:string; // Фотография
+	eMail:string; // e-mail
+	phone:string; // Телефон
+	birthday:string; // Дата рождения
+	country:string; // Страна
+	city:string; // Город
+	nativeLanguage:string; // Родной язык
+	userSkill:string; //Уровень владения русским -> XUserSkillLevel
+	learningYears:Number; // Количество лет изучения русского
+	learningGoal:string; // Цель обучения
+	 pIaccept:enums.enum_YesNo; // Принята политика ПД
+	 pIaccept_name :string; // enum to text for Принята политика ПД
+	 hRaccept:enums.enum_YesNo; // Принята политика HR
+	 hRaccept_name :string; // enum to text for Принята политика HR
 	// add dereference fields 
-	SubscriptionType_name :string; // dereference for XSubscriptionType
+	userSkill_name :string; // dereference for XUserSkillLevel
  }
 
- export interface   XUserPurchase { // Покупки пользователя
-	XUserPurchaseId:string; // Primary key field
-	  XUserInfoId:string; // Описание
+ export interface   xSubscription { // Подписки
+	xSubscriptionId:string; // Primary key field
+	  xUserInfoId:string; // Описание
+	subscriptionType:string; //Тип подписки -> XSubscriptionType
+	fromDate:string; // С
+	toDate:string; // По
+	// add dereference fields 
+	subscriptionType_name :string; // dereference for XSubscriptionType
+ }
+
+ export interface   xUserPurchase { // Покупки пользователя
+	xUserPurchaseId:string; // Primary key field
+	  xUserInfoId:string; // Описание
 	theCourse:string; //Курс -> XCourseDesc
 	// add dereference fields 
 	theCourse_name :string; // dereference for XCourseDesc
  }
 
- export interface   XUserProfile { // Результаты обучения
-	XUserProfileId:string; // Primary key field
-	  XUserInfoId:string; // Описание
+ export interface   xUserProfile { // Результаты обучения
+	xUserProfileId:string; // Primary key field
+	  xUserInfoId:string; // Описание
 	theCourse:string; //Курс -> XCourseDesc
-	ComplModule:string; //Завершенный модуль -> XCourseModule
+	complModule:string; //Завершенный модуль -> XCourseModule
 	// add dereference fields 
 	theCourse_name :string; // dereference for XCourseDesc
-	ComplModule_name :string; // dereference for XCourseModule
+	complModule_name :string; // dereference for XCourseModule
  }
 
- export interface   XUserRegistartion { // Запись на  курс
-	XUserRegistartionId:string; // Primary key field
-	  XUserInfoId:string; // Описание
+ export interface   xUserRegistartion { // Запись на  курс
+	xUserRegistartionId:string; // Primary key field
+	  xUserInfoId:string; // Описание
 	theCourseSchedule:string; //Запись на  курс -> XScheduleItem
 	// add dereference fields 
 	theCourseSchedule_name :string; // dereference for XScheduleItem
  }
 
- export interface   XUserCart { // Корзина
-	XUserCartId:string; // Primary key field
-	  XUserInfoId:string; // Описание
+ export interface   xUserCart { // Корзина
+	xUserCartId:string; // Primary key field
+	  xUserInfoId:string; // Описание
 	theCourse:string; //Курс -> XCourseDesc
-	SubscriptionType:string; //Тип подписки -> XSubscriptionType
-	Price:Number; // Цена
-	FromDate:string; // С
-	ToDate:string; // По
+	subscriptionType:string; //Тип подписки -> XSubscriptionType
 	// add dereference fields 
 	theCourse_name :string; // dereference for XCourseDesc
-	SubscriptionType_name :string; // dereference for XSubscriptionType
+	subscriptionType_name :string; // dereference for XSubscriptionType
  }
 }

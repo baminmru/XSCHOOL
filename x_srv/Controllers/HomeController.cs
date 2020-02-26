@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using MySys.Common.Extensions;
-using MySys.Common.Service;
-using MySys.Identity.Data;
-using MySys.Identity.Models;
-using x_srv.models;
-using x_srv.Services.Data.User;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿/*
+HomeController.cs
+Created by: BAMINOTE\bami
+Modified: 17.12.2019
+*/
 
 namespace x_srv.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Defines the <see cref="HomeController" />
+    /// </summary>
     [Produces("application/json")]
     public class HomeController : Controller
     {
-        //private readonly MyContext _context;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController"/> class.
+        /// </summary>
         public HomeController()
         {
-            // _context = context;
-
         }
 
         // GET: /<controller>/
+        /// <summary>
+        /// The Index
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/></returns>
         public async Task<IActionResult> Index()
         {
             return View();

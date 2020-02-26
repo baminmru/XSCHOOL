@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XCourse} from './XCourse';
 @Injectable()
-export class XChepter_Service {
+export class xChepter_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,16 +13,22 @@ export class XChepter_Service {
 	}
 	
 	
+	sequence:string = '';
 	name:string = '';
 	mainText:string = '';
+	refFile:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XChepters
-    getAll_XChepters(): Observable<XCourse.XChepter[]> {
+	//Fetch all xChepters
+    getAll_xChepters(): Observable<XCourse.xChepter[]> {
 		var qry:string;
 		qry='';
 		
+		if(this.sequence!=''){
+			if(qry !='') qry=qry +'&';
+			qry='sequence='+encodeURIComponent(this.sequence)
+		}
 		if(this.name!=''){
 			if(qry !='') qry=qry +'&';
 			qry='name='+encodeURIComponent(this.name)
@@ -30,6 +36,10 @@ export class XChepter_Service {
 		if(this.mainText!=''){
 			if(qry !='') qry=qry +'&';
 			qry='mainText='+encodeURIComponent(this.mainText)
+		}
+		if(this.refFile!=''){
+			if(qry !='') qry=qry +'&';
+			qry='refFile='+encodeURIComponent(this.refFile)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -41,60 +51,62 @@ export class XChepter_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XCourse.XChepter[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XCourse.xChepter[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XCourse.XChepter[]>(this.serviceURL + '/XChepter/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XCourse.xChepter[]>(this.serviceURL + '/xChepter/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
+	this.sequence = '';
 	this.name = '';
 	this.mainText = '';
+	this.refFile = '';
 		
 	}
  
-	   //Create XChepter
-    create_XChepter(XChepter: XCourse.XChepter): Observable<Object > {
-       // XChepter.XChepterId = '';
+	   //Create xChepter
+    create_xChepter(xChepter: XCourse.xChepter): Observable<XCourse.xChepter > {
+       // xChepter.xChepterId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XChepter/', XChepter, { headers: cpHeaders })
+        return this.http.post<XCourse.xChepter >(this.serviceURL + '/xChepter/', xChepter, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XChepter by parent
-    get_XChepterByParent(parentId: string): Observable<XCourse.XChepter[]> {
+	//Fetch xChepter by parent
+    get_xChepterByParent(parentId: string): Observable<XCourse.xChepter[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XChepter/byparent/'+ parentId)
-        return this.http.get<XCourse.XChepter[]>(this.serviceURL + '/XChepter/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xChepter/byparent/'+ parentId)
+        return this.http.get<XCourse.xChepter[]>(this.serviceURL + '/xChepter/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XChepter by id
-    get_XChepterById(XChepterId: string): Observable<XCourse.XChepter> {
+	//Fetch xChepter by id
+    get_xChepterById(xChepterId: string): Observable<XCourse.xChepter> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XChepter/'+ XChepterId)
-        return this.http.get<XCourse.XChepter>(this.serviceURL + '/XChepter/' + XChepterId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xChepter/'+ xChepterId)
+        return this.http.get<XCourse.xChepter>(this.serviceURL + '/xChepter/' + xChepterId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XChepter
-    update_XChepter(XChepter: XCourse.XChepter):Observable<Object > {
+	   //Update xChepter
+    update_xChepter(xChepter: XCourse.xChepter):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XChepter/' + XChepter.XChepterId, XChepter, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xChepter/' + xChepter.xChepterId, xChepter, { headers: cpHeaders })
     }
 	
-    //Delete XChepter	
-    delete_XChepterById(XChepterId: string): Observable<Object> {
+    //Delete xChepter	
+    delete_xChepterById(xChepterId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XChepter/' + XChepterId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xChepter/' + xChepterId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XCourse.XChepter = null;
+	private mSelecetd:XCourse.xChepter = null;
 	
-	public 	get Selected():XCourse.XChepter{ return this.mSelecetd;}
+	public 	get Selected():XCourse.xChepter{ return this.mSelecetd;}
 	
-	public  set Selected(_XChepter:XCourse.XChepter){ this.mSelecetd=_XChepter; }
+	public  set Selected(_xChepter:XCourse.xChepter){ this.mSelecetd=_xChepter; }
  
 }

@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XDict} from './XDict';
 @Injectable()
-export class XSubscriptionType_Service {
+export class xSubscriptionType_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -18,8 +18,8 @@ export class XSubscriptionType_Service {
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XSubscriptionTypes
-    getAll_XSubscriptionTypes(): Observable<XDict.XSubscriptionType[]> {
+	//Fetch all xSubscriptionTypes
+    getAll_xSubscriptionTypes(): Observable<XDict.xSubscriptionType[]> {
 		var qry:string;
 		qry='';
 		
@@ -41,11 +41,11 @@ export class XSubscriptionType_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XDict.XSubscriptionType[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XDict.xSubscriptionType[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XDict.XSubscriptionType[]>(this.serviceURL + '/XSubscriptionType/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XDict.xSubscriptionType[]>(this.serviceURL + '/xSubscriptionType/view/'+qry, { headers: cpHeaders })
         }
     }
 	
@@ -55,39 +55,39 @@ export class XSubscriptionType_Service {
 		
 	}
  
-	   //Create XSubscriptionType
-    create_XSubscriptionType(XSubscriptionType: XDict.XSubscriptionType): Observable<Object > {
-       // XSubscriptionType.XSubscriptionTypeId = '';
+	   //Create xSubscriptionType
+    create_xSubscriptionType(xSubscriptionType: XDict.xSubscriptionType): Observable<XDict.xSubscriptionType > {
+       // xSubscriptionType.xSubscriptionTypeId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XSubscriptionType/', XSubscriptionType, { headers: cpHeaders })
+        return this.http.post<XDict.xSubscriptionType >(this.serviceURL + '/xSubscriptionType/', xSubscriptionType, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XSubscriptionType by id
-    get_XSubscriptionTypeById(XSubscriptionTypeId: string): Observable<XDict.XSubscriptionType> {
+	//Fetch xSubscriptionType by id
+    get_xSubscriptionTypeById(xSubscriptionTypeId: string): Observable<XDict.xSubscriptionType> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XSubscriptionType/'+ XSubscriptionTypeId)
-        return this.http.get<XDict.XSubscriptionType>(this.serviceURL + '/XSubscriptionType/' + XSubscriptionTypeId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xSubscriptionType/'+ xSubscriptionTypeId)
+        return this.http.get<XDict.xSubscriptionType>(this.serviceURL + '/xSubscriptionType/' + xSubscriptionTypeId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XSubscriptionType
-    update_XSubscriptionType(XSubscriptionType: XDict.XSubscriptionType):Observable<Object > {
+	   //Update xSubscriptionType
+    update_xSubscriptionType(xSubscriptionType: XDict.xSubscriptionType):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XSubscriptionType/' + XSubscriptionType.XSubscriptionTypeId, XSubscriptionType, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xSubscriptionType/' + xSubscriptionType.xSubscriptionTypeId, xSubscriptionType, { headers: cpHeaders })
     }
 	
-    //Delete XSubscriptionType	
-    delete_XSubscriptionTypeById(XSubscriptionTypeId: string): Observable<Object> {
+    //Delete xSubscriptionType	
+    delete_xSubscriptionTypeById(xSubscriptionTypeId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XSubscriptionType/' + XSubscriptionTypeId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xSubscriptionType/' + xSubscriptionTypeId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XDict.XSubscriptionType = null;
+	private mSelecetd:XDict.xSubscriptionType = null;
 	
-	public 	get Selected():XDict.XSubscriptionType{ return this.mSelecetd;}
+	public 	get Selected():XDict.xSubscriptionType{ return this.mSelecetd;}
 	
-	public  set Selected(_XSubscriptionType:XDict.XSubscriptionType){ this.mSelecetd=_XSubscriptionType; }
+	public  set Selected(_xSubscriptionType:XDict.xSubscriptionType){ this.mSelecetd=_xSubscriptionType; }
  
 }

@@ -45,7 +45,7 @@
 	 [value-field]="'id'"
 	 [data]="AppService.ComboXCourseDesc"
 	 
-	 [(ngModel)]="currentXScheduleItem.theCourse"
+	 [(ngModel)]="currentxScheduleItem.theCourse"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -60,7 +60,7 @@
 	 [value-field]="'id'"
 	 [data]="AppService.ComboXInstructorInfo"
 	 
-	 [(ngModel)]="currentXScheduleItem.theInstructor"
+	 [(ngModel)]="currentxScheduleItem.theInstructor"
 	 >
   </amexio-dropdown>
      </amexio-column></amexio-row>
@@ -68,22 +68,22 @@
   <amexio-date-time-picker   [field-label]="'С'" 
         [time-picker]="false"  
         [date-picker]="true"  
-        [(ngModel)]="currentXScheduleItem.FromDate"> 
+        [(ngModel)]="currentxScheduleItem.fromDate"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
      <amexio-row><amexio-column size="12" >
   <amexio-date-time-picker   [field-label]="'По'" 
         [time-picker]="false"  
         [date-picker]="true"  
-        [(ngModel)]="currentXScheduleItem.ToDate"> 
+        [(ngModel)]="currentxScheduleItem.toDate"> 
  </amexio-date-time-picker> 
      </amexio-column></amexio-row>
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 
 	<amexio-column size="12"> 
-     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshXScheduleItem();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
-     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentXScheduleItem)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
+     <amexio-button  [label]="'Отмена'" (onClick)="opened = false;  refreshxScheduleItem();" [type]="'secondary'" [tooltip]="'Отмена'" [icon]="'fa fa-times'"></amexio-button>
+     <amexio-button  [label]="'Сохранить'" (onClick)="save(currentxScheduleItem)" [type]="'success'" [tooltip]="'Сохранить'" [icon]="'fa fa-save'"></amexio-button>
 	</amexio-column> 
 	</amexio-row> 
 	</amexio-action> 
@@ -95,9 +95,9 @@
 	<amexio-row> 
 		<amexio-column size="12" > 
 		<amexio-button [label]="'Создать'" [type]="'secondary'" [tooltip]="'Создать новую запись'" [icon]="'fa fa-plus'" (onClick)="onNew()"></amexio-button>
-		<amexio-button [disabled]="currentXScheduleItem.XScheduleItemId==null" [label]="'Изменить'" (onClick)="onEdit(currentXScheduleItem)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
-     <amexio-button [disabled]="currentXScheduleItem.XScheduleItemId==null" [label]="'Удалить'" (onClick)="onDelete(currentXScheduleItem)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
-     <amexio-button  [label]="'Обновить'" (onClick)="refreshXScheduleItem()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
+		<amexio-button [disabled]="currentxScheduleItem.xScheduleItemId==null" [label]="'Изменить'" (onClick)="onEdit(currentxScheduleItem)" [type]="'secondary'" [tooltip]="'Изменить запись'" [icon]="'fa fa-edit'"></amexio-button>
+     <amexio-button [disabled]="currentxScheduleItem.xScheduleItemId==null" [label]="'Удалить'" (onClick)="onDelete(currentxScheduleItem)" [type]="'secondary'" [tooltip]="'Удалить запись'" [icon]="'fa fa-trash'"></amexio-button>
+     <amexio-button  [label]="'Обновить'" (onClick)="refreshxScheduleItem()" [type]="'secondary'" [tooltip]="'Обновить данные'" [icon]="'fa fa-refresh'"></amexio-button>
      <amexio-button  [label]="'Экспорт'" (onClick)="exportXSLX()" [type]="'secondary'" [tooltip]="'Экспорт данных'" [icon]="'fa fa-cloud'"></amexio-button>
 		</amexio-column>
 	</amexio-row> 
@@ -108,13 +108,13 @@
 		  [page-size] = "10" 
 		  [enable-data-filter]="false" 
 		  [enable-checkbox]="false" 
-		  [data]="XScheduleItemArray" 
+		  [data]="xScheduleItemArray" 
 		  (selectedRowData)="onSelect($event)" 
 		  (rowSelect)="onSelect($event)"> 
 		  <amexio-data-table-column [data-index]="'theCourse_name'" [data-type]="'string'" [hidden]="false" [text]="'Курс'"></amexio-data-table-column> 
 		  <amexio-data-table-column [data-index]="'theInstructor_name'" [data-type]="'string'" [hidden]="false" [text]="'Инструктор'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'FromDate'" [data-type]="'string'" [hidden]="false" [text]="'С'"></amexio-data-table-column> 
-		  <amexio-data-table-column [data-index]="'ToDate'" [data-type]="'string'" [hidden]="false" [text]="'По'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'fromDate'" [data-type]="'string'" [hidden]="false" [text]="'С'"></amexio-data-table-column> 
+		  <amexio-data-table-column [data-index]="'toDate'" [data-type]="'string'" [hidden]="false" [text]="'По'"></amexio-data-table-column> 
 		</amexio-datagrid> 
 	</amexio-body> 
 </amexio-card> 
@@ -126,7 +126,7 @@
 Удалить строку:  Расписание курсов::Расписание ?
     </amexio-header> 
     <amexio-body> 
-            Удалить запись: {{ ( (currentXScheduleItem.theCourse_name +'; '+  currentXScheduleItem.theInstructor_name||'').length >100 ? (currentXScheduleItem.theCourse_name +'; '+  currentXScheduleItem.theInstructor_name||'').substr(0,100)+'...' : (currentXScheduleItem.theCourse_name +'; '+  currentXScheduleItem.theInstructor_name||'')) | removehtmltag }}?  
+            Удалить запись: {{ ( (currentxScheduleItem.theCourse_name +'; '+  currentxScheduleItem.theInstructor_name||'').length >100 ? (currentxScheduleItem.theCourse_name +'; '+  currentxScheduleItem.theInstructor_name||'').substr(0,100)+'...' : (currentxScheduleItem.theCourse_name +'; '+  currentxScheduleItem.theInstructor_name||'')) | removehtmltag }}?  
 	</amexio-body> 
 	<amexio-action> 
 	<amexio-row> 

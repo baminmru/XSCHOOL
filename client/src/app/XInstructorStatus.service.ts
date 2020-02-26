@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XInstructor} from './XInstructor';
 @Injectable()
-export class XInstructorStatus_Service {
+export class xInstructorStatus_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,14 +13,19 @@ export class XInstructorStatus_Service {
 	}
 	
 	
+	sequence:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XInstructorStatuss
-    getAll_XInstructorStatuss(): Observable<XInstructor.XInstructorStatus[]> {
+	//Fetch all xInstructorStatuss
+    getAll_xInstructorStatuss(): Observable<XInstructor.xInstructorStatus[]> {
 		var qry:string;
 		qry='';
 		
+		if(this.sequence!=''){
+			if(qry !='') qry=qry +'&';
+			qry='sequence='+encodeURIComponent(this.sequence)
+		}
 		/*
 		if(this.PageNo!=null){
 			if(qry !='') qry=qry +;
@@ -31,58 +36,59 @@ export class XInstructorStatus_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XInstructor.XInstructorStatus[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XInstructor.xInstructorStatus[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XInstructor.XInstructorStatus[]>(this.serviceURL + '/XInstructorStatus/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XInstructor.xInstructorStatus[]>(this.serviceURL + '/xInstructorStatus/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
+	this.sequence = '';
 		
 	}
  
-	   //Create XInstructorStatus
-    create_XInstructorStatus(XInstructorStatus: XInstructor.XInstructorStatus): Observable<Object > {
-       // XInstructorStatus.XInstructorStatusId = '';
+	   //Create xInstructorStatus
+    create_xInstructorStatus(xInstructorStatus: XInstructor.xInstructorStatus): Observable<XInstructor.xInstructorStatus > {
+       // xInstructorStatus.xInstructorStatusId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XInstructorStatus/', XInstructorStatus, { headers: cpHeaders })
+        return this.http.post<XInstructor.xInstructorStatus >(this.serviceURL + '/xInstructorStatus/', xInstructorStatus, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XInstructorStatus by parent
-    get_XInstructorStatusByParent(parentId: string): Observable<XInstructor.XInstructorStatus[]> {
+	//Fetch xInstructorStatus by parent
+    get_xInstructorStatusByParent(parentId: string): Observable<XInstructor.xInstructorStatus[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XInstructorStatus/byparent/'+ parentId)
-        return this.http.get<XInstructor.XInstructorStatus[]>(this.serviceURL + '/XInstructorStatus/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xInstructorStatus/byparent/'+ parentId)
+        return this.http.get<XInstructor.xInstructorStatus[]>(this.serviceURL + '/xInstructorStatus/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XInstructorStatus by id
-    get_XInstructorStatusById(XInstructorStatusId: string): Observable<XInstructor.XInstructorStatus> {
+	//Fetch xInstructorStatus by id
+    get_xInstructorStatusById(xInstructorStatusId: string): Observable<XInstructor.xInstructorStatus> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XInstructorStatus/'+ XInstructorStatusId)
-        return this.http.get<XInstructor.XInstructorStatus>(this.serviceURL + '/XInstructorStatus/' + XInstructorStatusId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xInstructorStatus/'+ xInstructorStatusId)
+        return this.http.get<XInstructor.xInstructorStatus>(this.serviceURL + '/xInstructorStatus/' + xInstructorStatusId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XInstructorStatus
-    update_XInstructorStatus(XInstructorStatus: XInstructor.XInstructorStatus):Observable<Object > {
+	   //Update xInstructorStatus
+    update_xInstructorStatus(xInstructorStatus: XInstructor.xInstructorStatus):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XInstructorStatus/' + XInstructorStatus.XInstructorStatusId, XInstructorStatus, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xInstructorStatus/' + xInstructorStatus.xInstructorStatusId, xInstructorStatus, { headers: cpHeaders })
     }
 	
-    //Delete XInstructorStatus	
-    delete_XInstructorStatusById(XInstructorStatusId: string): Observable<Object> {
+    //Delete xInstructorStatus	
+    delete_xInstructorStatusById(xInstructorStatusId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XInstructorStatus/' + XInstructorStatusId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xInstructorStatus/' + xInstructorStatusId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XInstructor.XInstructorStatus = null;
+	private mSelecetd:XInstructor.xInstructorStatus = null;
 	
-	public 	get Selected():XInstructor.XInstructorStatus{ return this.mSelecetd;}
+	public 	get Selected():XInstructor.xInstructorStatus{ return this.mSelecetd;}
 	
-	public  set Selected(_XInstructorStatus:XInstructor.XInstructorStatus){ this.mSelecetd=_XInstructorStatus; }
+	public  set Selected(_xInstructorStatus:XInstructor.xInstructorStatus){ this.mSelecetd=_xInstructorStatus; }
  
 }

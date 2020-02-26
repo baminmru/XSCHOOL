@@ -3,49 +3,54 @@
 export namespace XCourse { 
 	/* XCourse -  Курс */ 
 
- export interface   XCourseDesc { // Описание курса
-	XCourseDescId:string; // Primary key field
-	CourseCode:string; // Код курса
+ export interface   xCourseDesc { // Описание курса
+	xCourseDescId:string; // Primary key field
+	courseCode:string; // Код курса
 	name:string; // Название
-	Subject:string; //Предмет -> XSubject
+	subject:string; //Предмет -> XSubject
+	imageUrl:string; // Картинка
 	theLevel:string; //Уровень сложности -> XLevel
-	Certification:string; //Сертификация -> XCert
+	certification:string; //Сертификация -> XCert
 	theInstructor:string; //Инструктор -> XInstructorInfo
-	CourseDescription:string; // Описание
-	StudentGuide:string; // Методические указания
-	LabGuide:string; // Лабораторные работы
-	Price:Number; // Цена
-	 IsActive:enums.enum_YesNo; // Активный курс
-	 IsActive_name :string; // enum to text for Активный курс
-	theVendor:string; //Владелец -> XVendor
+	courseDescription:string; // Описание
+	studentGuide:string; // Методические указания
+	labGuide:string; // Лабораторные работы
+	price:Number; // Цена
+	 isActive:enums.enum_YesNo; // Активный курс
+	 isActive_name :string; // enum to text for Активный курс
+	 isOffline:enums.enum_YesNo; // Оффлайн курс
+	 isOffline_name :string; // enum to text for Оффлайн курс
+	 isOnline:enums.enum_YesNo; // Онлайн курс
+	 isOnline_name :string; // enum to text for Онлайн курс
 	// add dereference fields 
-	Subject_name :string; // dereference for XSubject
+	subject_name :string; // dereference for XSubject
 	theLevel_name :string; // dereference for XLevel
-	Certification_name :string; // dereference for XCert
+	certification_name :string; // dereference for XCert
 	theInstructor_name :string; // dereference for XInstructorInfo
-	theVendor_name :string; // dereference for XVendor
  }
 
- export interface   XCourseModule { // Модули курса
-	XCourseModuleId:string; // Primary key field
-	  XCourseDescId:string; // Описание курса
-	ModuleNo:Number; // Номер по порядку
+ export interface   xCourseModule { // Модули курса
+	xCourseModuleId:string; // Primary key field
+	  xCourseDescId:string; // Описание курса
+	moduleNo:Number; // Номер по порядку
 	name:string; // Название
 	info:string; // Описание
 	reglament:string; // Регламент
  }
 
- export interface   XChepter { // Глава
-	XChepterId:string; // Primary key field
-	 XCourseModuleId :string // Parent part Id -> Модули курса
+ export interface   xChepter { // Глава
+	xChepterId:string; // Primary key field
+	 xCourseModuleId :string // Parent part Id -> Модули курса
+	sequence:Number; // Порядок прохождения
 	name:string; // Название
 	mainText:string; // Основной текст
+	refFile:string; // Файл
  }
 
- export interface   XCoursePrice { // Цены
-	XCoursePriceId:string; // Primary key field
-	  XCourseDescId:string; // Описание курса
-	PriceDate:string;  // Дата назначения цены
-	Price:Number; // Цена
+ export interface   xCoursePrice { // Цены
+	xCoursePriceId:string; // Primary key field
+	  xCourseDescId:string; // Описание курса
+	priceDate:string;  // Дата назначения цены
+	price:Number; // Цена
  }
 }

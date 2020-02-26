@@ -5,77 +5,74 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http'; 
 import { AmexioWidgetModule, CommonDataService, AmexioChartsModule,  AmexioDashBoardModule } from 'amexio-ng-extensions';
 import { AmexioChartD3Module } from 'amexio-chart-d3';
-
+import { FileUploadModule } from 'ng2-file-upload';
 
 import {CookieService} from 'ngx-cookie-service'; 
 import { NgxWigModule} from 'ngx-wig';
 import { CommonModule } from "@angular/common";
 import {AppService} from 'app/app.service'; 
 
+
 import { RemoveHTMLtagPipe} from 'app/pipes';
  
+import {jwtLoginComponent} from 'app/jwtlogin/jwtlogin.component'; 
+
 import { AppGuard} from 'app/app.guard'; 
 import { AppComponent } from './app.component'; 
 import { ROUTING } from './app.routing'; 
 import { AboutComponent } from './about/about.component'; 
 import { TopnavComponent } from './topnav/topnav.component'; 
 
+ 
 import { XInstructorComponent } from './XInstructor/XInstructor.component'; // Инструктор
-import { XInstructorInfoComponent } from './XInstructorInfo/XInstructorInfo.component'; // Описание
-import { XInstructorInfo_Service } from 'app/XInstructorInfo.service'; 
-import { XInstructorStatusComponent } from './XInstructorStatus/XInstructorStatus.component'; // Статусы
-import { XInstructorStatus_Service } from 'app/XInstructorStatus.service'; 
+import { xInstructorInfoComponent } from './XInstructorInfo/XInstructorInfo.component'; // Описание
+import { xInstructorInfo_Service } from 'app/XInstructorInfo.service'; 
+import { xInstructorStatusComponent } from './XInstructorStatus/XInstructorStatus.component'; // Статусы
+import { xInstructorStatus_Service } from 'app/XInstructorStatus.service'; 
  
 import { XCourseComponent } from './XCourse/XCourse.component'; // Курс
-import { XCourseDescComponent } from './XCourseDesc/XCourseDesc.component'; // Описание курса
-import { XCourseDesc_Service } from 'app/XCourseDesc.service'; 
-import { XCourseModuleComponent } from './XCourseModule/XCourseModule.component'; // Модули курса
-import { XCourseModule_Service } from 'app/XCourseModule.service'; 
-import { XChepterComponent } from './XChepter/XChepter.component'; // Глава
-import { XChepter_Service } from 'app/XChepter.service'; 
-import { XCoursePriceComponent } from './XCoursePrice/XCoursePrice.component'; // Цены
-import { XCoursePrice_Service } from 'app/XCoursePrice.service'; 
+import { xCourseDescComponent } from './XCourseDesc/XCourseDesc.component'; // Описание курса
+import { xCourseDesc_Service } from 'app/XCourseDesc.service'; 
+import { xCourseModuleComponent } from './XCourseModule/XCourseModule.component'; // Модули курса
+import { xCourseModule_Service } from 'app/XCourseModule.service'; 
+import { xChepterComponent } from './XChepter/XChepter.component'; // Глава
+import { xChepter_Service } from 'app/XChepter.service'; 
+import { xCoursePriceComponent } from './XCoursePrice/XCoursePrice.component'; // Цены
+import { xCoursePrice_Service } from 'app/XCoursePrice.service'; 
  
 import { XUserComponent } from './XUser/XUser.component'; // Пользователь
-import { XUserInfoComponent } from './XUserInfo/XUserInfo.component'; // Описание
-import { XUserInfo_Service } from 'app/XUserInfo.service'; 
-import { XSubscriptionComponent } from './XSubscription/XSubscription.component'; // Подписки
-import { XSubscription_Service } from 'app/XSubscription.service'; 
-import { XUserPurchaseComponent } from './XUserPurchase/XUserPurchase.component'; // Покупки пользователя
-import { XUserPurchase_Service } from 'app/XUserPurchase.service'; 
-import { XUserProfileComponent } from './XUserProfile/XUserProfile.component'; // Результаты обучения
-import { XUserProfile_Service } from 'app/XUserProfile.service'; 
-import { XUserRegistartionComponent } from './XUserRegistartion/XUserRegistartion.component'; // Запись на  курс
-import { XUserRegistartion_Service } from 'app/XUserRegistartion.service'; 
-import { XUserCartComponent } from './XUserCart/XUserCart.component'; // Корзина
-import { XUserCart_Service } from 'app/XUserCart.service'; 
- 
-import { XEDUPROGComponent } from './XEDUPROG/XEDUPROG.component'; // Программы обучения
-import { xeduprog_infoComponent } from './xeduprog_info/xeduprog_info.component'; // Описание программы
-import { xeduprog_info_Service } from 'app/xeduprog_info.service'; 
-import { eduprog_courseComponent } from './eduprog_course/eduprog_course.component'; // Курсы в программе
-import { eduprog_course_Service } from 'app/eduprog_course.service'; 
+import { xUserInfoComponent } from './XUserInfo/XUserInfo.component'; // Описание
+import { xUserInfo_Service } from 'app/XUserInfo.service'; 
+import { xSubscriptionComponent } from './XSubscription/XSubscription.component'; // Подписки
+import { xSubscription_Service } from 'app/XSubscription.service'; 
+import { xUserPurchaseComponent } from './XUserPurchase/XUserPurchase.component'; // Покупки пользователя
+import { xUserPurchase_Service } from 'app/XUserPurchase.service'; 
+import { xUserProfileComponent } from './XUserProfile/XUserProfile.component'; // Результаты обучения
+import { xUserProfile_Service } from 'app/XUserProfile.service'; 
+import { xUserRegistartionComponent } from './XUserRegistartion/XUserRegistartion.component'; // Запись на  курс
+import { xUserRegistartion_Service } from 'app/XUserRegistartion.service'; 
+import { xUserCartComponent } from './XUserCart/XUserCart.component'; // Корзина
+import { xUserCart_Service } from 'app/XUserCart.service'; 
  
 import { XScheduleComponent } from './XSchedule/XSchedule.component'; // Расписание курсов
-import { XScheduleItemComponent } from './XScheduleItem/XScheduleItem.component'; // Расписание
-import { XScheduleItem_Service } from 'app/XScheduleItem.service'; 
-import { XScheduleSubstComponent } from './XScheduleSubst/XScheduleSubst.component'; // Замещения
-import { XScheduleSubst_Service } from 'app/XScheduleSubst.service'; 
+import { xScheduleItemComponent } from './XScheduleItem/XScheduleItem.component'; // Расписание
+import { xScheduleItem_Service } from 'app/XScheduleItem.service'; 
+import { xScheduleSubstComponent } from './XScheduleSubst/XScheduleSubst.component'; // Замещения
+import { xScheduleSubst_Service } from 'app/XScheduleSubst.service'; 
  
 import { XDictComponent } from './XDict/XDict.component'; // Справочник
-import { XLevelComponent } from './XLevel/XLevel.component'; // Уровень сложности
-import { XLevel_Service } from 'app/XLevel.service'; 
-import { XSubjectComponent } from './XSubject/XSubject.component'; // Предмет
-import { XSubject_Service } from 'app/XSubject.service'; 
-import { XVendorComponent } from './XVendor/XVendor.component'; // Владелец
-import { XVendor_Service } from 'app/XVendor.service'; 
-import { XStatusComponent } from './XStatus/XStatus.component'; // Статус инструктора
-import { XStatus_Service } from 'app/XStatus.service'; 
-import { XSubscriptionTypeComponent } from './XSubscriptionType/XSubscriptionType.component'; // Тип подписки
-import { XSubscriptionType_Service } from 'app/XSubscriptionType.service'; 
-import { XCertComponent } from './XCert/XCert.component'; // Сертификаты
-import { XCert_Service } from 'app/XCert.service'; 
- import { jwtLoginComponent } from './jwtlogin/jwtlogin.component';
+import { xLevelComponent } from './XLevel/XLevel.component'; // Уровень сложности
+import { xLevel_Service } from 'app/XLevel.service'; 
+import { xSubjectComponent } from './XSubject/XSubject.component'; // Тематика
+import { xSubject_Service } from 'app/XSubject.service'; 
+import { xStatusComponent } from './XStatus/XStatus.component'; // Статус инструктора
+import { xStatus_Service } from 'app/XStatus.service'; 
+import { xSubscriptionTypeComponent } from './XSubscriptionType/XSubscriptionType.component'; // Тип подписки
+import { xSubscriptionType_Service } from 'app/XSubscriptionType.service'; 
+import { xCertComponent } from './XCert/XCert.component'; // Сертификаты
+import { xCert_Service } from 'app/XCert.service'; 
+import { xUserSkillLevelComponent } from './XUserSkillLevel/XUserSkillLevel.component'; // Уровень владения языком
+import { xUserSkillLevel_Service } from 'app/XUserSkillLevel.service'; 
 
 @NgModule({ 
     declarations: [ 
@@ -85,39 +82,36 @@ jwtLoginComponent,
 
 
  RemoveHTMLtagPipe,
- XInstructorComponent ,  // Инструктор
-  XInstructorInfoComponent, // Описание
-  XInstructorStatusComponent, // Статусы
+XInstructorComponent ,  // Инструктор
+  xInstructorInfoComponent, // Описание
+  xInstructorStatusComponent, // Статусы
  
  XCourseComponent ,  // Курс
-  XCourseDescComponent, // Описание курса
-  XCourseModuleComponent, // Модули курса
-  XChepterComponent, // Глава
-  XCoursePriceComponent, // Цены
+  xCourseDescComponent, // Описание курса
+  xCourseModuleComponent, // Модули курса
+  xChepterComponent, // Глава
+  xCoursePriceComponent, // Цены
  
  XUserComponent ,  // Пользователь
-  XUserInfoComponent, // Описание
-  XSubscriptionComponent, // Подписки
-  XUserPurchaseComponent, // Покупки пользователя
-  XUserProfileComponent, // Результаты обучения
-  XUserRegistartionComponent, // Запись на  курс
-  XUserCartComponent, // Корзина
- 
- XEDUPROGComponent ,  // Программы обучения
-  xeduprog_infoComponent, // Описание программы
-  eduprog_courseComponent, // Курсы в программе
+  xUserInfoComponent, // Описание
+  xSubscriptionComponent, // Подписки
+  xUserPurchaseComponent, // Покупки пользователя
+  xUserProfileComponent, // Результаты обучения
+  xUserRegistartionComponent, // Запись на  курс
+  xUserCartComponent, // Корзина
  
  XScheduleComponent ,  // Расписание курсов
-  XScheduleItemComponent, // Расписание
-  XScheduleSubstComponent, // Замещения
+  xScheduleItemComponent, // Расписание
+  xScheduleSubstComponent, // Замещения
  
  XDictComponent ,  // Справочник
-  XLevelComponent, // Уровень сложности
-  XSubjectComponent, // Тематика
-  XVendorComponent, // Компания-производитель
-  XStatusComponent, // Статус инструктора
-  XSubscriptionTypeComponent, // Тип подписки
-  XCertComponent, // Сертификаты
+  xLevelComponent, // Уровень сложности
+  xSubjectComponent, // Тематика
+  xStatusComponent, // Статус инструктора
+  xSubscriptionTypeComponent, // Тип подписки
+  xCertComponent, // Сертификаты
+  xUserSkillLevelComponent, // Уровень владения языком
+		 
 		 
         AboutComponent, 
         TopnavComponent 
@@ -133,35 +127,34 @@ jwtLoginComponent,
         AmexioWidgetModule, 
 		AmexioChartsModule,  
 		AmexioDashBoardModule, 
-		AmexioChartD3Module,
+        AmexioChartD3Module,
+        FileUploadModule,
 		
- NgxWigModule,
-	CommonModule,
+        NgxWigModule,
+	    CommonModule,
         ROUTING 
     ], 
     providers: [HttpClient 
-  ,XInstructorInfo_Service
-  ,XInstructorStatus_Service
-  ,XCourseDesc_Service
-  ,XCourseModule_Service
-  ,XChepter_Service
-  ,XCoursePrice_Service
-  ,XUserInfo_Service
-  ,XSubscription_Service
-  ,XUserPurchase_Service
-  ,XUserProfile_Service
-  ,XUserRegistartion_Service
-  ,XUserCart_Service
-  ,xeduprog_info_Service
-  ,eduprog_course_Service
-  ,XScheduleItem_Service
-  ,XScheduleSubst_Service
-  ,XLevel_Service
-  ,XSubject_Service
-  ,XVendor_Service
-  ,XStatus_Service
-  ,XSubscriptionType_Service
-  ,XCert_Service
+  ,xInstructorInfo_Service
+  ,xInstructorStatus_Service
+  ,xCourseDesc_Service
+  ,xCourseModule_Service
+  ,xChepter_Service
+  ,xCoursePrice_Service
+  ,xUserInfo_Service
+  ,xSubscription_Service
+  ,xUserPurchase_Service
+  ,xUserProfile_Service
+  ,xUserRegistartion_Service
+  ,xUserCart_Service
+  ,xScheduleItem_Service
+  ,xScheduleSubst_Service
+  ,xLevel_Service
+  ,xSubject_Service
+  ,xStatus_Service
+  ,xSubscriptionType_Service
+  ,xCert_Service
+  ,xUserSkillLevel_Service
 	,AppService 
 	  ,AppGuard
 	,CookieService 

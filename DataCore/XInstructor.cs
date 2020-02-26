@@ -7,23 +7,27 @@ namespace x_srv.models {
 	/* XInstructor -  Инструктор */ 
 
  public class  XInstructorInfo { // Описание
-	 public System.Guid  XInstructorInfoId{ get; set; } // Primary key field
-	 public List<XInstructorStatus>  xinstructorstatus { get; set; } // Статусы
+	 public System.Guid  XInstructorInfoId{ get; set; } // Идентификатор (первичный ключ)
+	 public List<XInstructorStatus>  XInstructorStatus { get; set; } // дочерний раздел: Статусы
 	[Required]
-	public string  Family{ get; set; } // Фамилия
+	public string  family{ get; set; } // Фамилия
 	[Required]
-	public string  Name{ get; set; } // Имя
+	public string  name{ get; set; } // Имя
 	[Required]
-	public string  SurName{ get; set; } // Отчество
-	public string  EMail{ get; set; } // e-mail
-	public string  Phone{ get; set; } // Телефон
-	public string  LocalPhone{ get; set; } // Местный телефон
+	public string  middleName{ get; set; } // Отчество
+	public string  eMail{ get; set; } // e-mail
+	public string  phone{ get; set; } // Телефон
+	public string  photoUrl{ get; set; } // Фотография
+	public string  localPhone{ get; set; } // Местный телефон
  }
 
  public class  XInstructorStatus { // Статусы
-	 public System.Guid  XInstructorStatusId{ get; set; } // Primary key field
-	[Required]
-	 public System.Guid  XInstructorInfoId { get; set; } // Id for Описание
-	public System.Guid  theStatus { get; set; } //Статус
- }
+		 public System.Guid  XInstructorStatusId{ get; set; } // Идентификатор (первичный ключ)
+		[Required]
+		 public System.Guid  XInstructorInfoId { get; set; } // обратная ссылка на: Описание
+		public System.Guid  theStatus { get; set; } //Статус
+		[ForeignKey("theStatus")]
+		public XStatus XStatus { get; set; } // Объект - Статус
+	public int?  sequence{ get; set; } // Порядок
+	}
 }

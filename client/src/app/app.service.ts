@@ -6,7 +6,6 @@ import { environment } from '../environments/environment';
 import { XInstructor } from "app/XInstructor";
 import { XCourse } from "app/XCourse";
 import { XUser } from "app/XUser";
-import { XEDUPROG } from "app/XEDUPROG";
 import { XSchedule } from "app/XSchedule";
 import { XDict } from "app/XDict";
 import { UserProfile } from "app/UserProfile";
@@ -15,8 +14,6 @@ export class ComboInfo{
 	id:string; 
 	name:string; 
 } 
- 
-
  
 @Injectable() 
 export class AppService { 
@@ -224,253 +221,230 @@ public SelectedRole = new BehaviorSubject<string>("");
 		//this.RefreshCombo(); 
 	} 
 
-		// support for Selected XInstructor.XInstructorInfo; 
-	public LastXInstructorInfo:XInstructor.XInstructorInfo = {} as XInstructor.XInstructorInfo; 
-	public SelectedXInstructorInfo = new BehaviorSubject<XInstructor.XInstructorInfo>({} as XInstructor.XInstructorInfo); 
-	public pushSelectedXInstructorInfo(item:XInstructor.XInstructorInfo){ 
-		console.log("change Selected XInstructorInfo"); 
-		this.LastXInstructorInfo=item; 
-		this.SelectedXInstructorInfo.next(item); 
+	// support for Selected XInstructor.xInstructorInfo; 
+	public LastxInstructorInfo:XInstructor.xInstructorInfo = {} as XInstructor.xInstructorInfo; 
+	public SelectedxInstructorInfo = new BehaviorSubject<XInstructor.xInstructorInfo>({} as XInstructor.xInstructorInfo); 
+	public pushSelectedxInstructorInfo(item:XInstructor.xInstructorInfo){ 
+		console.log("change Selected xInstructorInfo"); 
+		this.LastxInstructorInfo=item; 
+		this.SelectedxInstructorInfo.next(item); 
 		 
 	} 
-	public currentXInstructorInfo = this.SelectedXInstructorInfo.asObservable(); 
+	public currentxInstructorInfo = this.SelectedxInstructorInfo.asObservable(); 
 
-	// support for Selected XInstructor.XInstructorStatus; 
-	public LastXInstructorStatus:XInstructor.XInstructorStatus = {} as XInstructor.XInstructorStatus; 
-	public SelectedXInstructorStatus = new BehaviorSubject<XInstructor.XInstructorStatus>({} as XInstructor.XInstructorStatus); 
-	public pushSelectedXInstructorStatus(item:XInstructor.XInstructorStatus){ 
-		console.log("change Selected XInstructorStatus"); 
-		this.LastXInstructorStatus=item; 
-		this.SelectedXInstructorStatus.next(item); 
+	// support for Selected XInstructor.xInstructorStatus; 
+	public LastxInstructorStatus:XInstructor.xInstructorStatus = {} as XInstructor.xInstructorStatus; 
+	public SelectedxInstructorStatus = new BehaviorSubject<XInstructor.xInstructorStatus>({} as XInstructor.xInstructorStatus); 
+	public pushSelectedxInstructorStatus(item:XInstructor.xInstructorStatus){ 
+		console.log("change Selected xInstructorStatus"); 
+		this.LastxInstructorStatus=item; 
+		this.SelectedxInstructorStatus.next(item); 
 		 
 	} 
-	public currentXInstructorStatus = this.SelectedXInstructorStatus.asObservable(); 
+	public currentxInstructorStatus = this.SelectedxInstructorStatus.asObservable(); 
 
 
-	// support for Selected XCourse.XCourseDesc; 
-	public LastXCourseDesc:XCourse.XCourseDesc = {} as XCourse.XCourseDesc; 
-	public SelectedXCourseDesc = new BehaviorSubject<XCourse.XCourseDesc>({} as XCourse.XCourseDesc); 
-	public pushSelectedXCourseDesc(item:XCourse.XCourseDesc){ 
-		console.log("change Selected XCourseDesc"); 
-		this.LastXCourseDesc=item; 
-		this.SelectedXCourseDesc.next(item); 
+	// support for Selected XCourse.xCourseDesc; 
+	public LastxCourseDesc:XCourse.xCourseDesc = {} as XCourse.xCourseDesc; 
+	public SelectedxCourseDesc = new BehaviorSubject<XCourse.xCourseDesc>({} as XCourse.xCourseDesc); 
+	public pushSelectedxCourseDesc(item:XCourse.xCourseDesc){ 
+		console.log("change Selected xCourseDesc"); 
+		this.LastxCourseDesc=item; 
+		this.SelectedxCourseDesc.next(item); 
 		 
 	} 
-	public currentXCourseDesc = this.SelectedXCourseDesc.asObservable(); 
+	public currentxCourseDesc = this.SelectedxCourseDesc.asObservable(); 
 
-	// support for Selected XCourse.XCourseModule; 
-	public LastXCourseModule:XCourse.XCourseModule = {} as XCourse.XCourseModule; 
-	public SelectedXCourseModule = new BehaviorSubject<XCourse.XCourseModule>({} as XCourse.XCourseModule); 
-	public pushSelectedXCourseModule(item:XCourse.XCourseModule){ 
-		console.log("change Selected XCourseModule"); 
-		this.LastXCourseModule=item; 
-		this.SelectedXCourseModule.next(item); 
+	// support for Selected XCourse.xCourseModule; 
+	public LastxCourseModule:XCourse.xCourseModule = {} as XCourse.xCourseModule; 
+	public SelectedxCourseModule = new BehaviorSubject<XCourse.xCourseModule>({} as XCourse.xCourseModule); 
+	public pushSelectedxCourseModule(item:XCourse.xCourseModule){ 
+		console.log("change Selected xCourseModule"); 
+		this.LastxCourseModule=item; 
+		this.SelectedxCourseModule.next(item); 
 		 
 	} 
-	public currentXCourseModule = this.SelectedXCourseModule.asObservable(); 
+	public currentxCourseModule = this.SelectedxCourseModule.asObservable(); 
 
-	// support for Selected XCourse.XChepter; 
-	public LastXChepter:XCourse.XChepter = {} as XCourse.XChepter; 
-	public SelectedXChepter = new BehaviorSubject<XCourse.XChepter>({} as XCourse.XChepter); 
-	public pushSelectedXChepter(item:XCourse.XChepter){ 
-		console.log("change Selected XChepter"); 
-		this.LastXChepter=item; 
-		this.SelectedXChepter.next(item); 
+	// support for Selected XCourse.xChepter; 
+	public LastxChepter:XCourse.xChepter = {} as XCourse.xChepter; 
+	public SelectedxChepter = new BehaviorSubject<XCourse.xChepter>({} as XCourse.xChepter); 
+	public pushSelectedxChepter(item:XCourse.xChepter){ 
+		console.log("change Selected xChepter"); 
+		this.LastxChepter=item; 
+		this.SelectedxChepter.next(item); 
 		 
 	} 
-	public currentXChepter = this.SelectedXChepter.asObservable(); 
+	public currentxChepter = this.SelectedxChepter.asObservable(); 
 
-	// support for Selected XCourse.XCoursePrice; 
-	public LastXCoursePrice:XCourse.XCoursePrice = {} as XCourse.XCoursePrice; 
-	public SelectedXCoursePrice = new BehaviorSubject<XCourse.XCoursePrice>({} as XCourse.XCoursePrice); 
-	public pushSelectedXCoursePrice(item:XCourse.XCoursePrice){ 
-		console.log("change Selected XCoursePrice"); 
-		this.LastXCoursePrice=item; 
-		this.SelectedXCoursePrice.next(item); 
-
-	} 
-	public currentXCoursePrice = this.SelectedXCoursePrice.asObservable(); 
-		 
-
-	// support for Selected XUser.XUserInfo; 
-	public LastXUserInfo:XUser.XUserInfo = {} as XUser.XUserInfo; 
-	public SelectedXUserInfo = new BehaviorSubject<XUser.XUserInfo>({} as XUser.XUserInfo); 
-	public pushSelectedXUserInfo(item:XUser.XUserInfo){ 
-		console.log("change Selected XUserInfo"); 
-		this.LastXUserInfo=item; 
-		this.SelectedXUserInfo.next(item); 
+	// support for Selected XCourse.xCoursePrice; 
+	public LastxCoursePrice:XCourse.xCoursePrice = {} as XCourse.xCoursePrice; 
+	public SelectedxCoursePrice = new BehaviorSubject<XCourse.xCoursePrice>({} as XCourse.xCoursePrice); 
+	public pushSelectedxCoursePrice(item:XCourse.xCoursePrice){ 
+		console.log("change Selected xCoursePrice"); 
+		this.LastxCoursePrice=item; 
+		this.SelectedxCoursePrice.next(item); 
 		 
 	} 
-	public currentXUserInfo = this.SelectedXUserInfo.asObservable(); 
+	public currentxCoursePrice = this.SelectedxCoursePrice.asObservable(); 
 
-	// support for Selected XUser.XSubscription; 
-	public LastXSubscription:XUser.XSubscription = {} as XUser.XSubscription; 
-	public SelectedXSubscription = new BehaviorSubject<XUser.XSubscription>({} as XUser.XSubscription); 
-	public pushSelectedXSubscription(item:XUser.XSubscription){ 
-		console.log("change Selected XSubscription"); 
-		this.LastXSubscription=item; 
-		this.SelectedXSubscription.next(item); 
+
+	// support for Selected XUser.xUserInfo; 
+	public LastxUserInfo:XUser.xUserInfo = {} as XUser.xUserInfo; 
+	public SelectedxUserInfo = new BehaviorSubject<XUser.xUserInfo>({} as XUser.xUserInfo); 
+	public pushSelectedxUserInfo(item:XUser.xUserInfo){ 
+		console.log("change Selected xUserInfo"); 
+		this.LastxUserInfo=item; 
+		this.SelectedxUserInfo.next(item); 
 		 
 	} 
-	public currentXSubscription = this.SelectedXSubscription.asObservable(); 
+	public currentxUserInfo = this.SelectedxUserInfo.asObservable(); 
 
-	// support for Selected XUser.XUserPurchase; 
-	public LastXUserPurchase:XUser.XUserPurchase = {} as XUser.XUserPurchase; 
-	public SelectedXUserPurchase = new BehaviorSubject<XUser.XUserPurchase>({} as XUser.XUserPurchase); 
-	public pushSelectedXUserPurchase(item:XUser.XUserPurchase){ 
-		console.log("change Selected XUserPurchase"); 
-		this.LastXUserPurchase=item; 
-		this.SelectedXUserPurchase.next(item); 
+	// support for Selected XUser.xSubscription; 
+	public LastxSubscription:XUser.xSubscription = {} as XUser.xSubscription; 
+	public SelectedxSubscription = new BehaviorSubject<XUser.xSubscription>({} as XUser.xSubscription); 
+	public pushSelectedxSubscription(item:XUser.xSubscription){ 
+		console.log("change Selected xSubscription"); 
+		this.LastxSubscription=item; 
+		this.SelectedxSubscription.next(item); 
 		 
 	} 
-	public currentXUserPurchase = this.SelectedXUserPurchase.asObservable(); 
+	public currentxSubscription = this.SelectedxSubscription.asObservable(); 
 
-	// support for Selected XUser.XUserProfile; 
-	public LastXUserProfile:XUser.XUserProfile = {} as XUser.XUserProfile; 
-	public SelectedXUserProfile = new BehaviorSubject<XUser.XUserProfile>({} as XUser.XUserProfile); 
-	public pushSelectedXUserProfile(item:XUser.XUserProfile){ 
-		console.log("change Selected XUserProfile"); 
-		this.LastXUserProfile=item; 
-		this.SelectedXUserProfile.next(item); 
+	// support for Selected XUser.xUserPurchase; 
+	public LastxUserPurchase:XUser.xUserPurchase = {} as XUser.xUserPurchase; 
+	public SelectedxUserPurchase = new BehaviorSubject<XUser.xUserPurchase>({} as XUser.xUserPurchase); 
+	public pushSelectedxUserPurchase(item:XUser.xUserPurchase){ 
+		console.log("change Selected xUserPurchase"); 
+		this.LastxUserPurchase=item; 
+		this.SelectedxUserPurchase.next(item); 
 		 
 	} 
-	public currentXUserProfile = this.SelectedXUserProfile.asObservable(); 
+	public currentxUserPurchase = this.SelectedxUserPurchase.asObservable(); 
 
-	// support for Selected XUser.XUserRegistartion; 
-	public LastXUserRegistartion:XUser.XUserRegistartion = {} as XUser.XUserRegistartion; 
-	public SelectedXUserRegistartion = new BehaviorSubject<XUser.XUserRegistartion>({} as XUser.XUserRegistartion); 
-	public pushSelectedXUserRegistartion(item:XUser.XUserRegistartion){ 
-		console.log("change Selected XUserRegistartion"); 
-		this.LastXUserRegistartion=item; 
-		this.SelectedXUserRegistartion.next(item); 
+	// support for Selected XUser.xUserProfile; 
+	public LastxUserProfile:XUser.xUserProfile = {} as XUser.xUserProfile; 
+	public SelectedxUserProfile = new BehaviorSubject<XUser.xUserProfile>({} as XUser.xUserProfile); 
+	public pushSelectedxUserProfile(item:XUser.xUserProfile){ 
+		console.log("change Selected xUserProfile"); 
+		this.LastxUserProfile=item; 
+		this.SelectedxUserProfile.next(item); 
 		 
 	} 
-	public currentXUserRegistartion = this.SelectedXUserRegistartion.asObservable(); 
+	public currentxUserProfile = this.SelectedxUserProfile.asObservable(); 
 
-	// support for Selected XUser.XUserCart; 
-	public LastXUserCart:XUser.XUserCart = {} as XUser.XUserCart; 
-	public SelectedXUserCart = new BehaviorSubject<XUser.XUserCart>({} as XUser.XUserCart); 
-	public pushSelectedXUserCart(item:XUser.XUserCart){ 
-		console.log("change Selected XUserCart"); 
-		this.LastXUserCart=item; 
-		this.SelectedXUserCart.next(item); 
+	// support for Selected XUser.xUserRegistartion; 
+	public LastxUserRegistartion:XUser.xUserRegistartion = {} as XUser.xUserRegistartion; 
+	public SelectedxUserRegistartion = new BehaviorSubject<XUser.xUserRegistartion>({} as XUser.xUserRegistartion); 
+	public pushSelectedxUserRegistartion(item:XUser.xUserRegistartion){ 
+		console.log("change Selected xUserRegistartion"); 
+		this.LastxUserRegistartion=item; 
+		this.SelectedxUserRegistartion.next(item); 
 		 
 	} 
-	public currentXUserCart = this.SelectedXUserCart.asObservable(); 
+	public currentxUserRegistartion = this.SelectedxUserRegistartion.asObservable(); 
 
-
-	// support for Selected XEDUPROG.xeduprog_info; 
-	public Lastxeduprog_info:XEDUPROG.xeduprog_info = {} as XEDUPROG.xeduprog_info; 
-	public Selectedxeduprog_info = new BehaviorSubject<XEDUPROG.xeduprog_info>({} as XEDUPROG.xeduprog_info); 
-	public pushSelectedxeduprog_info(item:XEDUPROG.xeduprog_info){ 
-		console.log("change Selected xeduprog_info"); 
-		this.Lastxeduprog_info=item; 
-		this.Selectedxeduprog_info.next(item); 
+	// support for Selected XUser.xUserCart; 
+	public LastxUserCart:XUser.xUserCart = {} as XUser.xUserCart; 
+	public SelectedxUserCart = new BehaviorSubject<XUser.xUserCart>({} as XUser.xUserCart); 
+	public pushSelectedxUserCart(item:XUser.xUserCart){ 
+		console.log("change Selected xUserCart"); 
+		this.LastxUserCart=item; 
+		this.SelectedxUserCart.next(item); 
 		 
 	} 
-	public currentxeduprog_info = this.Selectedxeduprog_info.asObservable(); 
+	public currentxUserCart = this.SelectedxUserCart.asObservable(); 
 
-	// support for Selected XEDUPROG.eduprog_course; 
-	public Lasteduprog_course:XEDUPROG.eduprog_course = {} as XEDUPROG.eduprog_course; 
-	public Selectededuprog_course = new BehaviorSubject<XEDUPROG.eduprog_course>({} as XEDUPROG.eduprog_course); 
-	public pushSelectededuprog_course(item:XEDUPROG.eduprog_course){ 
-		console.log("change Selected eduprog_course"); 
-		this.Lasteduprog_course=item; 
-		this.Selectededuprog_course.next(item); 
+
+	// support for Selected XSchedule.xScheduleItem; 
+	public LastxScheduleItem:XSchedule.xScheduleItem = {} as XSchedule.xScheduleItem; 
+	public SelectedxScheduleItem = new BehaviorSubject<XSchedule.xScheduleItem>({} as XSchedule.xScheduleItem); 
+	public pushSelectedxScheduleItem(item:XSchedule.xScheduleItem){ 
+		console.log("change Selected xScheduleItem"); 
+		this.LastxScheduleItem=item; 
+		this.SelectedxScheduleItem.next(item); 
 		 
 	} 
-	public currenteduprog_course = this.Selectededuprog_course.asObservable(); 
+	public currentxScheduleItem = this.SelectedxScheduleItem.asObservable(); 
 
-
-	// support for Selected XSchedule.XScheduleItem; 
-	public LastXScheduleItem:XSchedule.XScheduleItem = {} as XSchedule.XScheduleItem; 
-	public SelectedXScheduleItem = new BehaviorSubject<XSchedule.XScheduleItem>({} as XSchedule.XScheduleItem); 
-	public pushSelectedXScheduleItem(item:XSchedule.XScheduleItem){ 
-		console.log("change Selected XScheduleItem"); 
-		this.LastXScheduleItem=item; 
-		this.SelectedXScheduleItem.next(item); 
+	// support for Selected XSchedule.xScheduleSubst; 
+	public LastxScheduleSubst:XSchedule.xScheduleSubst = {} as XSchedule.xScheduleSubst; 
+	public SelectedxScheduleSubst = new BehaviorSubject<XSchedule.xScheduleSubst>({} as XSchedule.xScheduleSubst); 
+	public pushSelectedxScheduleSubst(item:XSchedule.xScheduleSubst){ 
+		console.log("change Selected xScheduleSubst"); 
+		this.LastxScheduleSubst=item; 
+		this.SelectedxScheduleSubst.next(item); 
 		 
 	} 
-	public currentXScheduleItem = this.SelectedXScheduleItem.asObservable(); 
+	public currentxScheduleSubst = this.SelectedxScheduleSubst.asObservable(); 
 
-	// support for Selected XSchedule.XScheduleSubst; 
-	public LastXScheduleSubst:XSchedule.XScheduleSubst = {} as XSchedule.XScheduleSubst; 
-	public SelectedXScheduleSubst = new BehaviorSubject<XSchedule.XScheduleSubst>({} as XSchedule.XScheduleSubst); 
-	public pushSelectedXScheduleSubst(item:XSchedule.XScheduleSubst){ 
-		console.log("change Selected XScheduleSubst"); 
-		this.LastXScheduleSubst=item; 
-		this.SelectedXScheduleSubst.next(item); 
+
+	// support for Selected XDict.xLevel; 
+	public LastxLevel:XDict.xLevel = {} as XDict.xLevel; 
+	public SelectedxLevel = new BehaviorSubject<XDict.xLevel>({} as XDict.xLevel); 
+	public pushSelectedxLevel(item:XDict.xLevel){ 
+		console.log("change Selected xLevel"); 
+		this.LastxLevel=item; 
+		this.SelectedxLevel.next(item); 
 		 
 	} 
-	public currentXScheduleSubst = this.SelectedXScheduleSubst.asObservable(); 
+	public currentxLevel = this.SelectedxLevel.asObservable(); 
 
-
-	// support for Selected XDict.XLevel; 
-	public LastXLevel:XDict.XLevel = {} as XDict.XLevel; 
-	public SelectedXLevel = new BehaviorSubject<XDict.XLevel>({} as XDict.XLevel); 
-	public pushSelectedXLevel(item:XDict.XLevel){ 
-		console.log("change Selected XLevel"); 
-		this.LastXLevel=item; 
-		this.SelectedXLevel.next(item); 
+	// support for Selected XDict.xSubject; 
+	public LastxSubject:XDict.xSubject = {} as XDict.xSubject; 
+	public SelectedxSubject = new BehaviorSubject<XDict.xSubject>({} as XDict.xSubject); 
+	public pushSelectedxSubject(item:XDict.xSubject){ 
+		console.log("change Selected xSubject"); 
+		this.LastxSubject=item; 
+		this.SelectedxSubject.next(item); 
 		 
 	} 
-	public currentXLevel = this.SelectedXLevel.asObservable(); 
+	public currentxSubject = this.SelectedxSubject.asObservable(); 
 
-	// support for Selected XDict.XSubject; 
-	public LastXSubject:XDict.XSubject = {} as XDict.XSubject; 
-	public SelectedXSubject = new BehaviorSubject<XDict.XSubject>({} as XDict.XSubject); 
-	public pushSelectedXSubject(item:XDict.XSubject){ 
-		console.log("change Selected XSubject"); 
-		this.LastXSubject=item; 
-		this.SelectedXSubject.next(item); 
+	// support for Selected XDict.xStatus; 
+	public LastxStatus:XDict.xStatus = {} as XDict.xStatus; 
+	public SelectedxStatus = new BehaviorSubject<XDict.xStatus>({} as XDict.xStatus); 
+	public pushSelectedxStatus(item:XDict.xStatus){ 
+		console.log("change Selected xStatus"); 
+		this.LastxStatus=item; 
+		this.SelectedxStatus.next(item); 
 		 
 	} 
-	public currentXSubject = this.SelectedXSubject.asObservable(); 
+	public currentxStatus = this.SelectedxStatus.asObservable(); 
 
-	// support for Selected XDict.XVendor; 
-	public LastXVendor:XDict.XVendor = {} as XDict.XVendor; 
-	public SelectedXVendor = new BehaviorSubject<XDict.XVendor>({} as XDict.XVendor); 
-	public pushSelectedXVendor(item:XDict.XVendor){ 
-		console.log("change Selected XVendor"); 
-		this.LastXVendor=item; 
-		this.SelectedXVendor.next(item); 
+	// support for Selected XDict.xSubscriptionType; 
+	public LastxSubscriptionType:XDict.xSubscriptionType = {} as XDict.xSubscriptionType; 
+	public SelectedxSubscriptionType = new BehaviorSubject<XDict.xSubscriptionType>({} as XDict.xSubscriptionType); 
+	public pushSelectedxSubscriptionType(item:XDict.xSubscriptionType){ 
+		console.log("change Selected xSubscriptionType"); 
+		this.LastxSubscriptionType=item; 
+		this.SelectedxSubscriptionType.next(item); 
 		 
 	} 
-	public currentXVendor = this.SelectedXVendor.asObservable(); 
+	public currentxSubscriptionType = this.SelectedxSubscriptionType.asObservable(); 
 
-	// support for Selected XDict.XStatus; 
-	public LastXStatus:XDict.XStatus = {} as XDict.XStatus; 
-	public SelectedXStatus = new BehaviorSubject<XDict.XStatus>({} as XDict.XStatus); 
-	public pushSelectedXStatus(item:XDict.XStatus){ 
-		console.log("change Selected XStatus"); 
-		this.LastXStatus=item; 
-		this.SelectedXStatus.next(item); 
+	// support for Selected XDict.xCert; 
+	public LastxCert:XDict.xCert = {} as XDict.xCert; 
+	public SelectedxCert = new BehaviorSubject<XDict.xCert>({} as XDict.xCert); 
+	public pushSelectedxCert(item:XDict.xCert){ 
+		console.log("change Selected xCert"); 
+		this.LastxCert=item; 
+		this.SelectedxCert.next(item); 
 		 
 	} 
-	public currentXStatus = this.SelectedXStatus.asObservable(); 
+	public currentxCert = this.SelectedxCert.asObservable(); 
 
-	// support for Selected XDict.XSubscriptionType; 
-	public LastXSubscriptionType:XDict.XSubscriptionType = {} as XDict.XSubscriptionType; 
-	public SelectedXSubscriptionType = new BehaviorSubject<XDict.XSubscriptionType>({} as XDict.XSubscriptionType); 
-	public pushSelectedXSubscriptionType(item:XDict.XSubscriptionType){ 
-		console.log("change Selected XSubscriptionType"); 
-		this.LastXSubscriptionType=item; 
-		this.SelectedXSubscriptionType.next(item); 
+	// support for Selected XDict.xUserSkillLevel; 
+	public LastxUserSkillLevel:XDict.xUserSkillLevel = {} as XDict.xUserSkillLevel; 
+	public SelectedxUserSkillLevel = new BehaviorSubject<XDict.xUserSkillLevel>({} as XDict.xUserSkillLevel); 
+	public pushSelectedxUserSkillLevel(item:XDict.xUserSkillLevel){ 
+		console.log("change Selected xUserSkillLevel"); 
+		this.LastxUserSkillLevel=item; 
+		this.SelectedxUserSkillLevel.next(item); 
 		 
 	} 
-	public currentXSubscriptionType = this.SelectedXSubscriptionType.asObservable(); 
-
-	// support for Selected XDict.XCert; 
-	public LastXCert:XDict.XCert = {} as XDict.XCert; 
-	public SelectedXCert = new BehaviorSubject<XDict.XCert>({} as XDict.XCert); 
-	public pushSelectedXCert(item:XDict.XCert){ 
-		console.log("change Selected XCert"); 
-		this.LastXCert=item; 
-		this.SelectedXCert.next(item); 
-		 
-	} 
-	public currentXCert = this.SelectedXCert.asObservable(); 
-
+	public currentxUserSkillLevel = this.SelectedxUserSkillLevel.asObservable(); 
+ 
  
 	public ComboXInstructorInfo:Array<ComboInfo> = []; 
 	public getXInstructorInfo(): Observable<ComboInfo[]> { 
@@ -571,23 +545,6 @@ public SelectedRole = new BehaviorSubject<string>("");
 	this.getXUserCart().subscribe(Data => {this.ComboXUserCart=Data;});
  }
 
-	public Comboxeduprog_info:Array<ComboInfo> = []; 
-	public getxeduprog_info(): Observable<ComboInfo[]> { 
-     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		return this.http.get<ComboInfo[]>(this.serviceURL + '/xeduprog_info/Combo', { headers: cpHeaders }); 
- }
-	public refreshComboxeduprog_info() { 
-	this.getxeduprog_info().subscribe(Data => {this.Comboxeduprog_info=Data;});
- }
-	public Comboeduprog_course:Array<ComboInfo> = []; 
-	public geteduprog_course(): Observable<ComboInfo[]> { 
-     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		return this.http.get<ComboInfo[]>(this.serviceURL + '/eduprog_course/Combo', { headers: cpHeaders }); 
- }
-	public refreshComboeduprog_course() { 
-	this.geteduprog_course().subscribe(Data => {this.Comboeduprog_course=Data;});
- }
-
 	public ComboXScheduleItem:Array<ComboInfo> = []; 
 	public getXScheduleItem(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
@@ -621,14 +578,6 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXSubject() { 
 	this.getXSubject().subscribe(Data => {this.ComboXSubject=Data;});
  }
-	public ComboXVendor:Array<ComboInfo> = []; 
-	public getXVendor(): Observable<ComboInfo[]> { 
-     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		return this.http.get<ComboInfo[]>(this.serviceURL + '/XVendor/Combo', { headers: cpHeaders }); 
- }
-	public refreshComboXVendor() { 
-	this.getXVendor().subscribe(Data => {this.ComboXVendor=Data;});
- }
 	public ComboXStatus:Array<ComboInfo> = []; 
 	public getXStatus(): Observable<ComboInfo[]> { 
      let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
@@ -653,6 +602,14 @@ public SelectedRole = new BehaviorSubject<string>("");
 	public refreshComboXCert() { 
 	this.getXCert().subscribe(Data => {this.ComboXCert=Data;});
  }
+	public ComboXUserSkillLevel:Array<ComboInfo> = []; 
+	public getXUserSkillLevel(): Observable<ComboInfo[]> { 
+     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
+		return this.http.get<ComboInfo[]>(this.serviceURL + '/XUserSkillLevel/Combo', { headers: cpHeaders }); 
+ }
+	public refreshComboXUserSkillLevel() { 
+	this.getXUserSkillLevel().subscribe(Data => {this.ComboXUserSkillLevel=Data;});
+ }
 
  
 public RefreshCombo(){
@@ -671,18 +628,15 @@ public RefreshCombo(){
 	this.getXUserRegistartion().subscribe(data => {this.ComboXUserRegistartion=data;}); 
 	this.getXUserCart().subscribe(data => {this.ComboXUserCart=data;}); 
 
-	this.getxeduprog_info().subscribe(data => {this.Comboxeduprog_info=data;}); 
-	this.geteduprog_course().subscribe(data => {this.Comboeduprog_course=data;}); 
-
 	this.getXScheduleItem().subscribe(data => {this.ComboXScheduleItem=data;}); 
 	this.getXScheduleSubst().subscribe(data => {this.ComboXScheduleSubst=data;}); 
 
 	this.getXLevel().subscribe(data => {this.ComboXLevel=data;}); 
 	this.getXSubject().subscribe(data => {this.ComboXSubject=data;}); 
-	this.getXVendor().subscribe(data => {this.ComboXVendor=data;}); 
 	this.getXStatus().subscribe(data => {this.ComboXStatus=data;}); 
 	this.getXSubscriptionType().subscribe(data => {this.ComboXSubscriptionType=data;}); 
 	this.getXCert().subscribe(data => {this.ComboXCert=data;}); 
+	this.getXUserSkillLevel().subscribe(data => {this.ComboXUserSkillLevel=data;}); 
 
 }
  

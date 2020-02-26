@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XUser} from './XUser';
 @Injectable()
-export class XUserCart_Service {
+export class xUserCart_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,29 +13,14 @@ export class XUserCart_Service {
 	}
 	
 	
-	Price:string = '';
-	FromDate:string = '';
-	ToDate:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XUserCarts
-    getAll_XUserCarts(): Observable<XUser.XUserCart[]> {
+	//Fetch all xUserCarts
+    getAll_xUserCarts(): Observable<XUser.xUserCart[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.Price!=''){
-			if(qry !='') qry=qry +'&';
-			qry='Price='+encodeURIComponent(this.Price)
-		}
-		if(this.FromDate!=''){
-			if(qry !='') qry=qry +'&';
-			qry='FromDate='+encodeURIComponent(this.FromDate)
-		}
-		if(this.ToDate!=''){
-			if(qry !='') qry=qry +'&';
-			qry='ToDate='+encodeURIComponent(this.ToDate)
-		}
 		/*
 		if(this.PageNo!=null){
 			if(qry !='') qry=qry +;
@@ -46,61 +31,58 @@ export class XUserCart_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XUser.XUserCart[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XUser.xUserCart[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XUser.XUserCart[]>(this.serviceURL + '/XUserCart/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XUser.xUserCart[]>(this.serviceURL + '/xUserCart/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.Price = '';
-	this.FromDate = '';
-	this.ToDate = '';
 		
 	}
  
-	   //Create XUserCart
-    create_XUserCart(XUserCart: XUser.XUserCart): Observable<Object > {
-       // XUserCart.XUserCartId = '';
+	   //Create xUserCart
+    create_xUserCart(xUserCart: XUser.xUserCart): Observable<XUser.xUserCart > {
+       // xUserCart.xUserCartId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XUserCart/', XUserCart, { headers: cpHeaders })
+        return this.http.post<XUser.xUserCart >(this.serviceURL + '/xUserCart/', xUserCart, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XUserCart by parent
-    get_XUserCartByParent(parentId: string): Observable<XUser.XUserCart[]> {
+	//Fetch xUserCart by parent
+    get_xUserCartByParent(parentId: string): Observable<XUser.xUserCart[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XUserCart/byparent/'+ parentId)
-        return this.http.get<XUser.XUserCart[]>(this.serviceURL + '/XUserCart/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xUserCart/byparent/'+ parentId)
+        return this.http.get<XUser.xUserCart[]>(this.serviceURL + '/xUserCart/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XUserCart by id
-    get_XUserCartById(XUserCartId: string): Observable<XUser.XUserCart> {
+	//Fetch xUserCart by id
+    get_xUserCartById(xUserCartId: string): Observable<XUser.xUserCart> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XUserCart/'+ XUserCartId)
-        return this.http.get<XUser.XUserCart>(this.serviceURL + '/XUserCart/' + XUserCartId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xUserCart/'+ xUserCartId)
+        return this.http.get<XUser.xUserCart>(this.serviceURL + '/xUserCart/' + xUserCartId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XUserCart
-    update_XUserCart(XUserCart: XUser.XUserCart):Observable<Object > {
+	   //Update xUserCart
+    update_xUserCart(xUserCart: XUser.xUserCart):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XUserCart/' + XUserCart.XUserCartId, XUserCart, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xUserCart/' + xUserCart.xUserCartId, xUserCart, { headers: cpHeaders })
     }
 	
-    //Delete XUserCart	
-    delete_XUserCartById(XUserCartId: string): Observable<Object> {
+    //Delete xUserCart	
+    delete_xUserCartById(xUserCartId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XUserCart/' + XUserCartId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xUserCart/' + xUserCartId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XUser.XUserCart = null;
+	private mSelecetd:XUser.xUserCart = null;
 	
-	public 	get Selected():XUser.XUserCart{ return this.mSelecetd;}
+	public 	get Selected():XUser.xUserCart{ return this.mSelecetd;}
 	
-	public  set Selected(_XUserCart:XUser.XUserCart){ this.mSelecetd=_XUserCart; }
+	public  set Selected(_xUserCart:XUser.xUserCart){ this.mSelecetd=_xUserCart; }
  
 }

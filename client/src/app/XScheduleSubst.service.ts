@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { enums } from './enums';
 import { XSchedule} from './XSchedule';
 @Injectable()
-export class XScheduleSubst_Service {
+export class xScheduleSubst_Service {
 	private serviceURL: string = environment.baseAppUrl;
  
 	//Create constructor to get Http instance
@@ -13,23 +13,23 @@ export class XScheduleSubst_Service {
 	}
 	
 	
-	FromDate:string = '';
-	ToDate:string = '';
+	fromDate:string = '';
+	toDate:string = '';
 	PageSize:number=10;
 	PageUrl:string='';
     
-	//Fetch all XScheduleSubsts
-    getAll_XScheduleSubsts(): Observable<XSchedule.XScheduleSubst[]> {
+	//Fetch all xScheduleSubsts
+    getAll_xScheduleSubsts(): Observable<XSchedule.xScheduleSubst[]> {
 		var qry:string;
 		qry='';
 		
-		if(this.FromDate!=''){
+		if(this.fromDate!=''){
 			if(qry !='') qry=qry +'&';
-			qry='FromDate='+encodeURIComponent(this.FromDate)
+			qry='fromDate='+encodeURIComponent(this.fromDate)
 		}
-		if(this.ToDate!=''){
+		if(this.toDate!=''){
 			if(qry !='') qry=qry +'&';
-			qry='ToDate='+encodeURIComponent(this.ToDate)
+			qry='toDate='+encodeURIComponent(this.toDate)
 		}
 		/*
 		if(this.PageNo!=null){
@@ -41,60 +41,60 @@ export class XScheduleSubst_Service {
 		
 		let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
 		if(this.PageUrl!=''){
-			return this.http.get<XSchedule.XScheduleSubst[]>(this.PageUrl, { headers: cpHeaders })
+			return this.http.get<XSchedule.xScheduleSubst[]>(this.PageUrl, { headers: cpHeaders })
 		}else{
 			if(qry !='')
 				qry='?' +qry;
-			return this.http.get<XSchedule.XScheduleSubst[]>(this.serviceURL + '/XScheduleSubst/view/'+qry, { headers: cpHeaders })
+			return this.http.get<XSchedule.xScheduleSubst[]>(this.serviceURL + '/xScheduleSubst/view/'+qry, { headers: cpHeaders })
         }
     }
 	
 	clearSearch():void{
-	this.FromDate = '';
-	this.ToDate = '';
+	this.fromDate = '';
+	this.toDate = '';
 		
 	}
  
-	   //Create XScheduleSubst
-    create_XScheduleSubst(XScheduleSubst: XSchedule.XScheduleSubst): Observable<Object > {
-       // XScheduleSubst.XScheduleSubstId = '';
+	   //Create xScheduleSubst
+    create_xScheduleSubst(xScheduleSubst: XSchedule.xScheduleSubst): Observable<XSchedule.xScheduleSubst > {
+       // xScheduleSubst.xScheduleSubstId = '';
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.post(this.serviceURL + '/XScheduleSubst/', XScheduleSubst, { headers: cpHeaders })
+        return this.http.post<XSchedule.xScheduleSubst >(this.serviceURL + '/xScheduleSubst/', xScheduleSubst, { headers: cpHeaders })
 		
     }
 	
-	//Fetch XScheduleSubst by parent
-    get_XScheduleSubstByParent(parentId: string): Observable<XSchedule.XScheduleSubst[]> {
+	//Fetch xScheduleSubst by parent
+    get_xScheduleSubstByParent(parentId: string): Observable<XSchedule.xScheduleSubst[]> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		   console.log(this.serviceURL +'/XScheduleSubst/byparent/'+ parentId)
-        return this.http.get<XSchedule.XScheduleSubst[]>(this.serviceURL + '/XScheduleSubst/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		   console.log(this.serviceURL +'/xScheduleSubst/byparent/'+ parentId)
+        return this.http.get<XSchedule.xScheduleSubst[]>(this.serviceURL + '/xScheduleSubst/byparent/' + parentId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	//Fetch XScheduleSubst by id
-    get_XScheduleSubstById(XScheduleSubstId: string): Observable<XSchedule.XScheduleSubst> {
+	//Fetch xScheduleSubst by id
+    get_xScheduleSubstById(xScheduleSubstId: string): Observable<XSchedule.xScheduleSubst> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-		console.log(this.serviceURL +'/XScheduleSubst/'+ XScheduleSubstId)
-        return this.http.get<XSchedule.XScheduleSubst>(this.serviceURL + '/XScheduleSubst/' + XScheduleSubstId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
+		console.log(this.serviceURL +'/xScheduleSubst/'+ xScheduleSubstId)
+        return this.http.get<XSchedule.xScheduleSubst>(this.serviceURL + '/xScheduleSubst/' + xScheduleSubstId, { headers: cpHeaders })//.catch(err => { console.log(err) return Observable.of(err) })
     }	
 	
-	   //Update XScheduleSubst
-    update_XScheduleSubst(XScheduleSubst: XSchedule.XScheduleSubst):Observable<Object > {
+	   //Update xScheduleSubst
+    update_xScheduleSubst(xScheduleSubst: XSchedule.xScheduleSubst):Observable<Object > {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.put(this.serviceURL + '/XScheduleSubst/' + XScheduleSubst.XScheduleSubstId, XScheduleSubst, { headers: cpHeaders })
+        return this.http.put(this.serviceURL + '/xScheduleSubst/' + xScheduleSubst.xScheduleSubstId, xScheduleSubst, { headers: cpHeaders })
     }
 	
-    //Delete XScheduleSubst	
-    delete_XScheduleSubstById(XScheduleSubstId: string): Observable<Object> {
+    //Delete xScheduleSubst	
+    delete_xScheduleSubstById(xScheduleSubstId: string): Observable<Object> {
         let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });
-        return this.http.delete(this.serviceURL + '/XScheduleSubst/' + XScheduleSubstId, { headers: cpHeaders })
+        return this.http.delete(this.serviceURL + '/xScheduleSubst/' + xScheduleSubstId, { headers: cpHeaders })
             
 			
     }	
 	
-	private mSelecetd:XSchedule.XScheduleSubst = null;
+	private mSelecetd:XSchedule.xScheduleSubst = null;
 	
-	public 	get Selected():XSchedule.XScheduleSubst{ return this.mSelecetd;}
+	public 	get Selected():XSchedule.xScheduleSubst{ return this.mSelecetd;}
 	
-	public  set Selected(_XScheduleSubst:XSchedule.XScheduleSubst){ this.mSelecetd=_XScheduleSubst; }
+	public  set Selected(_xScheduleSubst:XSchedule.xScheduleSubst){ this.mSelecetd=_xScheduleSubst; }
  
 }
